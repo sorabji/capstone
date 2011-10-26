@@ -1,0 +1,338 @@
+#+STARTUP: overview
+#+STARTUP: hidestars
+#+FILETAGS: capstone
+
+* STARTED capstone
+:LOGBOOK:
+CLOCK: [2011-10-26 Wed 10:48]
+CLOCK: [2011-10-26 Wed 09:51]--[2011-10-26 Wed 09:53] =>  0:02
+CLOCK: [2011-10-26 Wed 08:19]--[2011-10-26 Wed 09:51] =>  1:32
+CLOCK: [2011-10-24 Mon 08:00]--[2011-10-24 Mon 12:00] =>  4:00
+CLOCK: [2011-10-19 Wed 08:00]--[2011-10-19 Wed 12:12] =>  4:12
+CLOCK: [2011-10-17 Mon 08:00]--[2011-10-17 Mon 12:00] =>  4:00
+CLOCK: [2011-10-12 Wed 08:00]--[2011-10-12 Wed 12:00] =>  4:00
+:END:
+** DONE functional decomposition diagram (FDD)
+CLOSED: [2011-10-26 Wed 08:40]
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2011-10-26 Wed 08:40]
+CLOCK: [2011-10-18 Tue 20:24]--[2011-10-18 Tue 22:18] =>  1:54
+CLOCK: [2011-10-18 Tue 19:50]--[2011-10-18 Tue 19:56] =>  0:06
+- Note taken on [2011-10-17 Mon 17:05] \\
+  well, it's getting there.  you ought to read up on what an fdd is, so
+  you can get a good grade on this thing.  all in all, not a bad sesh
+  though.
+CLOCK: [2011-10-17 Mon 15:08]--[2011-10-17 Mon 17:05] =>  1:57
+:END:
+grading and assignments submodule
+
+** DONE book pg. 628
+CLOSED: [2011-10-26 Wed 08:41]
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2011-10-26 Wed 08:41]
+CLOCK: [2011-10-21 Fri 11:53]--[2011-10-21 Fri 12:31] =>  0:38
+:END:
+:PROPERTIES:
+:Effort: 1:00
+:END:
+[2011-10-12 Wed 11:20]
+* meetings
+** [2011-10-19 Wed 11:06]
+* assignments
+* notes                                                                :NOTE:
+** general notes
+*** Student
+1. submit assigments
+2. view grade
+3. view attendance
+4. CRUD message
+5. take practice quiz
+6. take real quiz
+*** Instructor
+1. CRU grades
+2. CR attendance
+3. CRUD message
+8. create quiz
+9. edit quiz
+10. view quiz
+11. delete quiz
+12. view submitted assignments
+*** Admin
+1. view grades
+2. edit grades
+3. submit grades
+4. view attendance
+5. create attendance record
+6. edit attendance
+7. delete attendance
+8. add instructor
+9. add student
+10. edit instructor
+11. edit student
+12. delete instructor
+13. delete student
+14. view instructor
+15. view student
+16. view message
+17. read message
+18. compose message
+19. send message
+20. create quiz
+21. edit quiz
+22. view quiz
+23. delete quiz
+24. view submitted assignments
+
+** quiz 10/12
+*** SDLC
+systems development life cycle
+- planning
+- analysis
+- design
+  - outputs: blueprint
+- implementation
+- support and security
+*** 5 key components of an information system
+- hardware
+- software
+- data
+- processes
+- people
+*** 5 types of business information systems
+- business support systems
+- enterprise computing system
+- transaction processing
+- user productivity system
+- knowledge management system
+*** business process modeling
+making a model of how the business is going to flow
+** chapter 2
+*** terms:
+[2011-10-12 Wed 10:12]
+- padis
+  + plan
+  + analyse
+  + design
+  + implement
+  + support
+- SWOT analysis
+  + strengths
+  + weaknesses
+  + opportunities
+  + threats
+- TCO total cost of ownership
+  + direct cost
+    - cost of hardware
+  + indirect cost
+    - getting sued by apple
+- 3 types of feasibility
+  + economic
+  + technical
+  + schedule
+- strategic planning phase
+  + mission statement
+    - what the company is all about
+** chapter 3 [2011-10-17 Mon 09:35]
+managing systems projects
+*** objectives 
+- understand the three major activities of the analysis phase of the SDLC
+- knowledgeably discuss Joint Application Development
+- Break down requirements into five general categories
+- Understand the steps involved in planning and conducting interviews.
+  + input 
+  + ouput 
+  + performance
+  + controls
+- Knowledgeably discuss other fact-finding techniques
+*** three major activites of the analysis phase of SDLC
+- requirements modeling
+  + involves fact finding to determine the current system, and
+    identification or requirements for the new system
+  + includes outputs, inputs, processes, performace, and security
+- data and process modeling
+  + graphically represent the system data and processes using
+    traditional structured analysis techniques
+  + could be either process modeling, or object modeling
+- development strategies
+  + outsourcing
+  + acquisition
+  + development alternatives
+*** systems requirements document
+the deliverable, or end product of the systems analysis phase is a
+system requirements document.
+
+the systems requirements document is an overall design for the new
+system.
+*** Joint Application Development
+A popular fact-finding technique that brings users into the
+development process as active participants.
+
+The objective is to analyze the existing system, obtain user input,
+and expectations, and document user requirements for the new system.
+
+- involves a task force of users, administrators, and IT
+  professionals.
+- Meet in a special conference room or an offsite location over a
+  period of days or weeks.
+**** advantages
+- allows key users to participate in the requirements modeling
+  process.
+- users are more likely to feel a sense of ownership.
+- can result in a better understanding of system requirements
+- stronger commitment to the system.
+**** disadvantages
+- more expensive
+- can be cumbersome if the group is too large.
+*** Requirements categories
+**** outputs
+**** inputs
+**** processes
+**** performance
+**** controls
+*** steps involved in planning and conducting interviews
+- determine the people to interview
+- establish objectives for the interview
+- develop interview questions
+- conduct the interview
+- document the interview
+- evaluate the interview
+*** other fact finding techniques
+- document review
+- observation
+- questionnaire and surveys
+- sampling
+- research
+** chapter 4
+Data and Process Modeling
+*** DFD Symbols
+- process
+- data flow
+- data store
+- external entity
+*** steps to create a DFD diagram
+1. draw a context diagram
+2. draw a diagram 0 DFD
+3. draw the lower-level diagrams
+*** terms
+**** Leveling
+the process of drawing a series of increasingly detailed documents
+until all functional primitives are identified.
+**** Balancing
+maintains consistency among a set of DFD's by ensuring the input and
+output flows align perfectly.
+*** Data Dictionary
+defines and describes all data structures, fields, processes, data
+flows, everything.
+**** general
+- data element name and label
+- alias
+- type and length
+- default value
+- acceptable values - domain and validity rules
+- source
+- security
+- responsible users
+- description and comments
+**** data flows
+- data flow name or label
+- description
+- alternate names(s)
+- origin
+- destination
+- record
+- volume and frequency (expected number of occurences)
+**** data store
+- data store name or label
+- description
+- alternate name(s)
+- attributes
+- volume and frequency (the estimates number of records and how frequently updated).
+**** processes
+- process name or label
+- process number (a reference number that identifies it)
+- process description 
+  - include input and output data flows
+**** entities
+- entity name
+- description
+- alternate name(s)
+- input data flows
+- output data flows
+**** records
+- record or data structure name
+- definition or description
+- alternate name(s)
+- attributes (listing of all of the data elements).
+*** process description tools
+A process description documents the details of a functional primitive,
+which represents a specific set of processing steps and business
+logic.
+
+it should be noted that this chapter deals with structured analysis,
+but the process description tools also can be used in object-oriented
+development, which is described in Chapter 6.
+**** types
+- sturctured english
+- decision tree
+- decision table
+**** modular design
+based on combinations of three logical structures, sometimes called
+control structures, which serve as building blocks for the process.
+
+- sequence
+- selection
+- iteration/looping
+** chapter 5
+development strategies
+*** options available when evaluating software alternatives.
+**** software as a service
+***** traditional systems
+***** cloud computer (software as a service)
+**** outsourcing
+***** QED Outsourcing Services
+**** in-house software development options
+***** for in-house
+1. meet requirements
+2. minimize changes in business procedures/policies
+3. meets contraints of existing systems
+4. meets contraints of existing technology
+5. develop internal recources and capabilities
+6. satisy unique security requirements
+***** for purchase
+1. lower costs
+2. requires less time to implement
+3. proven reliability and performance benchmarks
+4. requires less technical development staff
+5. future upgrades provided by the vendor
+6. obtain input from other companies
+*** how the different alternatives effect the remainder of the SDLC
+*** benefits, problems, and the different types of prototyping
+*** prototyping tools and the fourth-generation environment.
+- fourth-generation
+  + english like language for prototyping/analysis
+*** financial analysis tools
+**** payback analysis
+**** return on investment (ROI)
+**** net present value (NPV)
+*** the software acquisition process
+1. evaluate the information system requirements
+2. identify potential vendors or outsourcing options
+3. evaluate the alternatives
+4. perform cost-benefit analysis
+5. prepare a recommendation
+6. implement the solution
+*** completion of systems analysis tasks
+1. system requirements document
+2. presentation to management
+*** different alternatives effect the remainder of the SDLC
+- implement an outsourcing alternative
+- develop an in-house system
+- purchase or customize a software package
+- perform additional ystems analysis work
+- stop all further work
+*** systems design guidelines
+- The systems analyst must understand the logical design of the system
+  before beginning the physical design of any one component.
+- systems design objectives
+  + the goal of systems design is to build a system that is effective,
+    reliable, and maintainable.
