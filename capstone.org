@@ -4,7 +4,8 @@
 
 * STARTED capstone
 :LOGBOOK:
-CLOCK: [2011-10-26 Wed 10:48]
+CLOCK: [2011-10-26 Wed 11:40]
+CLOCK: [2011-10-26 Wed 10:48]--[2011-10-26 Wed 11:40] =>  0:52
 CLOCK: [2011-10-26 Wed 09:51]--[2011-10-26 Wed 09:53] =>  0:02
 CLOCK: [2011-10-26 Wed 08:19]--[2011-10-26 Wed 09:51] =>  1:32
 CLOCK: [2011-10-24 Mon 08:00]--[2011-10-24 Mon 12:00] =>  4:00
@@ -40,23 +41,41 @@ CLOCK: [2011-10-21 Fri 11:53]--[2011-10-21 Fri 12:31] =>  0:38
 ** [2011-10-19 Wed 11:06]
 * assignments
 * notes                                                                :NOTE:
-** general notes
+** data flow
+*** student
+1. messages -> email system <>
+2. grades -> grading system <
+3. assignments -> grading system <>
+4. quizzes -> grading system <>
+5. attendance -> attendance system <
+*** instructor
+1. message -> email system <>
+2. grades -> grading system <>
+3. assignments -> grading system <>
+4. quizzes -> grading system <>
+5. attendance -> attendance system <>
+*** admin
+1. message -> email system <>
+2. grades -> grading system <>
+3. assignments -> grading system <>
+4. quizzes -> grading system <>
+5. attendance -> attendance system <>
+** use cases
 *** Student
 1. submit assigments
 2. view grade
 3. view attendance
-4. CRUD message
-5. take practice quiz
-6. take real quiz
+4. CRD message
+5. send message
+6. receive message
+7. take practice quiz
+8. take real quiz
 *** Instructor
 1. CRU grades
 2. CR attendance
 3. CRUD message
-8. create quiz
-9. edit quiz
-10. view quiz
-11. delete quiz
-12. view submitted assignments
+4. CRUD quiz
+5. view submitted assignments
 *** Admin
 1. view grades
 2. edit grades
