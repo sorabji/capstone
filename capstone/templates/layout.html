@@ -1,14 +1,24 @@
 <!doctype html>
-<title>Flaskr</title>
+<title>Capstone</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<script type="text/javascript"
+   src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script type="text/javascript"
+   src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
 <div class=page>
-  <h1>Flaskr</h1>
+  <img alt='logo' src="{{ url_for('static', filename='logo.jpg') }}" />
   <div class=metanav>
-  {% if not session.logged_in %}
+  <!--{% if not session.logged_in %}
     <a href="{{ url_for('login') }}">log in</a>
   {% else %}
     <a href="{{ url_for('logout') }}">log out</a>
-  {% endif %}
+  {% endif %}-->
+<ul>
+  <li><a href="#">Home</a></li>
+  <li><a href="#">Mail</a></li>
+  <li><a href="#">Classes</a></li>
+</ul>
+<hr />
   </div>
   {% for message in get_flashed_messages() %}
     <div class=flash>{{ message }}</div>
