@@ -9,6 +9,20 @@
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
+drop table absences;
+drop table students;
+drop table admins;
+drop table instructors;
+drop table emails;
+drop table grades;
+drop table questions;
+drop table submissions;
+drop table quizzes;
+drop table assignments;
+drop table people;
+drop table sections;
+drop table courses;
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -142,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `instructors` (
 
 CREATE TABLE IF NOT EXISTS `admins` (
   `admin_id` int(10) unsigned zerofill NOT NULL,
-  PRIMARY KEY (`admin_id`),
+  PRIMARY KEY (`admin_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -320,7 +334,7 @@ ALTER TABLE `instructors`
 -- Constraints for table `admins`
 --
 ALTER TABLE `admins`
-  ADD CONSTRAINT `admins_ibfk_1` FOREIGN KEY (`admins_id`) REFERENCES `people` (`id`);
+  ADD CONSTRAINT `admins_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `people` (`id`);
 
 --
 -- Constraints for table `questions`
