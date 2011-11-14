@@ -137,6 +137,22 @@ CREATE TABLE IF NOT EXISTS `instructors` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admins`
+--
+
+CREATE TABLE IF NOT EXISTS `admins` (
+  `admin_id` int(10) unsigned zerofill NOT NULL,
+  PRIMARY KEY (`admin_id`),
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admins`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `people`
 --
 
@@ -299,6 +315,12 @@ ALTER TABLE `grades`
 ALTER TABLE `instructors`
   ADD CONSTRAINT `instructors_ibfk_2` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`),
   ADD CONSTRAINT `instructors_ibfk_1` FOREIGN KEY (`instructor_id`) REFERENCES `people` (`id`);
+
+--
+-- Constraints for table `admins`
+--
+ALTER TABLE `admins`
+  ADD CONSTRAINT `admins_ibfk_1` FOREIGN KEY (`admins_id`) REFERENCES `people` (`id`);
 
 --
 -- Constraints for table `questions`
