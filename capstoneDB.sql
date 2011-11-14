@@ -26,8 +26,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `absences` (
-  `sec_id` int(10) unsigned zerofill NOT NULL,
-  `student_id` int(10) unsigned zerofill NOT NULL,
+  `sec_id` int(10) unsigned NOT NULL,
+  `student_id` int(10) unsigned NOT NULL,
   `dates` date NOT NULL,
   `isAbsent` int(1) NOT NULL,
   `isExcused` int(1) NOT NULL,
@@ -83,9 +83,9 @@ CREATE TABLE IF NOT EXISTS `courses` (
 --
 
 CREATE TABLE IF NOT EXISTS `emails` (
-  `id` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `person_id` int(10) unsigned zerofill NOT NULL,
-  `parent` int(10) unsigned zerofill NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `person_id` int(10) unsigned NOT NULL,
+  `parent` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`,`person_id`),
   KEY `parent` (`parent`),
   KEY `person_id` (`person_id`)
@@ -103,8 +103,8 @@ CREATE TABLE IF NOT EXISTS `emails` (
 --
 
 CREATE TABLE IF NOT EXISTS `grades` (
-  `student_id` int(10) unsigned zerofill NOT NULL,
-  `sec_id` int(10) unsigned zerofill NOT NULL,
+  `student_id` int(10) unsigned NOT NULL,
+  `sec_id` int(10) unsigned NOT NULL,
   `points_poss` int(10) NOT NULL,
   `points_received` int(11) NOT NULL,
   PRIMARY KEY (`student_id`,`sec_id`),
@@ -123,8 +123,8 @@ CREATE TABLE IF NOT EXISTS `grades` (
 --
 
 CREATE TABLE IF NOT EXISTS `instructors` (
-  `instructor_id` int(10) unsigned zerofill NOT NULL,
-  `sec_id` int(10) unsigned zerofill NOT NULL,
+  `instructor_id` int(10) unsigned NOT NULL,
+  `sec_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`instructor_id`,`sec_id`),
   KEY `sec_id` (`sec_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `instructors` (
 --
 
 CREATE TABLE IF NOT EXISTS `people` (
-  `id` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `first_name` varchar(15) DEFAULT NULL,
   `last_name` varchar(15) DEFAULT NULL,
   `address` varchar(50) DEFAULT NULL,
@@ -168,7 +168,7 @@ INSERT INTO `people` (`id`, `first_name`, `last_name`, `address`, `email`, `phon
 --
 
 CREATE TABLE IF NOT EXISTS `questions` (
-  `quiz_id` int(10) unsigned zerofill NOT NULL,
+  `quiz_id` int(10) unsigned NOT NULL,
   `quest_num` int(11) NOT NULL,
   `quest_txt` varchar(200) NOT NULL,
   `ansA` varchar(30) DEFAULT NULL,
@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
 --
 
 CREATE TABLE IF NOT EXISTS `quizzes` (
-  `id` int(10) unsigned zerofill NOT NULL,
+  `id` int(10) unsigned NOT NULL,
   `course_id` varchar(6) NOT NULL,
   `isOpen` int(1) NOT NULL,
   PRIMARY KEY (`id`,`course_id`),
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `quizzes` (
 --
 
 CREATE TABLE IF NOT EXISTS `sections` (
-  `id` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `course_id` varchar(6) NOT NULL,
   `sec` varchar(6) NOT NULL,
   PRIMARY KEY (`course_id`,`sec`),
@@ -230,8 +230,8 @@ CREATE TABLE IF NOT EXISTS `sections` (
 --
 
 CREATE TABLE IF NOT EXISTS `students` (
-  `student_id` int(10) unsigned zerofill NOT NULL,
-  `sec_id` int(10) unsigned zerofill NOT NULL,
+  `student_id` int(10) unsigned NOT NULL,
+  `sec_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`student_id`,`sec_id`),
   KEY `sec_id` (`sec_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -248,9 +248,9 @@ CREATE TABLE IF NOT EXISTS `students` (
 --
 
 CREATE TABLE IF NOT EXISTS `submissions` (
-  `sec_id` int(10) unsigned zerofill NOT NULL,
+  `sec_id` int(10) unsigned NOT NULL,
   `ass_id` varchar(6) NOT NULL,
-  `student_id` int(10) unsigned zerofill NOT NULL,
+  `student_id` int(10) unsigned NOT NULL,
   `points_received` int(10) NOT NULL,
   PRIMARY KEY (`sec_id`,`ass_id`,`student_id`),
   KEY `ass_id` (`ass_id`),
