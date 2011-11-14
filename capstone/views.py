@@ -1,8 +1,6 @@
-from __future__ import with_statement
-import sqlite3
-from flask import Flask, request, session, g, redirect, url_for, \
-     abort, render_template, flash
-from contextlib import closing
+from capstone import app
+
+app.config.from_object(__name__)
 
 DATABASE = '/tmp/flaskr.db'
 DEBUG = True
@@ -10,15 +8,13 @@ SECRET_KEY = 'l33t'
 USERNAME = 'admin'
 PASSWORD = '123qwe'
 
-app = Flask(__name__)
-app.config.from_object(__name__)
-
 @app.before_request 
 def before_request():
     '''
     called before request, passed no args
     '''
-    g.db = connect_db()
+    #g.db = connect_db()
+    pass
 
 # @app.after_request
 # def hrm(resp):
@@ -33,7 +29,8 @@ def teardown_request(exception):
     '''
     called after response object has been constructed, even on error
     '''
-    g.db.close()
+    #g.db.close()
+    pass
 
 def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
@@ -66,9 +63,10 @@ def logout():
 
 @app.route('/')
 def show_entries():
-    cur = g.db.execute('select title, text from entries order by id desc')
-    entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
-    return render_template('show_entries.html', entries=entries)
+    # cur = g.db.execute('select title, text from entries order by id desc')
+    # entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
+    # return render_template('show_entries.html', entries=entries)
+    return render(template('show_entries.html'), {'this':'that'})
 
 @app.route('/add/', methods=['POST'])
 def add_entry():
