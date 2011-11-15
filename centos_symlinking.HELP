@@ -1,0 +1,17 @@
+;; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+
+http://dev.mysql.com/doc/refman/5.1/en/innodb-foreign-key-constraints.html
+http://dev.mysql.com/doc/refman/5.1/en/create-table.html
+
+http://www.rmunn.com/sqlalchemy-tutorial/tutorial.html
+
+
+<chaseideas> chcon -h user_u:object_r:user_home_dir_t /home/username    [19:41]
+<chaseideas> chcon -h root:object_r:httpd_sys_content_t -R /home/username/*
+<chaseideas> chcon -h root:object_r:var_log_t  -R /home/username/logs
+<chaseideas> etc
+<chaseideas> did all that ish?
+<chaseideas> its magic.
