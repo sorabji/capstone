@@ -1,20 +1,114 @@
 <?php
-function spit_table($headers, $resource){
-  echo("<table border='1' >\n<tr>");
-  foreach($headers as $head){
-    echo("<th>$head</th>\n");
-  }
-  echo("</tr>");
 
-  while($row = mysql_fetch_array($resource)){
-    echo("<tr>\n");
-    foreach($row as $key => $value) {
-      $row[$key] = stripslashes($value);
+abstract class Table {
+  abstract protected function list_display($res);
+  abstract protected function new_display();
+  abstract protected function edit_display($id);
+  abstract protected function do_insert($post_data);
+}
+
+class People_Table extends Table{
+
+  private $list_headers = array(
+    "First",
+    "Last",
+    "Address",
+    "Email",
+    "Phone",
+    "username");
+
+  private $list_table_cols = array(
+    "first_name",
+    "last_name",
+    "address",
+    "email",
+    "phone",
+    "username" );
+
+  private $new_labels = array(
+    "First Name",
+    "Last Name",
+    "Address",
+    "Email",
+    "Phone",
+    "Social Security",
+    "Username",
+    "Password",
+    "Confirm Pasword" );
+
+  private $new_post_vars = array(
+    "first_name",
+    "last_name",
+    "address",
+    "email",
+    "phone",
+    "social",
+    "username",
+    "password",
+    "password_2" );
+
+  const ID = "id";
+
+  public function __construct($ed_flag=false){
+    $this->$ed_flag = $ed_flag;
+  }
+
+  public function list_display($resource){
+    echo("<table border='1' >\n<tr>");
+    foreach($this::$list_headers as $head){
+      echo("<th>$head</th>\n");
     }
-    foreach($cols as $val) {
-      echo("<td valign='top'>$val</td");
+    echo("</tr>");
+
+    while($row = mysql_fetch_array($resource)){
+      echo("<tr>\n");
+      foreach($row as $key => $value) {
+	$row[$key] = stripslashes($value);
+      }
+      foreach($this::$list_table_cols as $val) {
+	echo("<td valign='top'>$val</td>");
+      }
+      if($ed_flag){
+	echo("<td valign='top'><a href=people_edit.php?id={$row[$this->ID]}>Edit</a></td>\n");
+	echo("<td valign='top'><a href=people_delete.php?id={$row[$this->ID]}>Delete</a></td>\n");
+      }
+      echo("</tr>\n</table>");
     }
-    echo("</tr>\n</table>");
+  }
+
+  public function new_display(){
+    echo("<form action='' method='POST'>\n");
+    foreach($this->new_labels as $key => $val){
+      echo("<fieldset>\n");
+      $str = "<label for='{$this->new_post_vars[$key]}'>";
+      $str .= $this->new_labels[$key] . "</label>\n";
+      if ( (strcmp($this->new_post_vars[$key], "password") == 0) | strcmp($this->new_post_vars[$key], "password_2") == 0 ){
+      	$str .= "<input type='password' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
+      } else {
+	$str .= "<input type='text' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
+      }
+      echo($str);
+      echo("</fieldset>\n");
+    }
+    echo("<input type='submit' value='Add Person' />\n");
+    echo("</form>");
+  }
+
+  public function edit_display($id){
+    return 0;
+  }
+
+  public function do_insert($post_data){
+    // obviously, do more validation
+    print_r($post_data);
+    foreach($post_data AS $key => $value) { $post_data[$key] = mysql_real_escape_string($value); } 
+
+    $sql = "INSERT INTO `people` ( `first_name` ,  `last_name` ,  `address` ,  `email` ,  `phone` ,  `social` ,  `username` , `password` ) VALUES(  '{$post_data['first_name']}' ,  '{$post_data['last_name']}' ,  '{$post_data['address']}' ,  '{$post_data['email']}' ,  '{$post_data['phone']}' ,  '{$post_data['social']}' ,  '{$post_data['username']}' , '{$post_data['password']}'  ) "; 
+
+    mysql_query($sql) or die(mysql_error()); 
+    
   }
 }
+
+
 ?>
