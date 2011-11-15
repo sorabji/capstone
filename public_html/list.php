@@ -1,4 +1,4 @@
-<? 
+<?php
 include('config.php'); 
 echo "<table border=1 >"; 
 echo "<tr>"; 
@@ -27,5 +27,8 @@ while($row = mysql_fetch_array($result)){
   echo "</tr>"; 
 } 
 echo "</table>"; 
-echo "<a href=new.php>New Row</a>"; 
+echo "<a href=new.php>New Row</a><br />"; 
+$res = mysql_query('show tables');
+
+
 ?>
