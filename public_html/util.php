@@ -1,5 +1,20 @@
 <?php
 
+function connect(){
+  // connect to db
+  $link = mysql_connect('localhost', 't3st3r', '123qwe');
+  if (!$link) {
+    die('Not connected : ' . mysql_error());
+  } else {
+    //echo("fucking fuck");
+  }
+
+  if (! mysql_select_db('capstone') ) {
+    die ('Can\'t use capstone : ' . mysql_error());
+  }
+  return $link;
+}
+
 abstract class Table {
   abstract protected function list_display($res);
   abstract protected function new_display();
@@ -8,7 +23,7 @@ abstract class Table {
 
 class People_Table extends Table{
 
-  private $list_headers = array(
+  public $list_headers = array(
     "First",
     "Last",
     "Address",
@@ -16,7 +31,7 @@ class People_Table extends Table{
     "Phone",
     "username");
 
-  private $list_table_cols = array(
+  public $list_table_cols = array(
     "first_name",
     "last_name",
     "address",
@@ -24,7 +39,7 @@ class People_Table extends Table{
     "phone",
     "username" );
 
-  private $new_labels = array(
+  public $new_labels = array(
     "First Name",
     "Last Name",
     "Address",
@@ -35,7 +50,7 @@ class People_Table extends Table{
     "Password",
     "Confirm Pasword" );
 
-  private $new_post_vars = array(
+  public $new_post_vars = array(
     "first_name",
     "last_name",
     "address",
@@ -59,6 +74,7 @@ class People_Table extends Table{
     }
     echo("</tr>");
 
+    $resource = mysql_query("select * from people", $link);
     while($row = mysql_fetch_array($resource)){
       echo("<tr>\n");
       foreach($row as $key => $value) {
