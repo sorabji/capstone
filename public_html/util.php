@@ -4,7 +4,6 @@ abstract class Table {
   abstract protected function list_display($res);
   abstract protected function new_display();
   abstract protected function edit_display($id);
-  abstract protected function do_insert($post_data);
 }
 
 class People_Table extends Table{
@@ -98,16 +97,7 @@ class People_Table extends Table{
     return 0;
   }
 
-  public function do_insert($post_data){
-    // obviously, do more validation
-    print_r($post_data);
-    foreach($post_data AS $key => $value) { $post_data[$key] = mysql_real_escape_string($value); } 
 
-    $sql = "INSERT INTO `people` ( `first_name` ,  `last_name` ,  `address` ,  `email` ,  `phone` ,  `social` ,  `username` , `password` ) VALUES(  '{$post_data['first_name']}' ,  '{$post_data['last_name']}' ,  '{$post_data['address']}' ,  '{$post_data['email']}' ,  '{$post_data['phone']}' ,  '{$post_data['social']}' ,  '{$post_data['username']}' , '{$post_data['password']}'  ) "; 
-
-    mysql_query($sql) or die(mysql_error()); 
-    
-  }
 }
 
 
