@@ -18,6 +18,7 @@ function connect(){
 abstract class Table {
   abstract protected function list_display($res);
   abstract protected function new_display();
+  abstract protected function new_display2();
   abstract protected function edit_display($id);
   abstract protected function get_update_qry($vals);
 }
@@ -73,34 +74,36 @@ class People_Table extends Table{
     "minimum of 7 chars",
     "and again, for papa bear" );
 
-  const ID = "id";
+  const ID = "id"; // what's the id field of this table?
 
-  public function __construct($ed_flag=false){
-    $this->$ed_flag = $ed_flag;
+  
+
+  public function __construct($ed_flag){
+    $this->ed_flag = $ed_flag; // want to update/delete?
   }
 
   public function list_display($resource){
     echo("<table border='1' >\n<tr>");
-    foreach($this::$list_headers as $head){
+    foreach($this->list_headers as $head){
       echo("<th>$head</th>\n");
     }
     echo("</tr>");
-
-    $resource = mysql_query("select * from people", $link);
+    
     while($row = mysql_fetch_array($resource)){
       echo("<tr>\n");
       foreach($row as $key => $value) {
 	$row[$key] = stripslashes($value);
       }
-      foreach($this::$list_table_cols as $val) {
-	echo("<td valign='top'>$val</td>");
+      foreach($this->list_table_cols as $val) {
+	echo("<td valign='top'>$row[$val]</td>");
       }
-      if($ed_flag){
+      if($this->ed_flag){
 	echo("<td valign='top'><a href=people_edit.php?id={$row[$this->ID]}>Edit</a></td>\n");
 	echo("<td valign='top'><a href=people_delete.php?id={$row[$this->ID]}>Delete</a></td>\n");
       }
-      echo("</tr>\n</table>");
+      
     }
+    echo("</tr>\n</table>");
   }
 
   public function new_display(){
@@ -132,13 +135,38 @@ class People_Table extends Table{
     //echo("<br />");
   }
 
+  public function new_display2(){
+    echo "<form id='form' name='form' action='' method='POST'>\n";
+    echo "<p>All fields are required</p>\n";
+    echo "<fieldset><legend>Person Info</legend>\n";
+    echo "<div class='notes'>\n";
+    echo "<h4>notes</h4>\n";
+    echo "<p class='last'>fill it out properly...all of it damnit!</p>\n</div>\n";
+
+    foreach($this->new_labels as $key => $val){
+      echo "<div class='required'>\n";
+      echo "<label for='{$this->new_post_vars[$key]}'>";
+      echo $this->new_labels[$key];
+      echo "</label>\n";
+      
+      if ( (strcmp($this->new_post_vars[$key], "password") == 0) | strcmp($this->new_post_vars[$key], "password_2") == 0 ){
+      	echo "<input class='inputPassword type='password' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
+      } else {
+	echo "<input class='inputText' type='text' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
+      }
+    }
+    echo "<div class='submit'>\n";
+    echo "<div><input type='submit' id='submit' name='submit' class='inputSubmit' value='Add Person' />\n";
+    echo "</div>\n</div>\n</fieldset>\n</form>";
+    echo($ret);
+  }
+
   public function edit_display($id){
     return 0;
   }
 
   public function get_update_qry($vals){
 
-    
     // don't forget to hash the damn passwords
     foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
     
