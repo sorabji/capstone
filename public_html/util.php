@@ -18,9 +18,19 @@ function connect(){
 abstract class Table {
   abstract protected function list_display($res);
   abstract protected function new_display();
-  abstract protected function new_display2();
   abstract protected function edit_display($id);
+
+/* use sprintf(query, values**) to build query */
   abstract protected function get_update_qry($vals);
+
+  protected function prep_sql($value){
+    if(get_magic_quotes_gpc()){
+      $value = stripslashes($value);
+    }
+    $value = "'" . mysql_real_escape_string($value) . "'";
+
+    return($value);
+  }
 }
 
 class People_Table extends Table{
@@ -107,35 +117,6 @@ class People_Table extends Table{
   }
 
   public function new_display(){
-    echo("<div id='f_style' class='mah_form'>\n");
-    echo("<form id='form' name='form' action='' method='POST'>\n");
-    echo("<h1>New Person Form</h1>\n");
-    echo("<p>Enter the new person's deets</p>\n");
-    foreach($this->new_labels as $key => $val){
-      //echo("<fieldset>\n");
-      $str = "<label for='{$this->new_post_vars[$key]}'>";
-      $str .= $this->new_labels[$key];
-      // can echo into <span class='small'>helpful text</span>...
-      // form_help_txt...like new_post_vars
-      
-      $str .= "<span class='small'>{$this->new_help_txt[$key]}</span>\n</label>\n";
-
-      
-      if ( (strcmp($this->new_post_vars[$key], "password") == 0) | strcmp($this->new_post_vars[$key], "password_2") == 0 ){
-      	$str .= "<input type='password' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
-      } else {
-	$str .= "<input type='text' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
-      }
-      echo($str);
-      //echo("</fieldset>\n");
-    }
-    echo("<input type='submit' id='submit' name='submit' value='Add Person' />\n");
-    echo("</form>");
-    echo("<div id='spacer'></div>");
-    //echo("<br />");
-  }
-
-  public function new_display2(){
     echo "<form id='form' name='form' action='' method='POST'>\n";
     echo "<p>All fields are required</p>\n";
     echo "<fieldset><legend>Person Info</legend>\n";
@@ -149,8 +130,10 @@ class People_Table extends Table{
       echo $this->new_labels[$key];
       echo "</label>\n";
       
-      if ( (strcmp($this->new_post_vars[$key], "password") == 0) | strcmp($this->new_post_vars[$key], "password_2") == 0 ){
-      	echo "<input class='inputPassword type='password' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
+      if ( (strcmp($this->new_post_vars[$key], "password") == 0) |
+	strcmp($this->new_post_vars[$key], "password_2") == 0 ){
+
+      	echo "<input class='inputPassword' type='password' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
       } else {
 	echo "<input class='inputText' type='text' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
       }
@@ -168,11 +151,11 @@ class People_Table extends Table{
   public function get_update_qry($vals){
 
     // don't forget to hash the damn passwords
-    foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
+    foreach($_POST AS $key => $value) { $_POST[$key] = $this->prep_sql($value); } 
     
     $base = "INSERT INTO `people` ( `first_name` ,  `last_name` ,  `address` ";
     $base .= ",  `email` ,  `phone` ,  `social` ,  `username` , `password` ) ";
-    $fmt_str = "VALUES( `%s`, `%s`, `%s`, `%s`, `%s`, `%s`, `%s`, `%s` );";
+    $fmt_str = "VALUES( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' );";
     $res = sprintf($fmt_str, // can't just unpack?...hrm
 	   $vals[$this->new_post_vars[0]],
     	   $vals[$this->new_post_vars[1]],
