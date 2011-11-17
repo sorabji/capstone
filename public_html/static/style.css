@@ -1,0 +1,151 @@
+/* main stylij */
+
+body{
+   font-family: sans-serif;
+/*   background-image:url('tie_dye.jpg');
+   background-position:bottom left;*/
+}
+
+a, h1, h2{
+   color: #377BA8;
+   /*color: ff6ec7;*/
+}
+
+h1, h2{
+   font-family: 'Georgia', serif;
+   margin: 0;
+}
+
+h1{
+   border-bottom: 2px solid #eee;
+}
+
+h2{
+   font-size: 1.2em;
+}
+
+.fuck { /* fuck is right...bitch of an image */
+   display:block;
+   margin: 2em auto;
+}
+
+/* navbar goodness */
+
+.metanav{
+   text-align: right;
+   font-size: 0.8em;
+   padding: 0.3em;
+   margin: 2em auto;
+/*   background: #fafafa;*/
+   background: #adff2f;
+   width: 70em;
+   border: 5px solid #ccc;
+   clear:both;
+}
+
+.metanav a:link {
+  border-style: solid;
+  border-width : 1px 4px 4px 1px;
+  text-decoration : none;
+  padding : 4px;
+  border-color : #69f #00f #00f #69f;
+}
+
+.metanav a:hover{
+   border-color: #ffff00;
+}
+
+.left_menu {
+   float: left;
+}
+
+.right_menu {
+   float: right;
+}
+
+/* this is page...content area */
+
+.page{
+   margin: 2em auto;
+   width: 50em;
+   border: 5px solid #ccc;
+   padding: 0.8em;
+   background: #ffff7e;
+}
+
+.error{ /* there will be errors */
+   background: #F0D6D6;
+   padding: 0.5em;
+}
+
+/* all the form goodness */
+
+.spacer {
+   clear: both;
+   height:1px;
+}
+
+.mah_form{
+   margin:0 auto;
+   width:30em;
+   padding:14px;
+}
+
+#f_style{
+   border:solid 2px #b7ddf2;
+   background:#ebf4fb;
+}
+
+#f_style h1 {
+   font-size:14px;
+   font-weight:bold;
+   margin-bottom:8px;
+}
+
+#f_style p{
+   font-size:11px;
+   color:#666666;
+   margin-bottom:20px;
+   border-bottom:solid 1px #b7ddf2;
+   padding-bottom:10px;
+}
+
+#f_style label{
+   display:block;
+   font-weight:bold;
+   text-align:right;
+   width:140px;
+   float:left;
+}
+
+#f_style .small{
+   color:#666666;
+   display:block;
+   font-size:11px;
+   font-weight:normal;
+   text-align:right;
+   width:140px;
+}
+
+#f_style input{
+   float:left;
+   font-size:12px;
+   padding:4px 2px;
+   border:solid 1px #aacfe4;
+   width:200px;
+   margin:2px 0 20px 10px;
+}
+
+#f_style button{
+   clear:both;
+   margin-left:150px;
+   width:125px;
+   height:31px;
+   background:#666666; /*url(img/button.png) no-repeat;*/
+   text-align:center;
+   line-height:31px;
+   color:#FFFFFF;
+   font-size:11px;
+   font-weight:bold;
+}
+

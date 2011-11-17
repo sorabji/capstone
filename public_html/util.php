@@ -19,6 +19,7 @@ abstract class Table {
   abstract protected function list_display($res);
   abstract protected function new_display();
   abstract protected function edit_display($id);
+  abstract protected function get_update_qry($vals);
 }
 
 class People_Table extends Table{
@@ -61,6 +62,17 @@ class People_Table extends Table{
     "password",
     "password_2" );
 
+  public $new_help_txt = array(
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "The desired login name",
+    "minimum of 7 chars",
+    "and again, for papa bear" );
+
   const ID = "id";
 
   public function __construct($ed_flag=false){
@@ -92,27 +104,59 @@ class People_Table extends Table{
   }
 
   public function new_display(){
-    echo("<form action='' method='POST'>\n");
+    echo("<div id='f_style' class='mah_form'>\n");
+    echo("<form id='form' name='form' action='' method='POST'>\n");
+    echo("<h1>New Person Form</h1>\n");
+    echo("<p>Enter the new person's deets</p>\n");
     foreach($this->new_labels as $key => $val){
-      echo("<fieldset>\n");
+      //echo("<fieldset>\n");
       $str = "<label for='{$this->new_post_vars[$key]}'>";
-      $str .= $this->new_labels[$key] . "</label>\n";
+      $str .= $this->new_labels[$key];
+      // can echo into <span class='small'>helpful text</span>...
+      // form_help_txt...like new_post_vars
+      
+      $str .= "<span class='small'>{$this->new_help_txt[$key]}</span>\n</label>\n";
+
+      
       if ( (strcmp($this->new_post_vars[$key], "password") == 0) | strcmp($this->new_post_vars[$key], "password_2") == 0 ){
       	$str .= "<input type='password' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
       } else {
 	$str .= "<input type='text' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
       }
       echo($str);
-      echo("</fieldset>\n");
+      //echo("</fieldset>\n");
     }
-    echo("<input type='submit' value='Add Person' />\n");
+    echo("<input type='submit' id='submit' name='submit' value='Add Person' />\n");
     echo("</form>");
+    echo("<div id='spacer'></div>");
+    //echo("<br />");
   }
 
   public function edit_display($id){
     return 0;
   }
 
+  public function get_update_qry($vals){
+
+    
+    // don't forget to hash the damn passwords
+    foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
+    
+    $base = "INSERT INTO `people` ( `first_name` ,  `last_name` ,  `address` ";
+    $base .= ",  `email` ,  `phone` ,  `social` ,  `username` , `password` ) ";
+    $fmt_str = "VALUES( `%s`, `%s`, `%s`, `%s`, `%s`, `%s`, `%s`, `%s` );";
+    $res = sprintf($fmt_str, // can't just unpack?...hrm
+	   $vals[$this->new_post_vars[0]],
+    	   $vals[$this->new_post_vars[1]],
+    	   $vals[$this->new_post_vars[2]],
+    	   $vals[$this->new_post_vars[3]],
+    	   $vals[$this->new_post_vars[4]],
+    	   $vals[$this->new_post_vars[5]],
+    	   $vals[$this->new_post_vars[6]],
+    	   $vals[$this->new_post_vars[7]]);
+    $fin = $base . $res;
+    return $fin;
+  }
 
 }
 
