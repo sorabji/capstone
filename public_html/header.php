@@ -7,14 +7,14 @@
 <script type="text/javascript"
    src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
 -->
-<title>Capstone</title>
+<title>Papa Bear</title>
 </head>
 <body>
   
 <div class='head'>
    
-  <img class='fuck' alt='logo' src="../static/logo.jpg" >   
-   
+ <!-- <img class='fuck' alt='logo' src="../static/logo.jpg" >   -->
+   <h1>Papa Bear</h1>
   <div class='metanav'>
 
    <div class='left_menu'>
