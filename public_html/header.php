@@ -18,8 +18,15 @@
   <div class='metanav'>
 
    <div class='left_menu'>
-      <a href="#">log in</a>
-      <a href="#">log out</a>
+   <table><tr>
+    <td onmouseover="document.getElementById('site').style.visibility='visible';"
+        onmouseout="document.getElementById('site').style.visibility='hidden';">
+      <a href="#">Site</a>
+      <table class="noShow, nav" id="site" >
+        <tr><td><a href="home.php">home</a></td></tr>
+        <tr><td><a href="logout.php">logout</a></td></tr>
+      </table>
+   </td></tr></table>
    </div>
    <div class='right_menu'>
       <a href="#">Home</a>

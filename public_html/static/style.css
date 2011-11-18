@@ -43,13 +43,13 @@ h2{
    clear:both;
 }
 
-.metanav a:link {
+/*.metanav a:link {
   border-style: solid;
   border-width : 1px 4px 4px 1px;
   text-decoration : none;
   padding : 4px;
   border-color : #69f #00f #00f #69f;
-}
+}*/
 
 .metanav a:hover{
    border-color: #ffff00;
@@ -61,6 +61,15 @@ h2{
 
 .right_menu {
    float: right;
+}
+
+table.nav {
+   background-color: #0f0860
+}
+
+table.noShow {
+   visibility:hidden;
+   position:absolute
 }
 
 /* this is page...content area */

@@ -86,7 +86,7 @@ class People_Table extends Table{
 
   const ID = "id"; // what's the id field of this table?
 
-  
+
 
   public function __construct($ed_flag){
     $this->ed_flag = $ed_flag; // want to update/delete?
@@ -97,8 +97,11 @@ class People_Table extends Table{
     foreach($this->list_headers as $head){
       echo("<th>$head</th>\n");
     }
+    if($this->ed_flag){
+        echo("<th colspan='2'>Admin</th>\n");
+    }
     echo("</tr>");
-    
+
     while($row = mysql_fetch_array($resource)){
       echo("<tr>\n");
       foreach($row as $key => $value) {
@@ -111,7 +114,7 @@ class People_Table extends Table{
 	echo("<td valign='top'><a href=people_edit.php?id={$row[$this->ID]}>Edit</a></td>\n");
 	echo("<td valign='top'><a href=people_delete.php?id={$row[$this->ID]}>Delete</a></td>\n");
       }
-      
+
     }
     echo("</tr>\n</table>");
   }
@@ -129,7 +132,7 @@ class People_Table extends Table{
       echo "<label for='{$this->new_post_vars[$key]}'>";
       echo $this->new_labels[$key];
       echo "</label>\n";
-      
+
       if ( (strcmp($this->new_post_vars[$key], "password") == 0) |
 	strcmp($this->new_post_vars[$key], "password_2") == 0 ){
 
@@ -151,8 +154,8 @@ class People_Table extends Table{
   public function get_update_qry($vals){
 
     // don't forget to hash the damn passwords
-    foreach($_POST AS $key => $value) { $_POST[$key] = $this->prep_sql($value); } 
-    
+    foreach($_POST AS $key => $value) { $_POST[$key] = $this->prep_sql($value); }
+
     $base = "INSERT INTO `people` ( `first_name` ,  `last_name` ,  `address` ";
     $base .= ",  `email` ,  `phone` ,  `social` ,  `username` , `password` ) ";
     $fmt_str = "VALUES( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' );";
