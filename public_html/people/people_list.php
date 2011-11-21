@@ -2,8 +2,10 @@
 
 
 <?php
+
+
+
 include('../header.php');
-include('../config.php');
 include('../util.php');
 $link = connect();
 $resource = mysql_query("select * from people", $link);

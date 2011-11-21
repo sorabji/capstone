@@ -6,6 +6,7 @@
 --Populate the student list for attendence.
 
 SELECT * FROM students WHERE sec_id=##that;
+
 --Updating the absences table n stuff
 UPDATE absences SET isAbsent=1 WHERE fk_absent_student=##studentId;
 UPDATE absences SET the_date=##TheDate WHERE fk_absent_student=##studentId;
