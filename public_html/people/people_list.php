@@ -1,5 +1,6 @@
 <link rel='stylesheet' type='text/css' href="../static/style.css" />
 
+
 <?php
 include('../header.php');
 include('../config.php');
