@@ -1,13 +1,10 @@
-<link rel='stylesheet' type='text/css' href="../static/style.css" />
-<!--<link rel='stylesheet' type='text/css' href="../form_testing.css" />-->
 
 <?php
 include('../header.php');
-include('../config.php'); 
 include('../util.php');
 
 
-$peeps = new People_Table(true);
+$peeps = new People(true);
 
 if (isset($_POST['submit'])) { 
 //if (false){

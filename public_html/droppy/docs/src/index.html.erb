@@ -1,0 +1,135 @@
+  
+<h2 class='first' id='overview'>Overview</h2>
+
+<p>Quick and dirty nested drop-down menu in the jQuery styleee. I needed a nav like
+  this for a recent project and a quick Googling turned up nothing that really suited,
+  so droppy was born. It hasn't been designed with flexibility in mind - if you like
+  what you see, great, integration should be a breeze - otherwise I'd look for something
+  more configurable elsewhere.</p>
+
+<h2 id='example'>Example</h2>
+
+<ul class='nav'>
+  <li><a href='#'>Top level 1</a></li>
+  <li><a href='#'>Top level 2</a>
+    <ul>
+      <li><a href='#'>Sub 2 - 1</a></li>
+      <li>
+        <a href='http://www.google.com'>Sub 2 - 2</a>
+        <ul>
+          <li>
+            <a href='#'>Sub 2 - 2 - 1</a>
+            <ul>
+              <li><a href='http://www.yahoo.com'>Sub 2 - 2 - 1 - 1</a></li>
+              <li><a href='http://www.bing.com'>Sub 2 - 2 - 1 - 2</a></li>
+              <li><a href='http://www.cuil.com'>Sub 2 - 2 - 1 - 3</a></li>
+              <li><a href='#'>Sub 2 - 2 - 1 - 4</a></li>
+            </ul>
+          </li>
+          <li><a href='#'>Sub 2 - 2 - 2</a></li>
+          <li>
+            <a href='#'>Sub 2 - 2 - 3</a>
+            <ul>
+              <li><a href='#'>Sub 2 - 2 - 3 - 1</a></li>
+              <li><a href='#'>Sub 2 - 2 - 3 - 2</a></li>
+              <li><a href='#'>Sub 2 - 2 - 3 - 3</a></li>
+              <li><a href='#'>Sub 2 - 2 - 3 - 4</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href='#'>Sub 2 - 3</a></li>
+    </ul>
+  </li>
+</ul>
+
+<script type='text/javascript'>
+  $(function() {
+    $('.nav').droppy({trigger: 'click'});
+  });
+</script>
+
+<h2 id='usage'>Usage</h2>
+
+<p>No mandatory configuration options or nothin' here, just use include the Javascript/CSS
+  resources and insert the following code in your document head, or any other
+  suitable place:</p>
+  
+<div class='caption'>Javascript:</div>
+<pre>&lt;script type='text/javascript'&gt;
+  $(function() {
+    $('#nav').droppy();
+  });
+&lt;/script&gt;</pre>
+
+<p>And here's some example HTML markup:</p>
+
+<div class='caption'>HTML:</div>
+<pre>&lt;ul id=&#x27;nav&#x27;&gt;
+  &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Top level 1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Top level 2&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Sub 2 - 1&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;
+        &lt;a href=&#x27;#&#x27;&gt;Sub 2 - 2&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;a href=&#x27;#&#x27;&gt;Sub 2 - 2 - 1&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Sub 2 - 2 - 1 - 1&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Sub 2 - 2 - 1 - 2&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Sub 2 - 2 - 1 - 3&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Sub 2 - 2 - 1 - 4&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Sub 2 - 2 - 2&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;
+            &lt;a href=&#x27;#&#x27;&gt;Sub 2 - 2 - 3&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Sub 2 - 2 - 3 - 1&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Sub 2 - 2 - 3 - 2&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Sub 2 - 2 - 3 - 3&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Sub 2 - 2 - 3 - 4&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&#x27;#&#x27;&gt;Sub 2 - 3&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</pre>
+
+<p>Droppy supports a single configuration option, speed, for setting the animation time.</p>
+  
+<div class='caption'>Example with custom speed:</div>
+<pre>&lt;script type='text/javascript'&gt;
+  $(function() {
+    $('#nav').droppy({speed: 100});
+  });
+&lt;/script&gt;</pre>
+
+<p>The example CSS file has been split up into three small sections for ease of
+  customisation if you feel like getting your tinker on. As of version 0.1.2,
+  the 'hover' CSS class is applied to both <code>&lt;li&gt;</code> and <code>&lt;a&gt;</code>
+  tags inside the menu on rollover, improving skinability with IE6.</p>
+  
+<h2 id='download'>Download</h2>
+
+<h3>Package</h3>
+
+<p>
+  Package downloads are available from the
+  <a href='http://plugins.jquery.com/project/droppy'>jQuery project page</a>.
+</p>
+
+<h3>github</h3>
+<pre class='shell'><span class='green'>jason@donut</span> <span class='blue'>~ $</span> git clone git://github.com/jaz303/droppy.git</pre>
+
+<h2 id='known-issues'>Known Issues</h2>
+
+<ul>
+  <li>CSS opacity effects applied to <code>#nav ul</code> or <code>#nav li</code>
+    selectors will cumulate with each level of nesting. Workaround: apply opacity
+    effects to <code>#nav a</code> or use a 1&times;1 transparent PNG for
+    background color.</li>
+</ul>
