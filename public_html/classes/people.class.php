@@ -1,7 +1,7 @@
 <?php
-class People_Table extends Table{
+class People extends Table{
 
-  public $list_headers = array(
+  private $list_headers = array(
     "First",
     "Last",
     "Address",
@@ -9,7 +9,7 @@ class People_Table extends Table{
     "Phone",
     "username");
 
-  public $list_table_cols = array(
+  private $list_table_cols = array(
     "first_name",
     "last_name",
     "address",
@@ -17,7 +17,7 @@ class People_Table extends Table{
     "phone",
     "username" );
 
-  public $new_labels = array(
+  private $new_labels = array(
     "First Name",
     "Last Name",
     "Address",
@@ -28,7 +28,7 @@ class People_Table extends Table{
     "Password",
     "Confirm Pasword" );
 
-  public $new_post_vars = array(
+  private $new_post_vars = array(
     "first_name",
     "last_name",
     "address",
@@ -39,7 +39,7 @@ class People_Table extends Table{
     "password",
     "password_2" );
 
-  public $new_help_txt = array(
+  private $new_help_txt = array(
     "",
     "",
     "",

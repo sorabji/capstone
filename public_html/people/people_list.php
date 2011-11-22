@@ -10,7 +10,7 @@ include('../util.php');
 $link = connect();
 $resource = mysql_query("select * from people", $link);
 	   
-$peeps = new People_Table(true);
+$peeps = new People(true);
 $peeps->list_display($resource);
 
 include('../footer.php');

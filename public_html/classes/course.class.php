@@ -1,54 +1,25 @@
 <?php
-class Instructor_Table extends People_Table{
+class Course extends Table{
 
   public $list_headers = array(
-    "First",
-    "Last",
-    "Address",
-    "Email",
-    "Phone",
-    "username");
+    "Course id",
+    "Description");
 
   public $list_table_cols = array(
-    "first_name",
-    "last_name",
-    "address",
-    "email",
-    "phone",
-    "username" );
+    "id",
+    "course_Desc" );
 
   public $new_labels = array(
-    "First Name",
-    "Last Name",
-    "Address",
-    "Email",
-    "Phone",
-    "Social Security",
-    "Username",
-    "Password",
-    "Confirm Pasword" );
+    "Course ID",
+    "Course Description" );
 
   public $new_post_vars = array(
-    "first_name",
-    "last_name",
-    "address",
-    "email",
-    "phone",
-    "social",
-    "username",
-    "password",
-    "password_2" );
+    "id",
+    "cd" );
 
   public $new_help_txt = array(
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "The desired login name",
-    "minimum of 7 chars",
-    "and again, for papa bear" );
+    "like... com290",
+    "describe the awesome" );
 
   const ID = "id"; // what's the id field of this table?
 
@@ -80,7 +51,6 @@ class Instructor_Table extends People_Table{
 	echo("<td valign='top'><a href=people_edit.php?id={$row[$this->ID]}>Edit</a></td>\n");
 	echo("<td valign='top'><a href=people_delete.php?id={$row[$this->ID]}>Delete</a></td>\n");
       }
-
     }
     echo("</tr>\n</table>");
   }
@@ -88,7 +58,7 @@ class Instructor_Table extends People_Table{
   public function new_display(){
     echo "<form id='form' name='form' action='' method='POST'>\n";
     echo "<p>All fields are required</p>\n";
-    echo "<fieldset><legend>Person Info</legend>\n";
+    echo "<fieldset><legend>Course Information</legend>\n";
     echo "<div class='notes'>\n";
     echo "<h4>notes</h4>\n";
     echo "<p class='last'>fill it out properly...all of it damnit!</p>\n</div>\n";
@@ -98,19 +68,14 @@ class Instructor_Table extends People_Table{
       echo "<label for='{$this->new_post_vars[$key]}'>";
       echo $this->new_labels[$key];
       echo "</label>\n";
-
-      if ( (strcmp($this->new_post_vars[$key], "password") == 0) |
-	strcmp($this->new_post_vars[$key], "password_2") == 0 ){
-
-      	echo "<input class='inputPassword' type='password' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
-      } else {
-	echo "<input class='inputText' type='text' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
-      }
+      echo "<input class='inputText' type='text' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
     }
+
     echo "<div class='submit'>\n";
-    echo "<div><input type='submit' id='submit' name='submit' class='inputSubmit' value='Add Person' />\n";
+    echo "<div><input type='submit' id='submit' name='submit' class='inputSubmit' value='Add Course' />\n";
     echo "</div>\n</div>\n</fieldset>\n</form>";
     echo($ret);
+    
   }
 
   public function edit_display($id){
