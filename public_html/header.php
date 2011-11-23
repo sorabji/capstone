@@ -37,7 +37,7 @@
    <li><a href="index.php">Home</a></li>
    <li><a href="#" class="selected">People</a>
      <ul>
-     <li><a href="people/people_new.php">New Person</a></li>
+     <li><a href="/people/people_new.php">New Person</a></li>
      <li><a href="people/people_edit.php">Edit a Person</a></li>
      <li><a href="people/people_delete.php">Delete some peeps</a></li>
      <li><a href="people/people_list.php">View all peeps</a></li>
