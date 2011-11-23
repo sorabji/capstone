@@ -14,6 +14,11 @@
        $('#nav').droppy({speed: 150});
      });
 </script>
+<script type="text/javascript">
+   $(function(){
+       $('#nav2').droppy({speed: 150});
+     });
+</script>
 
 <title>Papa Bear</title>
 
@@ -23,7 +28,7 @@
   
 <div class='head'>
    
-<!-- <img class='fuck' alt='logo' src="../static/logo.jpg" >-->
+
    <h1>Papa Bear</h1>
   <div class='metanav'>
 
@@ -50,12 +55,13 @@
    </li>
    </ul>
    <div class="clear"></div>   
-   </div>
-
+   
    <div class='right_menu'>
    
    </div>
+
 <hr />
+<img class='fuck' alt='logo' src="../static/logo.jpg" >
   </div>
 </div>
 <div class='page'>
