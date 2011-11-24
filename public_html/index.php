@@ -1,12 +1,12 @@
 <?php 
 
-include('header.php');
-include('util.php');
+include_once('header.php');
 
+echo $_SERVER['PHP_SELF'];
 ?>
 
 <p>Welcome to Papa Bear</p>
 
 <?php
-include('../footer.php');
+include_once('../footer.php');
 ?>

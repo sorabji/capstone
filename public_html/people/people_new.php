@@ -1,8 +1,6 @@
 
 <?php
-include('../header.php');
-include('../util.php');
-
+include_once('../header.php');
 
 $peeps = new People(true);
 
@@ -25,5 +23,5 @@ if (isset($_POST['submit'])) {
   $peeps->new_display();
 
 }
-//include('../footer.php');
+include('../footer.php');
 ?>

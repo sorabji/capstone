@@ -5,13 +5,13 @@
 
 
 
-include('../header.php');
-include('../util.php');
+include_once('../header.php');
+
 $link = connect();
 $resource = mysql_query("select * from people", $link);
 	   
 $peeps = new People(true);
 $peeps->list_display($resource);
 
-include('../footer.php');
+include_once('../footer.php');
 ?>

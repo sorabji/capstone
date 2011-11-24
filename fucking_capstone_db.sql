@@ -1,217 +1,186 @@
--- MySQL dump 10.13  Distrib 5.1.54, for debian-linux-gnu (i686)
+-- phpMyAdmin SQL Dump
+-- version 3.3.10deb1
+-- http://www.phpmyadmin.net
 --
--- Host: localhost    Database: capstone
--- ------------------------------------------------------
--- Server version	5.1.54-1ubuntu4
+-- Host: localhost
+-- Generation Time: Nov 23, 2011 at 11:33 PM
+-- Server version: 5.1.54
+-- PHP Version: 5.3.5-1ubuntu7.3
+
+--
+-- damn emails
+--
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Database: `capstone`
+--
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `absences`
 --
 
 DROP TABLE IF EXISTS `absences`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `absences` (
+CREATE TABLE IF NOT EXISTS `absences` (
   `fk_absent_section` int(10) NOT NULL,
   `fk_absent_student` varchar(15) NOT NULL,
   `the_date` date NOT NULL,
   `isAbsent` int(1) NOT NULL,
   `isExcused` int(1) NOT NULL,
   PRIMARY KEY (`fk_absent_section`,`fk_absent_student`,`the_date`),
-  KEY `fk_absent_student` (`fk_absent_student`),
-  CONSTRAINT `absences_ibfk_2` FOREIGN KEY (`fk_absent_student`) REFERENCES `students` (`id`),
-  CONSTRAINT `absences_ibfk_1` FOREIGN KEY (`fk_absent_section`) REFERENCES `sections` (`id`)
+  KEY `fk_absent_student` (`fk_absent_student`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `absences`
 --
 
-LOCK TABLES `absences` WRITE;
-/*!40000 ALTER TABLE `absences` DISABLE KEYS */;
-/*!40000 ALTER TABLE `absences` ENABLE KEYS */;
-UNLOCK TABLES;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `admins`
 --
 
 DROP TABLE IF EXISTS `admins`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `admins` (
+CREATE TABLE IF NOT EXISTS `admins` (
   `admin_id` int(10) NOT NULL,
-  PRIMARY KEY (`admin_id`),
-  CONSTRAINT `admins_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `people` (`id`)
+  PRIMARY KEY (`admin_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `admins`
 --
 
-LOCK TABLES `admins` WRITE;
-/*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES (9);
-/*!40000 ALTER TABLE `admins` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `admins` (`admin_id`) VALUES
+(9);
 
---
--- Table structure for table `ass_grades`
---
-
-DROP TABLE IF EXISTS `ass_grades`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ass_grades` (
-  `student_id` varchar(15) NOT NULL,
-  `sec_id` int(10) NOT NULL,
-  `ass_id` int(10) NOT NULL,
-  `points_poss` int(11) NOT NULL,
-  PRIMARY KEY (`student_id`,`sec_id`,`ass_id`),
-  KEY `sec_id` (`sec_id`),
-  KEY `ass_id` (`ass_id`),
-  CONSTRAINT `ass_grades_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
-  CONSTRAINT `ass_grades_ibfk_1` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`),
-  CONSTRAINT `ass_grades_ibfk_2` FOREIGN KEY (`ass_id`) REFERENCES `assignments` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ass_grades`
---
-
-LOCK TABLES `ass_grades` WRITE;
-/*!40000 ALTER TABLE `ass_grades` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ass_grades` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `assignments`
 --
 
 DROP TABLE IF EXISTS `assignments`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `assignments` (
+CREATE TABLE IF NOT EXISTS `assignments` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `sec_id` int(10) NOT NULL,
   `title` varchar(20) NOT NULL,
   `points_poss` int(10) NOT NULL,
   PRIMARY KEY (`id`,`sec_id`),
-  KEY `sec_id` (`sec_id`),
-  CONSTRAINT `assignments_ibfk_1` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `sec_id` (`sec_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `assignments`
 --
 
-LOCK TABLES `assignments` WRITE;
-/*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
-INSERT INTO `assignments` VALUES (1,6,'project 1',25),(2,6,'final project',50);
-/*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `assignments` (`id`, `sec_id`, `title`, `points_poss`) VALUES
+(1, 6, 'project 1', 25),
+(2, 6, 'final project', 50);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ass_grades`
+--
+
+DROP TABLE IF EXISTS `ass_grades`;
+CREATE TABLE IF NOT EXISTS `ass_grades` (
+  `student_id` varchar(15) NOT NULL,
+  `sec_id` int(10) NOT NULL,
+  `ass_id` int(10) NOT NULL,
+  `points_poss` int(11) NOT NULL,
+  PRIMARY KEY (`student_id`,`sec_id`,`ass_id`),
+  KEY `sec_id` (`sec_id`),
+  KEY `ass_id` (`ass_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ass_grades`
+--
+
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `courses`
 --
 
 DROP TABLE IF EXISTS `courses`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `courses` (
+CREATE TABLE IF NOT EXISTS `courses` (
   `id` varchar(6) NOT NULL,
   `course_Desc` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `courses`
 --
 
-LOCK TABLES `courses` WRITE;
-/*!40000 ALTER TABLE `courses` DISABLE KEYS */;
-INSERT INTO `courses` VALUES ('com267','mildly cool stuff'),('com279','awesome sweet course action here');
-/*!40000 ALTER TABLE `courses` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `courses` (`id`, `course_Desc`) VALUES
+('com267', 'mildly cool stuff'),
+('com279', 'awesome sweet course action here');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `emails`
 --
 
 DROP TABLE IF EXISTS `emails`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `emails` (
+CREATE TABLE IF NOT EXISTS `emails` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `person_id` int(10) NOT NULL,
   `parent` int(10) NOT NULL,
+  `subject` varchar(80) DEFAULT NULL,
+  `body` text,
   PRIMARY KEY (`id`,`person_id`),
   KEY `parent` (`parent`),
   KEY `person_id` (`person_id`),
-  CONSTRAINT `emails_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`),
-  CONSTRAINT `emails_ibfk_2` FOREIGN KEY (`parent`) REFERENCES `emails` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `subject` (`subject`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `emails`
 --
 
-LOCK TABLES `emails` WRITE;
-/*!40000 ALTER TABLE `emails` DISABLE KEYS */;
-/*!40000 ALTER TABLE `emails` ENABLE KEYS */;
-UNLOCK TABLES;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `instructors`
 --
 
 DROP TABLE IF EXISTS `instructors`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `instructors` (
+CREATE TABLE IF NOT EXISTS `instructors` (
   `instructor_id` int(10) NOT NULL,
   `sec_id` int(10) NOT NULL,
   PRIMARY KEY (`instructor_id`,`sec_id`),
-  KEY `sec_id` (`sec_id`),
-  CONSTRAINT `instructors_ibfk_2` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`),
-  CONSTRAINT `instructors_ibfk_1` FOREIGN KEY (`instructor_id`) REFERENCES `people` (`id`)
+  KEY `sec_id` (`sec_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `instructors`
 --
 
-LOCK TABLES `instructors` WRITE;
-/*!40000 ALTER TABLE `instructors` DISABLE KEYS */;
-/*!40000 ALTER TABLE `instructors` ENABLE KEYS */;
-UNLOCK TABLES;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `people`
 --
 
 DROP TABLE IF EXISTS `people`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `people` (
+CREATE TABLE IF NOT EXISTS `people` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(15) DEFAULT NULL,
   `last_name` varchar(15) DEFAULT NULL,
@@ -223,27 +192,26 @@ CREATE TABLE `people` (
   `password` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `people`
 --
 
-LOCK TABLES `people` WRITE;
-/*!40000 ALTER TABLE `people` DISABLE KEYS */;
-INSERT INTO `people` VALUES (6,'john','student','1234 happy way','john@student.com','3833833833','383838383','john','123qwe'),(7,'bill','instructor','5849 sad street','bill@instructor.com','9309389389','728738278','bill','123qwe'),(8,'frank','student','this and that ','frank@adams.com','3833839203','834374837','frank','123qwe'),(9,'bob','admin','sdlkfjdkjf','sdkfjskdjf','skdfsdkf','sdfsdf','bob','123qwe');
-/*!40000 ALTER TABLE `people` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `people` (`id`, `first_name`, `last_name`, `address`, `email`, `phone`, `social`, `username`, `password`) VALUES
+(6, 'john', 'student', '1234 happy way', 'john@student.com', '3833833833', '383838383', 'john', '123qwe'),
+(7, 'bill', 'instructor', '5849 sad street', 'bill@instructor.com', '9309389389', '728738278', 'bill', '123qwe'),
+(8, 'frank', 'student', 'this and that ', 'frank@adams.com', '3833839203', '834374837', 'frank', '123qwe'),
+(9, 'bob', 'admin', 'sdlkfjdkjf', 'sdkfjskdjf', 'skdfsdkf', 'sdfsdf', 'bob', '123qwe');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `questions`
 --
 
 DROP TABLE IF EXISTS `questions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `questions` (
+CREATE TABLE IF NOT EXISTS `questions` (
   `quiz_id` int(10) NOT NULL,
   `quest_num` int(11) NOT NULL,
   `quest_txt` varchar(200) NOT NULL,
@@ -254,172 +222,244 @@ CREATE TABLE `questions` (
   `ansE` varchar(30) DEFAULT NULL,
   `correctAnswer` char(1) DEFAULT NULL,
   PRIMARY KEY (`quiz_id`,`quest_num`),
-  CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`id`)
+  KEY `quest_num` (`quest_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `questions`
 --
 
-LOCK TABLES `questions` WRITE;
-/*!40000 ALTER TABLE `questions` DISABLE KEYS */;
-INSERT INTO `questions` VALUES (1,1,'what is...','my ','this','shoe','planet','none of the above','b');
-/*!40000 ALTER TABLE `questions` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `questions` (`quiz_id`, `quest_num`, `quest_txt`, `ansA`, `ansB`, `ansC`, `ansD`, `ansE`, `correctAnswer`) VALUES
+(1, 1, 'what is...', 'my ', 'this', 'shoe', 'planet', 'none of the above', 'b');
 
---
--- Table structure for table `quiz_grades`
---
-
-DROP TABLE IF EXISTS `quiz_grades`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `quiz_grades` (
-  `student_id` varchar(15) NOT NULL,
-  `sec_id` int(10) NOT NULL,
-  `quiz_id` int(10) NOT NULL,
-  `points_received` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`student_id`,`sec_id`,`quiz_id`),
-  KEY `sec_id` (`sec_id`),
-  KEY `quiz_id` (`quiz_id`),
-  CONSTRAINT `quiz_grades_ibfk_1` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`),
-  CONSTRAINT `quiz_grades_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
-  CONSTRAINT `quiz_grades_ibfk_4` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `quiz_grades`
---
-
-LOCK TABLES `quiz_grades` WRITE;
-/*!40000 ALTER TABLE `quiz_grades` DISABLE KEYS */;
-/*!40000 ALTER TABLE `quiz_grades` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `quizzes`
 --
 
 DROP TABLE IF EXISTS `quizzes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `quizzes` (
+CREATE TABLE IF NOT EXISTS `quizzes` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `course_id` varchar(6) NOT NULL,
   `title` varchar(20) NOT NULL,
   `points_poss` int(10) NOT NULL,
   `isOpen` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`,`course_id`),
-  KEY `course_id` (`course_id`),
-  CONSTRAINT `quizzes_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `course_id` (`course_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `quizzes`
 --
 
-LOCK TABLES `quizzes` WRITE;
-/*!40000 ALTER TABLE `quizzes` DISABLE KEYS */;
-INSERT INTO `quizzes` VALUES (1,'com279','practice quiz',25,0);
-/*!40000 ALTER TABLE `quizzes` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `quizzes` (`id`, `course_id`, `title`, `points_poss`, `isOpen`) VALUES
+(1, 'com279', 'practice quiz', 25, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz_grades`
+--
+
+DROP TABLE IF EXISTS `quiz_grades`;
+CREATE TABLE IF NOT EXISTS `quiz_grades` (
+  `student_id` varchar(15) NOT NULL,
+  `sec_id` int(10) NOT NULL,
+  `quiz_id` int(10) NOT NULL,
+  `points_received` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`student_id`,`sec_id`,`quiz_id`),
+  KEY `sec_id` (`sec_id`),
+  KEY `quiz_id` (`quiz_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `quiz_grades`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz_quest_grades`
+--
+
+DROP TABLE IF EXISTS `quiz_quest_grades`;
+CREATE TABLE IF NOT EXISTS `quiz_quest_grades` (
+  `quiz` int(10) NOT NULL,
+  `question_number` int(11) NOT NULL,
+  `stud_id` varchar(15) NOT NULL,
+  `submit_answer` char(1) NOT NULL,
+  PRIMARY KEY (`quiz`,`question_number`,`stud_id`),
+  KEY `question_number` (`question_number`),
+  KEY `stud_id` (`stud_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `quiz_quest_grades`
+--
+
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `sections`
 --
 
 DROP TABLE IF EXISTS `sections`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sections` (
+CREATE TABLE IF NOT EXISTS `sections` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `course_id` varchar(6) NOT NULL,
   `sec` varchar(6) NOT NULL,
   PRIMARY KEY (`course_id`,`sec`),
-  KEY `perfect_sec_id` (`id`),
-  CONSTRAINT `sections_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `perfect_sec_id` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `sections`
 --
 
-LOCK TABLES `sections` WRITE;
-/*!40000 ALTER TABLE `sections` DISABLE KEYS */;
-INSERT INTO `sections` VALUES (5,'com279','1morn'),(6,'com279','1night');
-/*!40000 ALTER TABLE `sections` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `sections` (`id`, `course_id`, `sec`) VALUES
+(5, 'com279', '1morn'),
+(6, 'com279', '1night');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `students`
 --
 
 DROP TABLE IF EXISTS `students`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `students` (
+CREATE TABLE IF NOT EXISTS `students` (
   `id` varchar(15) NOT NULL,
   `student_id` int(10) NOT NULL,
   `sec_id` int(10) NOT NULL,
   PRIMARY KEY (`student_id`,`sec_id`,`id`),
   KEY `sec_id` (`sec_id`),
-  KEY `id` (`id`),
-  CONSTRAINT `students_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `people` (`id`),
-  CONSTRAINT `students_ibfk_2` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`)
+  KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `students`
 --
 
-LOCK TABLES `students` WRITE;
-/*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT INTO `students` VALUES ('cis7586',6,6),('gm837',8,6);
-/*!40000 ALTER TABLE `students` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `students` (`id`, `student_id`, `sec_id`) VALUES
+('cis7586', 6, 6),
+('gm837', 8, 6);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `submissions`
 --
 
 DROP TABLE IF EXISTS `submissions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `submissions` (
+CREATE TABLE IF NOT EXISTS `submissions` (
   `sec_id` int(10) NOT NULL,
   `ass_id` int(10) NOT NULL,
   `student_id` varchar(15) NOT NULL,
   PRIMARY KEY (`sec_id`,`ass_id`,`student_id`),
   KEY `ass_id` (`ass_id`),
-  KEY `student_id` (`student_id`),
-  CONSTRAINT `submissions_ibfk_1` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`),
-  CONSTRAINT `submissions_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
-  CONSTRAINT `submissions_ibfk_3` FOREIGN KEY (`ass_id`) REFERENCES `assignments` (`id`)
+  KEY `student_id` (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `submissions`
 --
 
-LOCK TABLES `submissions` WRITE;
-/*!40000 ALTER TABLE `submissions` DISABLE KEYS */;
-INSERT INTO `submissions` VALUES (6,1,'cis7586');
-/*!40000 ALTER TABLE `submissions` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `submissions` (`sec_id`, `ass_id`, `student_id`) VALUES
+(6, 1, 'cis7586');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+--
+-- Constraints for dumped tables
+--
 
--- Dump completed on 2011-11-16 11:23:49
+--
+-- Constraints for table `absences`
+--
+ALTER TABLE `absences`
+  ADD CONSTRAINT `absences_ibfk_2` FOREIGN KEY (`fk_absent_student`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `absences_ibfk_1` FOREIGN KEY (`fk_absent_section`) REFERENCES `sections` (`id`);
+
+--
+-- Constraints for table `admins`
+--
+ALTER TABLE `admins`
+  ADD CONSTRAINT `admins_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `people` (`id`);
+
+--
+-- Constraints for table `assignments`
+--
+ALTER TABLE `assignments`
+  ADD CONSTRAINT `assignments_ibfk_1` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`);
+
+--
+-- Constraints for table `ass_grades`
+--
+ALTER TABLE `ass_grades`
+  ADD CONSTRAINT `ass_grades_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `ass_grades_ibfk_1` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`),
+  ADD CONSTRAINT `ass_grades_ibfk_2` FOREIGN KEY (`ass_id`) REFERENCES `assignments` (`id`);
+
+--
+-- Constraints for table `emails`
+--
+ALTER TABLE `emails`
+  ADD CONSTRAINT `emails_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`),
+  ADD CONSTRAINT `emails_ibfk_2` FOREIGN KEY (`parent`) REFERENCES `emails` (`id`);
+
+--
+-- Constraints for table `instructors`
+--
+ALTER TABLE `instructors`
+  ADD CONSTRAINT `instructors_ibfk_2` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`),
+  ADD CONSTRAINT `instructors_ibfk_1` FOREIGN KEY (`instructor_id`) REFERENCES `people` (`id`);
+
+--
+-- Constraints for table `questions`
+--
+ALTER TABLE `questions`
+  ADD CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`id`);
+
+--
+-- Constraints for table `quizzes`
+--
+ALTER TABLE `quizzes`
+  ADD CONSTRAINT `quizzes_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
+
+--
+-- Constraints for table `quiz_grades`
+--
+ALTER TABLE `quiz_grades`
+  ADD CONSTRAINT `quiz_grades_ibfk_1` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`),
+  ADD CONSTRAINT `quiz_grades_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `quiz_grades_ibfk_4` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`id`);
+
+--
+-- Constraints for table `quiz_quest_grades`
+--
+ALTER TABLE `quiz_quest_grades`
+  ADD CONSTRAINT `quiz_quest_grades_ibfk_3` FOREIGN KEY (`stud_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `quiz_quest_grades_ibfk_1` FOREIGN KEY (`quiz`) REFERENCES `questions` (`quiz_id`),
+  ADD CONSTRAINT `quiz_quest_grades_ibfk_2` FOREIGN KEY (`question_number`) REFERENCES `questions` (`quest_num`);
+
+--
+-- Constraints for table `sections`
+--
+ALTER TABLE `sections`
+  ADD CONSTRAINT `sections_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
+
+--
+-- Constraints for table `students`
+--
+ALTER TABLE `students`
+  ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `people` (`id`),
+  ADD CONSTRAINT `students_ibfk_2` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`);
+
+--
+-- Constraints for table `submissions`
+--
+ALTER TABLE `submissions`
+  ADD CONSTRAINT `submissions_ibfk_1` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`),
+  ADD CONSTRAINT `submissions_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `submissions_ibfk_3` FOREIGN KEY (`ass_id`) REFERENCES `assignments` (`id`);
