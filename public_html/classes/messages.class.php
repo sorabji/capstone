@@ -1,6 +1,7 @@
 <?php
 
-include_once('../util.php');
+
+
 
 class messages {
     var $userid = '';
@@ -9,7 +10,6 @@ class messages {
 
     //Cuntstructor
     function __construct($user,$date="d.m.Y - H:i") {
-      $this->link = connect();
         $this->userid = $user; 
         $this->dateformat = $date;
     }
@@ -24,8 +24,7 @@ class messages {
             case "3": $sql = "SELECT * FROM emails WHERE `recipient` = '".$this->userid."' && `to_deleted` = '1' ORDER BY `to_ddate` DESC"; break; // Deleted messages
             default: $sql = "SELECT * FROM emails WHERE `recipient` = '".$this->userid."' && `to_viewed` = '0' ORDER BY `created` DESC"; break; // New messages
         }
-	$link = connect();
-        $result = mysql_query($sql, $this->link) or die (mysql_error());
+	
         
         if($result){
 	  echo('hrm, this should work');

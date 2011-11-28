@@ -1,8 +1,8 @@
 <?php
 
     
-    
-    include('../util.php');
+    include_once('../header.php');
+    include_once('../util.php');
     // Load the class
     //require('messages.php');
     // Set the userid to 2 for testing purposes... you should have your own usersystem, so this should contain the userid
@@ -32,15 +32,7 @@
         }
     }
     
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Simple private Messaging</title>
-</head>
-<body>
-<?php
+
 // In this switch we check what page has to be loaded, this way we just load the messages we want using numbers from 0 to 3 (0 is standart, so we don't need to type this)
 if(isset($_GET['p'])) {
     switch($_GET['p']) {
@@ -255,5 +247,7 @@ if(!isset($_GET['p']) || $_GET['p'] == 'new') {
 <textarea name='message'><?php if(isset($_POST['reply'])) { echo $_POST['rmessage']; } ?></textarea>
 <input type='submit' name='newmessage' value='Send' />
 </form>
-</body>
-</html>
+<?php
+	include_once('../footer.php');
+?>
+
