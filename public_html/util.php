@@ -1,6 +1,7 @@
 <?php
 
-$root = '/coleman/capstone/';
+//$root = '/coleman/capstone/';
+$root = '/~capstone/';
 
 function connect(){
   // connect to db
