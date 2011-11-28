@@ -64,7 +64,8 @@
       </div>
       <div class="optional">
         <fieldset><legend>How to Contact You?</legend>
-          <label for="how_contact_phone" class="labelRadio compact"><input type="radio" name="how_contact" id="how_contact_phone" class="inputRadio" value="Phone" /> Phone</label>
+          <label for="how_contact_phone" class="labelRadio compact">
+   <input type="radio" name="how_contact" id="how_contact_phone" class="inputRadio" value="Phone" /> Phone</label>
           <label for="how_contact_email" class="labelRadio compact"><input type="radio" name="how_contact" id="how_contact_email" class="inputRadio" value="Email" checked="checked" /> Email</label>
         </fieldset>
       </div>

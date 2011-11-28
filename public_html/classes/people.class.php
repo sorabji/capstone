@@ -50,7 +50,7 @@ class People extends Table{
     "minimum of 7 chars",
     "and again, for papa bear" );
 
-  const ID = "id"; // what's the id field of this table?
+  private $ID = "id"; // what's the id field of this table?
 
   public function __construct($ed_flag){
     $this->ed_flag = $ed_flag; // want to update/delete?

@@ -1,25 +1,25 @@
+<?php include_once('util.php'); ?>
 <html>
-<?php
-include_once('util.php');
-?>
+
 <head>
-<link rel='stylesheet' type='text/css' href="../static/style.css" />
-<link rel='stylesheet' type='text/css' href="../static/droppy.css" />
+<link rel='stylesheet' type='text/css' href="<?php echo($root . 'static/style.css');?>" />
+   <link rel='stylesheet' type='text/css' href="<?php echo($root . 'form_testing.css');?>" />
+<link rel='stylesheet' type='text/css' href="<?php echo($root . 'static/droppy.css');?>" />
 
 
 <script type="text/javascript"
    src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 <script type="text/javascript"
    src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../js/jquery.droppy.js"></script>
+<script type="text/javascript" src="<?php echo($root . 'js/jquery.droppy.js');?>"></script>
 <script type="text/javascript">
    $(function(){
-       $('#nav').droppy({speed: 150});
+       $('#nav').droppy({speed: 50});
      });
 </script>
 <script type="text/javascript">
    $(function(){
-       $('#nav2').droppy({speed: 150});
+       $('#nav2').droppy({speed: 50});
      });
 </script>
 
@@ -64,7 +64,7 @@ include_once('util.php');
    </div>
 
 <hr />
-<img class='fuck' alt='logo' src="../static/logo.jpg" >
+<!--<img class='fuck' alt='logo' src="<?php echo($root . 'static/logo.jpg');?>" >-->
   </div>
 </div>
 <div class='page'>

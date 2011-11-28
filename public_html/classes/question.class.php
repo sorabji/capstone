@@ -1,6 +1,13 @@
 <?php
 class Question extends Table{
 
+  private $multi_choice = array(
+    "A"=>"ansA",
+    "B"=>"ansB",
+    "C"=>"ansC",
+    "D"=>"ansD",
+    "E"=>"ansE");
+
   private $list_headers = array(
     "Quiz",
     "Question #",
@@ -56,7 +63,7 @@ class Question extends Table{
     "ansE",
     "correctAnswer" );
 
-  const ID = array("quiz_id", "quest_num"); // what's the id field of this table?
+  private $ID = array("quiz_id", "quest_num"); // what's the id field of this table?
 
   public function __construct($ed_flag){
     $this->ed_flag = $ed_flag; // want to update/delete?
@@ -65,11 +72,17 @@ class Question extends Table{
   public function list_display($resource){
     echo "<ul>\n";
     while($row = mysql_fetch_array($resource)){
-      echo "<li>\n<table border='1'>\n";
-      foreach($new_post_vars as $key => $val){
-	$row[$key] = prep_sql($row[$key]);
-	echo "<tr><td>$this->$val</td>\n";
-	echo "<td>$row[$key]</td></tr>\n";
+      echo "<li>\n<table width='80%' border='1'>\n";
+      if($this->ed_flag){
+	echo("<a href=question_edit.php?quiz={$row[$this->ID[0]]}" . 
+	  "&quest={$row[$this->ID[1]]}>Edit</a><br />\n");
+	echo("<a href=question_delete.php?quiz={$row[$this->ID[0]]}" . 
+	  "&quest={$row[$this->ID[1]]}>Delete</a><br />\n");
+      }
+      foreach($this->list_headers as $key => $val){
+    	$row[$key] = $this->prep_sql($row[$key]);
+    	echo "<tr><td>{$this->list_headers[$key]}</td>\n";
+    	echo "<td>$row[$key]</td>\n";
       }
       echo "</table></li>\n";
     }
@@ -129,5 +142,27 @@ class Question extends Table{
     return $fin;
   }
 
+  public function do_question($quest){
+    echo "<form id='form' name='form' action='' method='POST'>\n";
+    echo "<p>skip to skip, next to submit</p>\n";
+    echo "<fieldset><legend>Question #{$quest['quest_num']}</legend>\n";
+    echo "<div class='notes'>\n";
+    echo "<h4>get some</h4>\n";
+    echo "<p class='last'>do it properly...damnit!</p>\n</div>\n";
+
+    echo "<p>{$quest['quest_txt']}</p>";
+    echo "<fieldset><legend>choose</legend>";
+
+    foreach($this->multi_choice as $key=>$val){
+      echo "<label for='$val' class='labelRadio compact'>";
+      echo "<input type='radio' name='$val' id='$val' class='inputRadio' value='$key' ";
+      echo "<p>$key. {$quest[$val]}</label><br />\n";
+    }
+
+    echo "<div class='submit'>\n";
+    echo "<div><input type='submit' id='submit' name='submit' class='inputSubmit' value='submit' />\n";
+    echo "<div><input type='submit' id='submit' name='skip' class='inputSubmit' value='skip' />\n";
+    echo "</div>\n</div>\n</fieldset>\n</form>";
+  }
 }
 ?>
