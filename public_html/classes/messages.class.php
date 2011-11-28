@@ -1,11 +1,15 @@
 <?php
+
+include_once('../util.php');
+
 class messages {
     var $userid = '';
     var $messages = array();
     var $dateformat = '';
 
     //Cuntstructor
-    function messages($user,$date="d.m.Y - H:i") {
+    function __construct($user,$date="d.m.Y - H:i") {
+      $this->link = connect();
         $this->userid = $user; 
         $this->dateformat = $date;
     }
@@ -14,15 +18,20 @@ class messages {
     function getmessages($type=0) {
         //Fetch ALL of the messages;
         switch($type) {
-            case "0": $sql = "SELECT * FROM messages WHERE `to` = '".$this->userid."' && `to_viewed` = '0' && `to_deleted` = '0' ORDER BY `created` DESC"; break; // New messages
-            case "1": $sql = "SELECT * FROM messages WHERE `to` = '".$this->userid."' && `to_viewed` = '1' && `to_deleted` = '0' ORDER BY `to_vdate` DESC"; break; // Read messages
-            case "2": $sql = "SELECT * FROM messages WHERE `from` = '".$this->userid."' ORDER BY `created` DESC"; break; // Send messages
-            case "3": $sql = "SELECT * FROM messages WHERE `to` = '".$this->userid."' && `to_deleted` = '1' ORDER BY `to_ddate` DESC"; break; // Deleted messages
-            default: $sql = "SELECT * FROM messages WHERE `to` = '".$this->userid."' && `to_viewed` = '0' ORDER BY `created` DESC"; break; // New messages
+            case "0": $sql = "SELECT * FROM emails WHERE `recipient` = '".$this->userid."' && `to_viewed` = '0' && `to_deleted` = '0' ORDER BY `created` DESC"; break; // New messages
+            case "1": $sql = "SELECT * FROM emails WHERE `recipient` = '".$this->userid."' && `to_viewed` = '1' && `to_deleted` = '0' ORDER BY `to_vdate` DESC"; break; // Read messages
+            case "2": $sql = "SELECT * FROM emails WHERE `sender` = '".$this->userid."' ORDER BY `created` DESC"; break; // Send messages
+            case "3": $sql = "SELECT * FROM emails WHERE `recipient` = '".$this->userid."' && `to_deleted` = '1' ORDER BY `to_ddate` DESC"; break; // Deleted messages
+            default: $sql = "SELECT * FROM emails WHERE `recipient` = '".$this->userid."' && `to_viewed` = '0' ORDER BY `created` DESC"; break; // New messages
         }
-        $result = mysql_query($sql) or die (mysql_error());
+	$link = connect();
+        $result = mysql_query($sql, $this->link) or die (mysql_error());
         
-        
+        if($result){
+	  echo('hrm, this should work');
+	} else {
+	  echo('fucking, broke');
+	}
         if(mysql_num_rows($result)) {
             $i=0;
             // reset the array
@@ -30,12 +39,12 @@ class messages {
             // if yes, fetch ALL of them!
             while($row = mysql_fetch_assoc($result)) {
                 $this->messages[$i]['id'] = $row['id'];
-                $this->messages[$i]['title'] = $row['title'];
+                $this->messages[$i]['title'] = $row['subject'];
                 $this->messages[$i]['message'] = $row['message'];
-                $this->messages[$i]['fromid'] = $row['from'];
-                $this->messages[$i]['toid'] = $row['to'];
-                $this->messages[$i]['from'] = $this->getusername($row['from']);
-                $this->messages[$i]['to'] = $this->getusername($row['to']);
+                $this->messages[$i]['fromid'] = $row['sender'];
+                $this->messages[$i]['toid'] = $row['recipient'];
+                $this->messages[$i]['sender'] = $this->getusername($row['sender']);
+                $this->messages[$i]['recipient'] = $this->getusername($row['recipient']);
                 $this->messages[$i]['from_viewed'] = $row['from_viewed'];
                 $this->messages[$i]['to_viewed'] = $row['to_viewed'];
                 $this->messages[$i]['from_deleted'] = $row['from_deleted'];
@@ -54,7 +63,7 @@ class messages {
     
     
     function getusername($userid) {
-        $sql = "SELECT username FROM user WHERE `id` = '".$userid."' LIMIT 1";
+        $sql = "SELECT username FROM user WHERE `id` = ".$userid." LIMIT 1";
         $result = mysql_query($sql);
         // Check the ID
         if(mysql_num_rows($result)) {     

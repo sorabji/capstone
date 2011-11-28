@@ -2,13 +2,13 @@
 
     
     
-    include('config.php');
+    include('../util.php');
     // Load the class
-    require('messages.php');
+    //require('messages.php');
     // Set the userid to 2 for testing purposes... you should have your own usersystem, so this should contain the userid
     $userid=2;
     // initiate a new pm class
-    $pm = new cpm($userid);
+    $pm = new Messages($userid);
     
     // check if a new message had been send
     if(isset($_POST['newmessage'])) {

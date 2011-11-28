@@ -139,13 +139,20 @@ INSERT INTO `courses` (`id`, `course_Desc`) VALUES
 DROP TABLE IF EXISTS `emails`;
 CREATE TABLE IF NOT EXISTS `emails` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `person_id` int(10) NOT NULL,
-  `parent` int(10) NOT NULL,
-  `subject` varchar(80) DEFAULT NULL,
-  `body` text,
-  PRIMARY KEY (`id`,`person_id`),
-  KEY `parent` (`parent`),
-  KEY `person_id` (`person_id`),
+  `sender` int(10) NOT NULL,
+  `recipient` int(10) NOT NULL,
+  `subject` VARCHAR(255) NOT NULL,
+  `message` TEXT NOT NULL,
+  `from_viewed` int(1) NOT NULL,
+  `to_viewed` int(1) NOT NULL,
+  `from_deleted` int(1) NOT NULL,
+  `to_deleted` int(1) NOT NULL,
+  `from_vdate` DATETIME NULL,
+  `to_vdate` DATETIME NULL,
+  `from_ddate` DATETIME NULL,
+  `to_ddate` DATETIME NULL,
+  `created` DATETIME NULL,
+  PRIMARY KEY (`id`,`sender`),
   KEY `subject` (`subject`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -405,8 +412,8 @@ ALTER TABLE `ass_grades`
 -- Constraints for table `emails`
 --
 ALTER TABLE `emails`
-  ADD CONSTRAINT `emails_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`),
-  ADD CONSTRAINT `emails_ibfk_2` FOREIGN KEY (`parent`) REFERENCES `emails` (`id`);
+  ADD CONSTRAINT `emails_ibfk_1` FOREIGN KEY (`sender`) REFERENCES `people` (`id`),
+  ADD CONSTRAINT `emails_ibfk_2` FOREIGN KEY (`recipient`) REFERENCES `people` (`id`);
 
 --
 -- Constraints for table `instructors`
