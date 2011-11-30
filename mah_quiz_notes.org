@@ -1,0 +1,25 @@
+#+TITLE:mah quiz notes 
+#+AUTHOR: Art Johnson
+#+email: artie@chaseideas.com
+#+STARTUP: overview
+#+STARTUP: hidestars
+
+* open quiz sql:
+update quizzes set `isOpen` = 1 where `id` = $q_id;
+
+* flow
+  1. pass quiz_id through url (?q_id=2)
+  2. check isset($_SESSION['cur_quiz']) or empty()?
+  3. not set: function start_quiz($q_id){
+     - checks if quiz is open
+       + open:
+	 - $_SESSION['cur_quiz'] = $q_id;
+	 - return true
+	 - }
+	 - caller: 
+       + closed:
+	 - return false
+	 - caller displays: "specified is not available...notify teacher"
+  4. is set:
+     - do_test checks isset($_SESSION['cur_quest']) or empty()?
+       + empty
