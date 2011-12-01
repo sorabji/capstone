@@ -28,9 +28,9 @@
 
 </head>
 <body>
-  
+
 <div class='head'>
-   
+
 
    <h1>Papa Bear</h1>
   <div class='metanav'>
@@ -57,10 +57,10 @@
      <div class="clear"></div>
    </li>
    </ul>
-   <div class="clear"></div>   
-   
+   <div class="clear"></div>
+
    <div class='right_menu'>
-   
+
    </div>
 
 <hr />

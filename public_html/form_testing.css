@@ -96,9 +96,9 @@ form div fieldset {
   border-width: 1px;
   border-style: solid;
   border-color: #666666;
-  margin: 0 0 0 144px;
+  margin: 0 0 0 0;
   padding: 0 5px 5px 5px;
-  width: 197px;
+  width: 300px;
 }
 
 form div fieldset legend {
