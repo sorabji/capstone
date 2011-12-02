@@ -60,20 +60,20 @@ class Quiz extends Table{
   }
 
   public function do_question($quest){
-    echo "<p class='q_heading'>Question #{$quest['quest_num']}</p>";
+    $q_num = $quest['quest_num'];
+    echo "<p class='q_heading' id='bg_changer_$q_num'>Question #$q_num</p>";
     echo "<div class='q_body'>";
-    echo "<fieldset><legend>>.<</legend>\n";
 
     echo "<p>{$quest['quest_txt']}</p>";
-    echo "<fieldset><legend>choose</legend>";
 
     foreach($this->multi_choice as $key=>$val){
       echo "<label for='$val' class='labelRadio compact'>";
-      echo "<input type='radio' name='ans_{$quest['quest_num']}' id='ans_{$quest['quest_num']}' class='inputRadio' value='$key' ";
+      echo "<input type='radio' name='ans_$q_num' id='ans_$q_num' class='inputRadio' value='$key' ";
       echo "<p>$key. {$quest[$val]}</label><br />\n";
     }
 
     echo "</fieldset>";
+    echo "<input type='button' id='btn_$q_num' name='btn_$q_num' value='clear' />";
     echo "</div>\n</fieldset>\n</form>";
   }
 
@@ -96,6 +96,7 @@ class Quiz extends Table{
       echo "<div class='submit'>\n";
       echo "<input type='submit' id='submit' name='submit' class='inputSubmit' value='submit' />\n";
       echo "</div>\n\n\n</form>";
+      echo "<p id='num_complete'>fuck</p>";
   }
 
   public function insert_answers($ans){

@@ -7,11 +7,21 @@ include_once('../header.php');
 <script type="text/javascript">
 $(document).ready(function() {
     $(".q_body").hide();
-    //toggle the componenet with class msg_body
-    $(".q_heading").click(function()
-        {
-            $(this).next(".q_body").slideToggle(500);
-        });
+    $(".q_heading").click(function(){
+        $(this).next(".q_body").slideToggle(500);
+    });
+});
+
+$(function(){
+    $(':radio').click(function(){
+        var ID = this.id;
+        $('#bg_changer_'+ID.substr(4)).css('background','cyan');
+    });
+
+    $(':button').click(function(){
+        var ID = this.id;
+        $('#ans_'+ID.substr(4)).attr('checked',false);
+    });
 });
 </script>
 

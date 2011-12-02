@@ -67,4 +67,5 @@
 <!--<img class='fuck' alt='logo' src="<?php echo($root . 'static/logo.jpg');?>" >-->
   </div>
 </div>
+</div>
 <div class='page'>
