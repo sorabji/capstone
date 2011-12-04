@@ -58,14 +58,12 @@
    </li>
    </ul>
    <div class="clear"></div>
-
+   </div> <!-- ends 'left_menu' -->
    <div class='right_menu'>
 
-   </div>
-
+   </div> <!-- ends 'right_menu' -->
+   </div> <!-- ends 'metanav' -->
 <hr />
 <!--<img class='fuck' alt='logo' src="<?php echo($root . 'static/logo.jpg');?>" >-->
-  </div>
-</div>
-</div>
+  </div> <!-- ends 'head' -->
 <div class='page'>
