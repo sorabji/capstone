@@ -3,7 +3,6 @@
 
 <?php
 include('../header.php');
-include('../config.php'); 
 include('../util.php');
 
 echo "<p>Beginning of Table</p>";
@@ -12,8 +11,6 @@ $att = new Daily_Record(true);
 
 if (isset($_POST['submit'])) { 
 //if (false){
-
-  connect();
 
   $fin = $att->get_update_qry($_POST);
 
