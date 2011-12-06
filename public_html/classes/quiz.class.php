@@ -14,7 +14,8 @@ class Quiz extends Table{
     "D"=>"ansD",
     "E"=>"ansE");
 
-  public function __construct($quiz_id){
+  public function __construct($stud_id, $quiz_id){
+    $this->stud_id = $stud_id;
     $this->quiz_id = $quiz_id;
   }
 
@@ -57,12 +58,18 @@ class Quiz extends Table{
   }
 
   public function start_quiz(){
-    $res = mysql_query(sprintf($this->queries['isVirgin'],$this->quiz_id,$this->stud_id));
-    $row = mysql_fetch_array($res);
-    if($row){
-      return true;
+    if(!($this->check_open_quiz())){
+      echo "<p>whoops, seems the test you asked for is not available</p>";
     } else {
-      return false;
+      $str = sprintf($this->queries['isVirgin'],$this->stud_id,$this->quiz_id);
+      $res = mysql_query($str);
+      $row = mysql_fetch_array($res);
+      var_dump($row);
+      if($row){
+	echo "<p>it seems you have already taken this test.</p>";
+      } else {
+	$this->present_questions();
+      }
     }
   }
 
@@ -75,7 +82,8 @@ class Quiz extends Table{
     foreach($this->multi_choice as $key=>$val){
       echo "<label for='{$q_num}_{$key}' class='labelRadio compact'>\n";
 
-      echo "<input type='radio' name='ans_$q_num' id='{$q_num}_{$key}' class='inputRadio, an_$q_num' value='$key' />\n";
+      echo "<input type='radio' name='ans_$q_num' id='{$q_num}_{$key}'";
+      echo " class='inputRadio, an_$q_num' value='$key' />\n";
             echo "$key. {$quest[$val]}\n</label><br />\n";
     }
 
@@ -112,17 +120,19 @@ class Quiz extends Table{
   public function insert_answers($ans){
 
     $base = "INSERT INTO `quiz_quest_grades` ( `quiz` ,  `question_number` ,  `stud_id` ";
-    $base .= ",  `submit_answer` VALUES ( $this->quiz_id, %d, 'cis7586', %s );";
+    $base .= ",  `submit_answer` ) VALUES ( $this->quiz_id, %d, 'cis7586', %s );";
 
     $i = 1;
-    var_dump($ans);
     foreach($ans AS $key => $value) {
       if(!(strcmp($key,'submit') == 0)){
 	$ans[$key] = $this->prep_sql($value);
 	$res = sprintf($base, $i, $ans[$key]);
-	echo("<br />");
-	echo($res);
-	echo("<br />");
+	$hrm = mysql_query($res);
+	echo(mysql_affected_rows());
+	echo(mysql_error());
+	/* echo("<br />"); */
+	/* echo($res); */
+	/* echo("<br />"); */
 	$i = $i + 1;
       }
     }
