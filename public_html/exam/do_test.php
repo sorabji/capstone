@@ -64,18 +64,14 @@ $(function(){
 <?php
 
 $link = connect();
-$quiz = new Quiz(1,'cis7586'); // need to start the quiz properly
-
+// pass quiz id w/ get_var
+$quiz = new Quiz('cis7586', 1); // need to start the quiz properly
+$quiz->open_quiz();
 if(!empty($_POST['submit'])){
   // insert answers in quiz_quest_grades
   $quiz->insert_answers($_POST);
 } else {
-  if($quiz->start_quiz()){
-    $quiz->present_questions();
-  } else {
-    $quiz->present_questions();
-    echo "hrm...that's strange";
-  }
+  $quiz->start_quiz();
 }
 
 include_once('../footer.php');

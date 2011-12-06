@@ -1,9 +1,9 @@
 <?php
 
-//$root = '/coleman/capstone/';
+$root = '/coleman/capstone/';
 //$root = '/~capstone/';
 //$root = '/Capstone/';
-$root = '/Capstone/public_html/';
+//$root = '/Capstone/public_html/';
 
 
 function connect(){
