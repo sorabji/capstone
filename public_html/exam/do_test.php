@@ -25,6 +25,8 @@ function calc_complete(){
   for(var i = 0;i<grp.length; i++){
     if(grp[i].checked){
       complete += 1;
+      var ID = grp[i].getAttribute('id').substr(0,1);
+      $('#bg_changer_'+ID).css('background','green');
     }
   }
   $('#num_complete').text('completed '+complete+' out of '+total);
@@ -62,10 +64,18 @@ $(function(){
 <link rel='stylesheet' type='text/css' href="<?php echo($root . 'static/quiz_styles.css');?>" />
 
 <?php
-
+if(isset($_GET['q_id'])){
+  $q_id = $_GET['q_id'];
+} else {
+  $q_id = false;
+}
 $link = connect();
 // pass quiz id w/ get_var
-$quiz = new Quiz('cis7586', 1); // need to start the quiz properly
+if($q_id){
+  $quiz = new Quiz('cis7586', 1);
+} else {
+  $quiz = new Quiz('cis7586');
+}
 $quiz->open_quiz();
 if(!empty($_POST['submit'])){
   // insert answers in quiz_quest_grades

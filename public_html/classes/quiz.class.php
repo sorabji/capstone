@@ -1,10 +1,10 @@
 <?php
 class Quiz extends Table{
   private $queries = array(
-    "isOpen" => "select isOpen from quizzes where `id` = %d",
-    "do_open_quiz" => "update quizzes set `isOpen` = 1 where `id` = '%s'",
-    "do_close_quiz" => "update quizzes set `isOpen` = 0 where `id` = '%s'",
-    "isVirgin" => "select * from quiz_quest_grades where `stud_id` = '%s' and `quiz` = '%s'"
+    "isOpen" => "select isOpen from quizzes where `id` = %s;",
+    "do_open_quiz" => "update quizzes set `isOpen` = 1 where `id` = %s;",
+    "do_close_quiz" => "update quizzes set `isOpen` = 0 where `id` = %s",
+    "isVirgin" => "select * from quiz_quest_grades where `stud_id` = %s and `quiz` = %s"
   );
 
   private $multi_choice = array(
@@ -14,9 +14,9 @@ class Quiz extends Table{
     "D"=>"ansD",
     "E"=>"ansE");
 
-  public function __construct($stud_id, $quiz_id){
-    $this->stud_id = $stud_id;
-    $this->quiz_id = $quiz_id;
+  public function __construct($stud_id, $quiz_id=0){
+    $this->stud_id = $this->prep_sql($stud_id);
+    $this->quiz_id = $this->prep_sql($quiz_id);
   }
 
   protected function list_display($res){}
@@ -49,10 +49,8 @@ class Quiz extends Table{
     $res = mysql_query(sprintf($this->queries['isOpen'],$this->quiz_id));
     $row = mysql_fetch_array($res);
     if($row['isOpen']){
-      $_SESSION['cur_quiz'] = $quiz_id;
       return true;
     } else {
-      $_SESSION['cur_quiz'] = 0;
       return false;
     }
   }
@@ -64,7 +62,6 @@ class Quiz extends Table{
       $str = sprintf($this->queries['isVirgin'],$this->stud_id,$this->quiz_id);
       $res = mysql_query($str);
       $row = mysql_fetch_array($res);
-      var_dump($row);
       if($row){
 	echo "<p>it seems you have already taken this test.</p>";
       } else {
@@ -95,7 +92,7 @@ class Quiz extends Table{
 
       echo("<h2>answer all the questions</h2>\n");
       echo("<p>click submit when you're happy with everything</p>\n");
-      echo "<a href='#' id='collapse' name='collapse'>hide all</a>";
+      echo "<a href='#' id='collapse' name='collapse'>toggle collapse</a>";
       echo "<br />";
 
       echo "<form id='form' name='form' action='' method='POST'>\n";

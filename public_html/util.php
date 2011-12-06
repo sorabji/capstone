@@ -1,7 +1,8 @@
 <?php
+session_start();
 
-$root = '/coleman/capstone/';
-//$root = '/~capstone/';
+$root = '/coleman/capstone/'; // devvz
+//$root = '/~capstone/'; // coleman
 //$root = '/Capstone/';
 //$root = '/Capstone/public_html/';
 

@@ -87,12 +87,11 @@ class People extends Table{
     echo "<form id='form' name='form' action='' method='POST'>\n";
     echo "<p>All fields are required</p>\n";
     echo "<fieldset><legend>Person Info</legend>\n";
-    echo "<div class='notes'>\n";
-    echo "<h4>notes</h4>\n";
-    echo "<p class='last'>fill it out properly...all of it damnit!</p>\n</div>\n";
+
+    echo "<div class='required'>\n";
 
     foreach($this->new_labels as $key => $val){
-      echo "<div class='required'>\n";
+      echo "<div class='clear'></div>";
       echo "<label for='{$this->new_post_vars[$key]}'>";
       echo $this->new_labels[$key];
       echo "</label>\n";
@@ -104,6 +103,7 @@ class People extends Table{
       } else {
 	echo "<input class='inputText' type='text' name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' />\n";
       }
+      
     }
     echo "<div class='submit'>\n";
     echo "<div><input type='submit' id='submit' name='submit' class='inputSubmit' value='Add Person' />\n";
