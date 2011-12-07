@@ -13,7 +13,10 @@ echo('<p>');
 $assignments = new Assignment(true);
 $assignments->list_display($resource);
 
+?>
 
+<br/> <a href = "<?php echo ($root . 'assignments/assignment_new.php');?>">Add New Assignment</a>
 
+<?php
 include_once('../footer.php');
 ?>
