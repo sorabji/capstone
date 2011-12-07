@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
   //echo($fin);
   if($fin){
     echo "<p>Records Updated.</p><br />";
-    echo "<a href='record_list.php'>Back To Attendance Records</a>";
+    echo "<a href='record_list.php'>View Attendance Records</a>";
   } else {
     echo("nothing added");
   }
