@@ -133,7 +133,7 @@ if(!isset($_GET['p']) || $_GET['p'] == 'new') {
             }
         } else {
             // else... tell the user that there are no new messages
-            echo "<tr><td colspan='4'><strong>No send messages found</strong></td></tr>";
+            echo "<tr><td colspan='4'><strong>No sent messages found</strong></td></tr>";
         }
     ?>
 </table>
@@ -244,7 +244,7 @@ if(!isset($_GET['p']) || $_GET['p'] == 'new') {
 <strong>Subject:</strong>
 <input type='text' name='subject' value='<?php if(isset($_POST['reply'])) { echo $_POST['rsubject']; } ?>' />
 <strong>Message:</strong><br  />
-<textarea name='message'><?php if(isset($_POST['reply'])) { echo $_POST['rmessage']; } ?></textarea>
+<textarea name="message" style="margin-left: 2px; margin-right: 2px; width: 549px; margin-top: 2px; margin-bottom: 2px; height: 134px; "></textarea><?php if(isset($_POST['reply'])) { echo $_POST['rmessage']; } ?></textarea>
 <input type='submit' name='newmessage' value='Send' />
 </form>
 <?php

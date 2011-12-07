@@ -2,8 +2,9 @@
 
 include_once('header.php');
 connect();
-$a = new Access(1);
-$a->do_eet($root);
+$a = new Access(1,$root);
+$a->logout();
+$a->do_eet();
 
 echo "<p>Welcome to Papa Bear</p>";
 

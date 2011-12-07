@@ -1,11 +1,16 @@
 <?php
-include_once('header.php');
+include_once('util.php');
 connect();
 if(isset($_POST['submit'])):
-  $a = new Access();
-  $a->log_in($_POST['user'],$_POST['pass']);
+  $a = new Access(0,$root);
+$b = $a->log_in($_POST['user'],$_POST['pass']);
+echo $b;
+//echo "user: " .$_POST['user']. " pass: " .$_POST['pass'];
+//echo $root;
 else:
+include_once('header.php');
 ?>
+
 <form id='form' name='form' method='POST' action=''>
   <p>Come Inside Papa Bear</p>
   <fieldset>
