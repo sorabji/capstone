@@ -1,12 +1,13 @@
 <?php 
 
 include_once('header.php');
+connect();
+$a = new Access(1,$root);
+$a->logout();
+$a->do_eet();
 
-$ln = mysqli_connect('localhost','t3st3r','123qwe');
-?>
+echo "<p>Welcome to Papa Bear</p>";
 
-<p>Welcome to Papa Bear</p>
 
-<?php
 include_once('footer.php');
 ?>

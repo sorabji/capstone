@@ -1,0 +1,19 @@
+.layer1 {
+  margin: 0;
+  padding: 0;
+  width: 600px;
+}
+
+.q_heading {
+  margin: 1px;
+  color: #fff;
+  padding: 7px 10px;
+  cursor: pointer;
+  position: relative;
+  background-color:#c30;
+}
+.q_body {
+  padding: 5px 10px;
+  background-color:#fafafa;
+  width: 579px;
+}

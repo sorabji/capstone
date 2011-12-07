@@ -1,10 +1,8 @@
-<link rel='stylesheet' type='text/css' href="../static/style.css" />
+
 
 
 <?php
-
-
-
+include_once('../util.php');
 include_once('../header.php');
 
 $link = connect();
