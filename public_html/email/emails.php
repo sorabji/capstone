@@ -250,4 +250,3 @@ if(!isset($_GET['p']) || $_GET['p'] == 'new') {
 <?php
 	include_once('../footer.php');
 ?>
-
