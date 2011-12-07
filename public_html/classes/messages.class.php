@@ -9,28 +9,25 @@ class messages {
     var $dateformat = '';
 
     //Cuntstructor
-    function __construct($user,$date="d.m.Y - H:i") {
+    function __construct($user,$date="m.d.Y - H:i") {
         $this->userid = $user; 
         $this->dateformat = $date;
     }
     
     //git dose messages vato
     function getmessages($type=0) {
-        //Fetch ALL of the messages;
+        
         switch($type) {
             case "0": $sql = "SELECT * FROM emails WHERE `recipient` = '".$this->userid."' && `to_viewed` = '0' && `to_deleted` = '0' ORDER BY `created` DESC"; break; // New messages
             case "1": $sql = "SELECT * FROM emails WHERE `recipient` = '".$this->userid."' && `to_viewed` = '1' && `to_deleted` = '0' ORDER BY `to_vdate` DESC"; break; // Read messages
-            case "2": $sql = "SELECT * FROM emails WHERE `sender` = '".$this->userid."' ORDER BY `created` DESC"; break; // Send messages
+            case "2": $sql = "SELECT * FROM emails WHERE `sender` = '".$this->userid."' ORDER BY `created` DESC"; break; // Sent messages
             case "3": $sql = "SELECT * FROM emails WHERE `recipient` = '".$this->userid."' && `to_deleted` = '1' ORDER BY `to_ddate` DESC"; break; // Deleted messages
             default: $sql = "SELECT * FROM emails WHERE `recipient` = '".$this->userid."' && `to_viewed` = '0' ORDER BY `created` DESC"; break; // New messages
         }
 	
-        
-        if($result){
-	  echo('hrm, this should work');
-	} else {
-	  echo('fucking, broke');
-	}
+        $result= mysql_query($sql);
+		
+    
         if(mysql_num_rows($result)) {
             $i=0;
             // reset the array
@@ -38,7 +35,7 @@ class messages {
             // if yes, fetch ALL of them!
             while($row = mysql_fetch_assoc($result)) {
                 $this->messages[$i]['id'] = $row['id'];
-                $this->messages[$i]['title'] = $row['subject'];
+                $this->messages[$i]['subject'] = $row['subject'];
                 $this->messages[$i]['message'] = $row['message'];
                 $this->messages[$i]['fromid'] = $row['sender'];
                 $this->messages[$i]['toid'] = $row['recipient'];
@@ -62,7 +59,8 @@ class messages {
     
     
     function getusername($userid) {
-        $sql = "SELECT username FROM user WHERE `id` = ".$userid." LIMIT 1";
+	
+        $sql = "SELECT username FROM people WHERE `id` = ".$userid." LIMIT 1";
         $result = mysql_query($sql);
         // Check the ID
         if(mysql_num_rows($result)) {     
@@ -75,7 +73,8 @@ class messages {
     
     // Get a specified message
     function getmessage($message) {
-        $sql = "SELECT * FROM messages WHERE `id` = '".$message."' && (`from` = '".$this->userid."' || `to` = '".$this->userid."') LIMIT 1";
+	
+        $sql = "SELECT * FROM emails WHERE `id` = '".$message."' && (`sender` = '".$this->userid."' || `recipient` = '".$this->userid."') LIMIT 1";
         $result = mysql_query($sql);
         if(mysql_num_rows($result)) {
             //reset
@@ -83,12 +82,12 @@ class messages {
             //GOGOGO!
             $row = mysql_fetch_assoc($result);
             $this->messages[0]['id'] = $row['id'];
-            $this->messages[0]['title'] = $row['title'];
+            $this->messages[0]['subject'] = $row['subject'];
             $this->messages[0]['message'] = $row['message'];
-            $this->messages[0]['fromid'] = $row['from'];
-            $this->messages[0]['toid'] = $row['to'];
-            $this->messages[0]['from'] = $this->getusername($row['from']);
-            $this->messages[0]['to'] = $this->getusername($row['to']);
+            $this->messages[0]['fromid'] = $row['sender'];
+            $this->messages[0]['toid'] = $row['recipient'];
+            $this->messages[0]['sender'] = $this->getusername($row['sender']);
+            $this->messages[0]['recipient'] = $this->getusername($row['recipient']);
             $this->messages[0]['from_viewed'] = $row['from_viewed'];
             $this->messages[0]['to_viewed'] = $row['to_viewed'];
             $this->messages[0]['from_deleted'] = $row['from_deleted'];
@@ -105,33 +104,38 @@ class messages {
     
 
     function getuserid($username) {
-        $sql = "SELECT id FROM user WHERE `username` = '".$username."' LIMIT 1";
+        $sql = "SELECT id FROM people WHERE username = '".$username."' LIMIT 1";
         $result = mysql_query($sql);
+		//echo($sql);
         if(mysql_num_rows($result)) {
             $row = mysql_fetch_row($result);
+			//var_dump($row);
             return $row[0];
+			//echo mysql_error;
         } else {
             return false;
         }
     }
     
-    // View messages
+    // Set message as viewed
     function viewed($message) {
-        $sql = "UPDATE messages SET `to_viewed` = '1', `to_vdate` = NOW() WHERE `id` = '".$message."' LIMIT 1";
+        $sql = "UPDATE emails SET `to_viewed` = '1', `to_vdate` = NOW() WHERE `id` = '".$message."' LIMIT 1";
         return (@mysql_query($sql)) ? true:false;
     }
     
     // Delete
     function deleted($message) {
-        $sql = "UPDATE messages SET `to_deleted` = '1', `to_ddate` = NOW() WHERE `id` = '".$message."' LIMIT 1";
+        $sql = "UPDATE emails SET `to_deleted` = '1', `to_ddate` = NOW() WHERE `id` = '".$message."' LIMIT 1";
+		//echo $sql;
         return (@mysql_query($sql)) ? true:false;
     }
     
-    // Add a new personal message
+    // Add a new PM
     function sendmessage($to,$title,$message) {
         $to = $this->getuserid($to);
-        $sql = "INSERT INTO messages SET `to` = '".$to."', `from` = '".$this->userid."', `title` = '".$title."', `message` = '".$message."', `created` = NOW()";
-        return (@mysql_query($sql)) ? true:false;
+        $sql = "INSERT INTO emails SET `recipient` = '".$to."', `sender` = '"
+			.$this->userid."', `subject` = '".$title."', `message` = '".$message."', `created` = NOW()";
+		return (@mysql_query($sql)) ? true:false;
     }
     
     // Text rendering
