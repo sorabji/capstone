@@ -17,10 +17,15 @@
 		
 		private $new_labels = array 
 		(
-			"Id",
+			/*"Id",
+			"Section ID",
+			"Assignment Title",
+			"Points Possible"*/
+			
 			"Section ID",
 			"Assignment Title",
 			"Points Possible"
+			
 		);
 		
 		private $new_post_vars = array
@@ -83,8 +88,10 @@
 			echo "<fieldset><legend>Assignment Info</legend>\n";
 			echo "<div class='notes'>\n";
 			echo "<h4>notes</h4>\n";
-			//echo "<p class='last'>fill it out properly...all of it damnit!</p>\n</div>\n";
+			echo "<p class='last'>This stuff needs to be filled in...so do it.</p>\n</div>\n";
 			
+			
+			//Dropbox for sections?
 			foreach($this->new_labels as $key => $val)
 			{
 				  echo "<div class='required'>\n";
@@ -98,6 +105,8 @@
 			echo "<div><input type='submit' id='submit' name='submit' class='inputSubmit' value='Add assignment' />\n";
 			echo "</div>\n</div>\n</fieldset>\n</form>";
 			//echo($ret);
+			
+			
 		}
 		public function edit_display($id) 
 		{
@@ -110,15 +119,22 @@
 				$_POST[$key] = $this->prep_sql($value);
 			}
 			
-			$base = "INSERT INTO `assignment` ( `id` ,  `sec_id` ,  `title` , `points_poss`";
-    $fmt_str = "VALUES( '%s', '%s', '%s', '%s');";
-    $res = sprintf($fmt_str, // can't just unpack?...hrm
-	   $vals[$this->new_post_vars[0]],
-    	   $vals[$this->new_post_vars[1]],
-    	   $vals[$this->new_post_vars[2]],
-    	   $vals[$this->new_post_vars[3]]);
-    $fin = $base . $res;
-    return $fin;
+			//$base = "INSERT INTO `assignments` ( `id` ,  `sec_id` ,  `title` , `points_poss`)";
+			//$fmt_str = "VALUES( '%s', '%s', '%s', '%s');";
+			
+			$base = "INSERT INTO assignments (sec_id, title, points_poss)";
+						
+			$fmt_str = "VALUES( '%s', '%s', '%s');";
+			/*$res = sprintf($fmt_str, // can't just unpack?...hrm
+				$vals[$this->new_post_vars[0]],
+				$vals[$this->new_post_vars[1]],
+				$vals[$this->new_post_vars[2]],
+				$vals[$this->new_post_vars[3]]
+				);*/
+			$res = sprintf($fmt_str, $vals[$this->new_post_vars[0]], $vals[$this->new_post_vars[1]], $vals[$this->new_post_vars[2]]);
+			$fin = $base . $res;
+
+			return $fin;
 		}
 	}
 ?>
