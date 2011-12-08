@@ -69,7 +69,7 @@ if(isset($_GET['q_id'])){
 } else {
   $q_id = false;
 }
-$link = connect();
+
 // pass quiz id w/ get_var
 if($q_id){
   $quiz = new Quiz('cis7586', 1);

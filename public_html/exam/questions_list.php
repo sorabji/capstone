@@ -1,11 +1,9 @@
 
 <?php
 
-include_once('../util.php');
 include_once('../header.php');
 
-$link = connect();
-$resource = mysql_query("select * from questions", $link);
+$resource = mysql_query("select * from questions");
 	   
 $quest = new Question(true);
 $quest->list_display($resource);

@@ -1,17 +1,45 @@
 <?php
-include_once('util.php');
-connect();
+//include_once('util.php');
+include_once('header.php');
+
 if(isset($_POST['submit'])):
   $a = new Access(0,$root);
-$b = $a->log_in($_POST['user'],$_POST['pass']);
-echo $b;
+  $b = $a->log_in($_POST['user'],$_POST['pass']);
+
+  if($b){
+    $a->to_index();
+  } else {
+    echo "damn";
+  }
 //echo "user: " .$_POST['user']. " pass: " .$_POST['pass'];
 //echo $root;
 else:
-include_once('header.php');
+
 ?>
 
-<form id='form' name='form' method='POST' action=''>
+
+<script type="text/javascript">
+<!--
+
+function validate_form (){
+	valid=true;
+	user=document.forms['login_form'].elements['user'];
+	pass=document.forms['login_form'].elements['pass'];
+	
+	if(user.value==""){
+	  alert ("please enter your username");
+	  valid=false;
+	}
+	else if(pass.value==""){
+	  alert ("please enter your password");
+	  valid=false;
+	}
+	return valid;
+}
+//-->
+</script>
+
+<form id='login_form' name='login_form' method='POST' action=''>
   <p>Come Inside Papa Bear</p>
   <fieldset>
     <legend>login infoz</legend>

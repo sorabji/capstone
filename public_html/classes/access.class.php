@@ -27,20 +27,44 @@ class Access{
     /* $user =stripslashes($user); */
     /* $user =mysql_real_escape_string($user); */
 
-    $sql = "select `username`, `password` from `people` where username = '".$user."' and password = '".$pass."';";
-    return $sql;
-    $res = mysql_query($sql);
-    if(mysql_num_rows($res) != 0){
-      $_SESSION['user'] = $user;
-      header("Location: ".$this->root."/index.php");
-      //echo("Location: ".$this->root."/index.php");
-      exit();
-    } else {
-      //echo "Bad user/pass combo...seek help";
-      echo $sql;
-      exit();
+    $errorMessage = "";
+
+    if(0 == strcmp('',$user)){
+      $errorMessage .= "<li>You forgot to enter a username!</li>";
+    }
+    if(0 == strcmp('',$pass)){
+      $errorMessage .= "<li>You forgot to enter a password!</li>";
+    }
+    if(!ctype_alnum($user)){
+      $errorMessage .= "<li>Username can only be alphanumeric!</li>";
+    }
+
+    if(empty($errorMessage)){
+      $user=stripslashes($user);
+      $user=mysql_real_escape_string($user);
+
+
+      //$pass = sha1($pass); // some passes aren't hashed yet...
+
+      //return $pass;
+
+      $sql = "select `username`, `password` from people where username='".$user."' and password='".$pass."'";	 
+      $select_user=mysql_query($sql);
+	 
+      if(mysql_num_rows($select_user)!=0){
+	$_SESSION['user'] = $user;
+	return true;
+      } else {
+	return false;
+      }
     }
   }
+
+  public function to_index(){
+    header("Location: ".$this->root."index.php");
+    exit();
+  }
+
   public function is_logged_in(){
     /*
       check if they logged in
@@ -62,22 +86,22 @@ class Access{
     if(!($this->is_logged_in())) return 0;
     $user = $_SESSION['user'];
 
-    $lim = "( select `id` from people where `username` = '$user' );";
-    echo "" . $lim. "<br />";
-    $three = "select `admin_id` from admins where `admin_id` = ";
-    $two = "select `instructor_id` from instructors where `instructor_id` = ";
-    $one = "select `student_id` from students where `student_id` = ";
+    $lim = "( select `id` from people where username='$user' )";
+    
+    $three = "select `admin_id` from admins where admin_id=";
+    $two = "select `instructor_id` from instructors where instructor_id=";
+    $one = "select `student_id` from students where student_id=";
     
     $res = mysql_query($three . $lim);
-    if($res){
+    if(mysql_num_rows($res)!=0){
       return 3; // admin ftw
     } else {
-      $res = mysql_query($two . $lim);
-      if($res){
+      $foo = mysql_query($two . $lim);
+      if(mysql_num_rows($foo)!=0){
 	return 2; // teachers are cool too
       } else {
-	$res = mysql_query($one . $lim);
-	if($res){
+	$baz = mysql_query($one . $lim);
+	if(mysql_num_rows($baz)!=0){
 	  return 1; // students suck
 	} else {
 	  return 0; // you are nobody
@@ -93,9 +117,11 @@ class Access{
       handle their shit.
      */
     $user_a_level = $this->get_user_a_level();
-    echo "page level: " .$this->a_level. "<br />";
-    echo "user's level: " .$user_a_level. "<br />";
-    echo "logged in as: " .$_SESSION['user']. "<br />";
+
+    /* echo "page level: " .$this->a_level. "<br />"; */
+    /* echo "user's level: " .$user_a_level. "<br />"; */
+    /* echo "logged in as: " .$_SESSION['user']. "<br />"; */
+
     if($this->a_level > $user_a_level){
       header("Location: ".$this->root."login.php");
       exit();
