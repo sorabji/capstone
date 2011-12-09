@@ -1,7 +1,7 @@
 <?php 
 include_once('header.php');
 
-$a = new Access(0,$root);
+$a = new Access(1,$root);
 //$a->logout();
 $a->do_eet();
 

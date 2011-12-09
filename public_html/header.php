@@ -19,15 +19,15 @@ unset($a);
    <script type="text/javascript"
    src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
    <script type="text/javascript" src="<?php echo($root . 'js/jquery.droppy.js');?>"></script>
-   <script type="text/javascript">
-   $(function(){
-       $('#nav').droppy({speed: 250});
-     });
+<script type="text/javascript">
+$(function(){
+    $('#nav').droppy({speed: 250});
+});
 </script>
 <script type="text/javascript">
-   $(function(){
-       $('#nav2').droppy({speed: 250});
-     });
+$(function(){
+    $('#nav2').droppy({speed: 250});
+});
 </script>
 
 <title>Papa Bear</title>
@@ -40,15 +40,12 @@ unset($a);
 
    <div class='left_menu'>
    <ul id="nav">
-<?php if(3 == $navver): ?>
-  
+<?php if(3 == $navver): /* admin's navbar */ ?>
+
   <li><a href="#" class="selected">Site</a>
     <ul>
       <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
       <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
-      <li><a href="<?php echo($root . '');?>">Edit Person</a></li>
-      <li><a href="<?php echo($root . '');?>">Delete Person</a></li>
-      <li><a href="<?php echo($root . '');?>">View Persons</a></li>
     </ul>
     <div class="clear"></div>
   </li>
@@ -97,49 +94,39 @@ unset($a);
     </ul>
     <div class="clear"></div>
   </li>
+
+<?php elseif(2 == $navver): /* instructor's navbar */ ?>
+
+  <li><a href="#" class="selected">Site</a>
+    <ul>
+      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
+      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
+
+<?php elseif(1 == $navver): /* student's navbar */ ?>
+
+  <li><a href="#" class="selected">Site</a>
+    <ul>
+      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
+      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
+
+<?php else: /* default navbar (not logged in) */ ?>
+
+<?php endif; ?>
 </ul>
 <div class="clear"></div>   
 </div> <!-- ends 'left_menu' -->
    <div class='right_menu'>
 
    </div>
-<?php elseif(2 == $navver): ?>
-<li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-   <li><a href="#" class="selected">People</a>
-   <ul>
-   <li><a href="<?php echo($root . 'people/people_new.php');?>">New Person</a></li>
-   <li><a href="<?php echo($root . 'people/people_edit.php');?>">Edit Person</a></li>
-   <li><a href="<?php echo($root . 'people/people_delete.php');?>">Delete Person</a></li>
-   <li><a href="<?php echo($root . 'people/people_list.php');?>">View Persons</a></li>
-   </ul>
-   <div class="clear"></div>
-   </li>
-<?php elseif(1 == $navver): ?>
-<li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-   <li><a href="#" class="selected">People</a>
-   <ul>
-   <li><a href="<?php echo($root . 'people/people_new.php');?>">New Person</a></li>
-   <li><a href="<?php echo($root . 'people/people_edit.php');?>">Edit Person</a></li>
-   <li><a href="<?php echo($root . 'people/people_delete.php');?>">Delete Person</a></li>
-   <li><a href="<?php echo($root . 'people/people_list.php');?>">View Persons</a></li>
-   </ul>
-   <div class="clear"></div>
-   </li>
-  <?php else: ?>
-<li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-   <li><a href="#" class="selected">People</a>
-   <ul>
-   <li><a href="<?php echo($root . 'people/people_new.php');?>">New Person</a></li>
-   <li><a href="<?php echo($root . 'people/people_edit.php');?>">Edit Person</a></li>
-   <li><a href="<?php echo($root . 'people/people_delete.php');?>">Delete Person</a></li>
-   <li><a href="<?php echo($root . 'people/people_list.php');?>">View Persons</a></li>
-   </ul>
-   <div class="clear"></div>
-   </li>
-  <?php endif; ?>
+
    <hr />
    <!--<img class='fuck' alt='logo' src="<?php echo($root . 'static/logo.jpg');?>" >-->
    </div> <!-- ends 'metanav' -->
    </div> <!-- ends 'head' -->
    <div class='page'>
-  
