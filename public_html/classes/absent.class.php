@@ -190,7 +190,9 @@
 		$fin = $base . $res;
 		return $fin;
 	  }
-	  
+
+
+	  	  
 	  public function get_update_qry($vals){
 
 		// don't forget to hash the damn passwords

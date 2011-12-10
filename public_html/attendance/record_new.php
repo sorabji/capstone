@@ -10,10 +10,6 @@
 	//List Class
 	$link = connect();
 
-	//dropdown menu to select course
-	echo "<select name='course'><option value=''></option>  ";
-	get_courses();
-	
 	$resource = mysql_query("SELECT * FROM absences, students, people WHERE students.id = absences.fk_absent_student AND students.student_id = people.id AND absences.the_date = '2011-12-06';", $link);
 
 		$absences = new Absent(true);
