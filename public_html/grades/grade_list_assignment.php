@@ -2,6 +2,7 @@
 
 <?php
 include_once('../header.php');
+include_once('../util.php');
 
 echo ('<p>List of assignment grades<br/>');
 
