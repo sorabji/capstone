@@ -1,7 +1,7 @@
 <?php
 
 	include('../util.php');
-	include('../header.php');
+//	include('../header.php');
 
 	
 	

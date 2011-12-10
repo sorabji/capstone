@@ -86,12 +86,13 @@
 		echo("</tr>");
 
 		while($row = mysql_fetch_array($resource)){
+		/*
 		  echo("<tr>\n");
 		  foreach($row as $key => $value) {
-		$row[$key] = stripslashes($value);
+			$row[$key] = stripslashes($value);
 		  }
 		  foreach($this->list_table_cols as $val) {
-		echo("<td valign='top'>$row[$val]</td>");
+			echo("<td valign='top'>$row[$val]</td>");
 		  }
 		  if($this->ed_flag){
 				echo ("<td valign='top' width='175px' height='20px'>
@@ -105,9 +106,11 @@
 
 				
 		  }
-
+*/
+	echo(var_dump($row));
 		}
 		echo("</tr>\n</table></FORM>");
+		var_dump($resource);
 	  }
 
 	  

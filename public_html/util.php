@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-$root = '/coleman/capstone/'; // devvz
+//$root = '/coleman/capstone/'; // devvz
 //$root = '/~capstone/'; // coleman
 //$root = '/Capstone/';
-//$root = '/Capstone/public_html/';
+$root = '/Capstone/public_html/';
 
 
 function connect(){
