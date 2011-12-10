@@ -6,8 +6,8 @@
 		"Date",
 		"Section",
 		"Student Number",
-		"First Name",
-		"Last Name",
+		//"First Name",
+		//"Last Name",
 		"Absent",
 		"Excused");
 
@@ -16,8 +16,8 @@
 		"the_date",
 		"fk_absent_section",
 		"fk_absent_student",
-		"first_name",
-		"last_name",
+		//"first_name",
+		//"last_name",
 		"isAbsent",
 		"isExcused");
 
@@ -26,8 +26,8 @@
 		"Date",
 		"Section",
 		"Student Number",
-		"First Name",
-		"Last Name",
+		//"First Name",
+		//"Last Name",
 		"Absent",
 		"Excused");
 
@@ -36,8 +36,8 @@
 		"the_date",
 		"fk_absent_section",
 		"fk_absent_student",
-		"first_name",
-		"last_name",
+		//"first_name",
+		//"last_name",
 		"isAbsent",
 		"isExcused");
 
