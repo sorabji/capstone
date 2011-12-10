@@ -5,11 +5,13 @@ $root = '/coleman/capstone/'; // devvz
 //$root = '/~capstone/'; // coleman
 //$root = '/Capstone/';
 //$root = '/Capstone/public_html/';
+$root = '../public_html/';
 
 
 function connect(){
   // connect to db
-  $link = mysql_connect('localhost', 't3st3r', '123qwe');
+  //$link = mysql_connect('localhost', 't3st3r', '123qwe');
+  $link = mysql_connect('localhost', 'marcus', 'blank');
   if (!$link) {
     die('Not connected : ' . mysql_error());
   } else {

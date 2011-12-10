@@ -3,10 +3,12 @@
 <?php
 include_once('../header.php');
 
-echo ('<p>Grades:<br/></p>');
-echo ('<p>Assignment Grades<br/>
-	Quiz Grades <br/>
-	Quiz Question grades<br/></p>');
+?>
+<p>Grades:<br/></p>
+<p><a href = "<?php echo ('grade_list_assignment.php');?>">Assignment Grades</a><br/>
+<a href = "<?php echo ('grade_list_quiz.php');?>">Quiz Grades</a><br/>
+<a href = "<?php echo ('grade_list_quiz_question.php');?>">Quiz Question Grades</a><br/></p>
 	
+<?php
 include_once('../footer.php');
 ?>

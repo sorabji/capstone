@@ -17,11 +17,6 @@
 		
 		private $new_labels = array 
 		(
-			/*"Id",
-			"Section ID",
-			"Assignment Title",
-			"Points Possible"*/
-			
 			"Section ID",
 			"Assignment Title",
 			"Points Possible"
