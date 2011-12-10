@@ -79,7 +79,7 @@ if($q_id){
 } else {
   $quiz = new Quiz('cis7586');
 }
-$quiz->open_quiz();
+//$quiz->open_quiz();
 if(!empty($_POST['submit'])){
   // insert answers in quiz_quest_grades
   $quiz->insert_answers($_POST);
