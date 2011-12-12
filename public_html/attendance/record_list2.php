@@ -6,13 +6,9 @@
 	
 	//List Class
 	$link = connect();
+	
+	$resource = mysql_query("SELECT * FROM absences, students, people WHERE students.id = absences.fk_absent_student AND students.student_id = people.id AND absences.the_date = '2011-12-06';", $link);
 
-	$course_query = mysql_query("SELECT * FROM sections", $link);
-	$courses = new Absent(true);
-	$courses->get_courses($course_query);
-
-
-	$resource = mysql_query("SELECT * FROM absences, students, people WHERE students.id = absences.fk_absent_student AND students.student_id = people.id AND absences.the_date = '2011-12-06';", $link);	
 	$absences = new Absent(true);
 	$absences->new_list_display($resource);
 	//$att = new Absent(true);
