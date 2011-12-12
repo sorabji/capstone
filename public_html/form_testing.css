@@ -71,7 +71,7 @@ form fieldset div.notes {
 }
 
 form fieldset div.notes h4 {
-  background-image: url(/images/icon_info.gif);
+
   background-repeat: no-repeat;
   background-position: top left;
   padding: 3px 0 3px 27px;
@@ -150,7 +150,7 @@ form div img {
 
 p.error {
   background-color: #ff0000;
-  background-image: url(/images/icon_error.gif);
+
   background-repeat: no-repeat;
   background-position: 3px 3px;
   color: #ffffff;
@@ -161,7 +161,7 @@ p.error {
 
 form div.error {
   background-color: #ffffe1;
-  background-image: url(/images/required_bg.gif);
+
   background-repeat: no-repeat;
   background-position: top left;
   color: #666666;
@@ -169,7 +169,7 @@ form div.error {
 }
 
 form div.error p.error {
-  background-image: url(/images/icon_error.gif);
+
   background-position: top left;
   background-color: transparent;
   border-style: none;
