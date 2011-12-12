@@ -92,9 +92,17 @@ class People extends Table{
 
     foreach($this->new_labels as $key => $val){
       echo "<div class='clear'></div>";
+
+      if ( (strcmp($this->new_post_vars[$key], "username") == 0)){
+	echo "<fieldset><legend>loginz</legend>\n";
+
+      }
+
       echo "<label for='{$this->new_post_vars[$key]}'>";
       echo $this->new_labels[$key];
       echo "</label>\n";
+
+
 
       if ( (strcmp($this->new_post_vars[$key], "password") == 0) |
 	strcmp($this->new_post_vars[$key], "password_2") == 0 ){
@@ -107,7 +115,7 @@ class People extends Table{
     }
     echo "<div class='submit'>\n";
     echo "<div><input type='submit' id='submit' name='submit' class='inputSubmit' value='Add Person' />\n";
-    echo "</div>\n</div>\n</fieldset>\n</form>";
+    echo "</div>\n</div>\n</fieldset></fieldset>\n</form>";
     echo($ret);
   }
 
@@ -118,6 +126,8 @@ class People extends Table{
   public function get_update_qry($vals){
 
     // don't forget to hash the damn passwords
+    $pass = sha1($vals['password']);
+
     foreach($_POST AS $key => $value) { $_POST[$key] = $this->prep_sql($value); }
 
     $base = "INSERT INTO `people` ( `first_name` ,  `last_name` ,  `address` ";
@@ -131,7 +141,7 @@ class People extends Table{
     	   $vals[$this->new_post_vars[4]],
     	   $vals[$this->new_post_vars[5]],
     	   $vals[$this->new_post_vars[6]],
-    	   $vals[$this->new_post_vars[7]]);
+    	   $pass);
     $fin = $base . $res;
     return $fin;
   }

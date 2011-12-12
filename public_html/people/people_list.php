@@ -5,8 +5,7 @@
 include_once('../util.php');
 include_once('../header.php');
 
-$link = connect();
-$resource = mysql_query("select * from people", $link);
+$resource = mysql_query("select * from people");
 	   
 $peeps = new People(true);
 $peeps->list_display($resource);

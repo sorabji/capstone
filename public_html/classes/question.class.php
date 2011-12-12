@@ -64,23 +64,33 @@ class Question extends Table{
   }
 
   public function list_display($resource){
-    echo "<ul>\n";
+
     while($row = mysql_fetch_array($resource)){
-      echo "<li>\n<table width='80%' border='1'>\n";
-      if($this->ed_flag){
-	echo("<a href=question_edit.php?quiz={$row[$this->ID[0]]}" . 
-	  "&quest={$row[$this->ID[1]]}>Edit</a><br />\n");
-	echo("<a href=question_delete.php?quiz={$row[$this->ID[0]]}" . 
-	  "&quest={$row[$this->ID[1]]}>Delete</a><br />\n");
-      }
+      echo "<div class='q_heading'>";
+      echo "#{$row['quest_num']}.) {$row['quest_txt']}";
+      echo "</div>";
+      echo "<div class='q_body'>\n";
+      echo "<table width='80%' border='1'>\n";
+      
       foreach($this->list_headers as $key => $val){
     	$row[$key] = $this->prep_sql($row[$key]);
     	echo "<tr><td>{$this->list_headers[$key]}</td>\n";
     	echo "<td>$row[$key]</td>\n";
       }
+
+      if($this->ed_flag){
+	echo "<p>you can ";
+	echo "<a href=".$root."questions_edit.php?quiz={$row[$this->ID[0]]}" . 
+	  "&quest={$row[$this->ID[1]]}>edit</a>";
+	echo " or ";
+	echo "<a href=".$root."questions_delete.php?quiz={$row[$this->ID[0]]}" . 
+	  "&quest={$row[$this->ID[1]]}>delete</a>";
+	echo " this question</p>";
+      }
       echo "</table></li>\n";
+      echo "</div><!-- ends 'q_body' -->";
     }
-    echo "</ul>\n";
+
   }
 
   public function new_display(){

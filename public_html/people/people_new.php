@@ -2,13 +2,13 @@
 <?php
 include_once('../header.php');
 
+$a = new Access(3,$root);
+//$a->logout();
+$a->do_eet();
+
 $peeps = new People(true);
 
 if (isset($_POST['submit'])) { 
-//if (false){
-
-  connect();
-
   $fin = $peeps->get_update_qry($_POST);
 
   mysql_query($fin) or die(mysql_error()); 

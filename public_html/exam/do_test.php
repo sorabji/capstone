@@ -2,6 +2,9 @@
 
 include_once('../header.php');
 
+$a = new Access(1,$root);
+//$a->logout();
+$a->do_eet();
 ?>
 
 <script type="text/javascript">
@@ -69,14 +72,14 @@ if(isset($_GET['q_id'])){
 } else {
   $q_id = false;
 }
-$link = connect();
+
 // pass quiz id w/ get_var
 if($q_id){
   $quiz = new Quiz('cis7586', 1);
 } else {
   $quiz = new Quiz('cis7586');
 }
-$quiz->open_quiz();
+//$quiz->open_quiz();
 if(!empty($_POST['submit'])){
   // insert answers in quiz_quest_grades
   $quiz->insert_answers($_POST);
