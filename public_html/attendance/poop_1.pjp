@@ -37,7 +37,7 @@ document.getElementById('date').value = year + '-' + month + '-' + day;
 	echo '<option value="' . $dat['sec'] . '">' . $dat['sec'] . '</option>';
 	echo'</select><br />';	
 		
-	echo '<input type = "Submit" name = "submit_course" value = "Enter Attendance for This Class"></form>';
+	echo '<input type = "Submit" name = "submit_course" value = "Submit Course"></form>';
 	
 	
 	
@@ -46,7 +46,6 @@ document.getElementById('date').value = year + '-' + month + '-' + day;
 
 		$course_nums = $_POST['course_nums'];
 		$sections = $_POST['sections'];
-		
 
 		if( is_array($course_nums)){
 			while (list ($key, $val) = each ($course_nums)) {
@@ -58,7 +57,7 @@ document.getElementById('date').value = year + '-' + month + '-' + day;
 					$sx = $val;
 					echo "$val <br />";
 					}
-					
+
 					$resource = mysql_query("SELECT people.last_name, people.first_name, students.id
 						FROM people, students
 						INNER JOIN absences, sections
@@ -70,7 +69,35 @@ document.getElementById('date').value = year + '-' + month + '-' + day;
 						ORDER BY people.last_name, people.first_name", $link);	
 					$absences = new Absent(true);
 					$absences->new_list_display($resource);
+					
+					if (isset($_POST['submit_absences'])) {
+						//dummy value
+						//$_POST['submit_absences'] = "undefine";
+						$selected_radio = $_POST['isAbsent'];
+						if ($selected_radio=='0')
+							$student_present = 'checked';
+						else if ($selected_radio=='1')
+							$student_absent = 'checked';
 
+							$fk_absent_section = $_POST['fk_absent_section'];
+							$fk_absent_student = $_POST['fk_absent_student'];
+							$the_date = $_POST['the_date'];
+							$isAbsent = $_POST['isAbsent'];
+							$isExcused = $_POST['isExcused'];
+							$fin = $absences->update_qry($_POST);
+							
+							 if(!isset($isAbsent)){
+								echo("<p>Please record data for all students.</p>\n");
+							  }
+							
+							mysql_query($fin) or die(mysql_error()); 
+							//echo($fin);
+							if($fin){
+								echo "<p>Records Updated.</p><br />";
+								echo "<a href='record_list.php'>View Attendance Records</a>";
+							} else
+								echo("nothing added");
+						}
 					
 					
 				}else
@@ -81,5 +108,39 @@ document.getElementById('date').value = year + '-' + month + '-' + day;
 			echo "";
 	}else
 		echo "";
+//		$fin = $absences->get_qry($_POST);
+//		mysql_query($fin) or die(mysql_error()); 
+//		//echo($fin);
+//		if($fin){
+//			echo "<p>Records Updated.</p><br />";
+//			echo "<a href='record_list.php'>View Attendance Records</a>";
+//		} else
+//			echo("nothing added");
+//	} else
+//		$absences->new_record();
+	
+	
+	
+	
+	
+	//When the form is POSTed, do:
+	//while ($dat = mysql_fetch_assoc($absence_qry))
+	//$tm = strtotime($_POST['fk_absent_section']);
+	//foreach($_POST['absences'] as $id)
+	//mysql_query("INSERT INTO absences (the_date,fk_absent_student) VALUES ($tm,$id)"); 
+	
+	//When the form is POSTed, do:
+//	$tm = strtotime($_POST['the_date']);
+//	foreach($_POST['absences'] as $id)
+//	mysql_query("INSERT INTO absences (the_date,fk_absent_student) VALUES ($tm,$id)"); 
+	
+	
+	//echo '<select name="absences[]" value="' . $dat['fk_absent_section'] . '">' . $dat['fk_absent_student']; 
+	//echo "<option size =30 selected>Select</option>";
+	//if(get_courses($vals)) 
+	//{ 
+	//	while($row = get_courses($vals))
+	//		echo "<option>$row[name]</option>"; 
+	//} 
 	
 ?>

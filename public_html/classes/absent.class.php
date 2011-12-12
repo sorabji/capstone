@@ -69,21 +69,16 @@
 	  }
 
 
+
 	public function new_list_display($resource){
+		
 		//$selected_radio = $_POST['isAbsent'];
 		//print $selected_radio;
 		$student_present = 'unchecked';
 		$student_absent = 'unchecked';
-		if (isset($_POST['submit'])) {
-			//dummy value
-			$_POST['submit'] = "undefine";
-			$selected_radio = $_POST['isAbsent'];
-			if ($selected_radio=='0')
-				$student_present = 'checked';
-			else if ($selected_radio=='1')
-				$student_absent = 'checked';
-		}
+		
 		echo("<table border='1' >\n<tr>");
+		echo "<form id='form' name='form' action='' method='POST'>\n";
 		foreach($this->list_headers as $head)
 			echo("<th>$head</th>\n");
 		if($this->ed_flag)
@@ -106,57 +101,48 @@
 					</td>\n"); //Adds "isExcused" radio buttons
 			}
 		}
-		echo "<div class='submit'>\n";
-      echo "<input type='button' id='clear' name='clear' class='inputSubmit' value='clear all' />\n";
-      echo "<input type='submit' id='submit' name='submit' class='inputSubmit' value='submit' />\n";
+		echo "</tr>\n</table><div>\n";
+		echo "Date: <input type='text' id='date'>";
+		echo "<input type='submit' id='submit' name='submit_absences' value='Submit Absences' />\n";
 		echo "</div>\n</div>\n</form>";
-	}//end new list display	  
-	  
-	  
-/*	//list display to add new records
-	public function new_list_display($resource){
-		//$selected_radio = $_POST['isAbsent'];
-		//print $selected_radio;
-		$student_present = 'unchecked';
-		$student_absent = 'unchecked';
-		if (isset($_POST['submit'])) {
+					
+		if (isset($_POST['submit_absences'])) {
 			//dummy value
-			$_POST['submit'] = "undefine";
-			$selected_radio = $_POST['isAbsent'];
+			//$_POST['submit_absences'] = "undefine";
+		/*	$selected_radio = $_POST['isAbsent'];
 			if ($selected_radio=='0')
 				$student_present = 'checked';
 			else if ($selected_radio=='1')
-				$student_absent = 'checked';
-		}
-		echo("<table border='1' >\n<tr>");
-		foreach($this->list_headers as $head)
-			echo("<th>$head</th>\n");
-		if($this->ed_flag)
-			echo("<th>Student Present?</th><th>Excused?</th>\n");
-		echo("</tr>");
-		while($row = mysql_fetch_array($resource)){
-			echo("<tr>\n");
-			foreach($row as $key => $value)
-				$row[$key] = stripslashes($value);
-			foreach($this->list_table_cols as $val)
-				echo("<td valign='top'>$row[$val]</td>");
-			if($this->ed_flag){
-				echo ("<td valign='top' width='175px' height='20px'>
-					<Input type = 'radio' Name ='{$row['fk_absent_student']}_isPresent' id='radio_pres' value= '0' />	<?PHP print $student_present; ?>Yes&nbsp;
-					<Input type = 'radio' Name ='{$row['fk_absent_student']}_isPresent' id='radio_abs' value= '1' /> <?PHP print $student_absent; ?>No
-					</td>\n");
-				echo("<td valign='top' width='175px' height='20px'>
-					<Input type = 'radio' Name ='{$row['fk_absent_student']}_isExcused' id='radio_ex' value= '1' />	<?PHP print $student_absent; ?>Yes&nbsp;
-					<Input type = 'radio' Name ='{$row['fk_absent_student']}_isExcused' id='radio_nex' value= '0' /> <?PHP print $student_present; ?>No
-					</td>\n"); //Adds "isExcused" radio buttons
+				$student_absent = 'checked';*/
+			
+				
+			$fk_absent_section = $_POST['fk_absent_section'];
+			$fk_absent_student = $_POST['fk_absent_student'];
+			$the_date = $_POST['the_date'];
+			$isAbsent = $_POST['isAbsent'];
+			$isExcused = $_POST['isExcused'];
+			
+			$ins_qry = mysql_query("INSERT INTO absences ('fk_absent_section', 'fk_absent_student', 'the_date', 'isAbsent', 
+									'isExcused')
+									VALUES ('7', 'cis0182', '$the_date', '0', '0');", $link);	
+			$absences = new Absent0(true);
+			$absences->update_qry($ins_qry);
+			$fin = $absences->update_qry($_POST);
+			 if(!isset($isAbsent)){
+				echo("<p style=\"color:red\";>Please record data for all students.</p>\n");
+			  }
+			else{
+				mysql_query($fin) or die(mysql_error()); 
+				//echo($fin);
+				if($fin){
+				echo "<p>Records Updated.</p><br />";
+				echo "<a href='record_list.php'>View Attendance Records</a>";
+				} else
+				echo("nothing added");
 			}
 		}
-		echo "<div class='submit'>\n";
-      echo "<input type='button' id='clear' name='clear' class='inputSubmit' value='clear all' />\n";
-      echo "<input type='submit' id='submit' name='submit' class='inputSubmit' value='submit' />\n";
-		echo "</div>\n</div>\n</form>";
-	}//end new list display*/
-
+	}//end new list display	  
+	  
 	  
 	//original list display, with flag to add "edit" or "delete" buttons
 	public function list_display($resource){
@@ -184,9 +170,9 @@
 		echo("</tr>\n</table>");
 	}//end orig list display
 	
-	public function new_record(){
-		echo "<form id='form' name='form' action='' method='POST'>\n";
-	}
+//	public function new_record(){
+//		echo "<form id='form' name='form' action='' method='POST'>\n";
+//	}
 
 	public function new_display(){
 		echo "<form id='form' name='form' action='' method='POST'>\n";
@@ -248,10 +234,8 @@
 
 
 	  public function get_qry($vals){
-
 		// don't forget to hash the damn passwords
 		foreach($_POST AS $key => $value) { $_POST[$key] = $this->prep_sql($value); }
-		
 //		$base = "INSERT INTO `absences` ( `fk_absent_section ` ,  `fk_absent_student` ,  `the_date`,  `isAbsent` ,  `isExcused` ) ";
 		$base = "SELECT people.last_name, people.first_name, students.id
 							FROM people, students
@@ -268,7 +252,24 @@
 		$fin = $base . $res;
 		return $fin;
 	}
-			
+	
+	  public function update_qry($vals){
+		// don't forget to hash the damn passwords
+		foreach($_POST AS $key => $value) { $_POST[$key] = $this->prep_sql($value); }
+		
+		$base = "INSERT INTO `absences` ( `fk_absent_section ` ,  `fk_absent_student` ,  `the_date`,  `isAbsent` ,  `isExcused` ) ";
+		$fmt_str = "VALUES( '%s', '%s', '%s', '%s', '%s' );";
+		$res = sprintf($fmt_str, // can't just unpack?...hrm //(???)
+		   $vals[$this->new_post_vars[0]],
+			   $vals[$this->new_post_vars[1]],
+			   $vals[$this->new_post_vars[2]],
+			   $vals[$this->new_post_vars[3]],
+			   $vals[$this->new_post_vars[4]]);
+		$fin = $base . $res;
+		return $fin;
+	}
+
+	
 	  public function get_update_qry($vals){
 
 		// don't forget to hash the damn passwords
