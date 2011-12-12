@@ -60,8 +60,7 @@ CREATE TABLE IF NOT EXISTS `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`admin_id`) VALUES
-(9);
+
 
 -- --------------------------------------------------------
 
@@ -83,9 +82,7 @@ CREATE TABLE IF NOT EXISTS `assignments` (
 -- Dumping data for table `assignments`
 --
 
-INSERT INTO `assignments` (`id`, `sec_id`, `title`, `points_poss`) VALUES
-(1, 6, 'project 1', 25),
-(2, 6, 'final project', 50);
+
 
 -- --------------------------------------------------------
 
@@ -126,9 +123,7 @@ CREATE TABLE IF NOT EXISTS `courses` (
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`id`, `course_Desc`) VALUES
-('com267', 'mildly cool stuff'),
-('com279', 'awesome sweet course action here');
+
 
 -- --------------------------------------------------------
 
@@ -205,11 +200,7 @@ CREATE TABLE IF NOT EXISTS `people` (
 -- Dumping data for table `people`
 --
 
-INSERT INTO `people` (`id`, `first_name`, `last_name`, `address`, `email`, `phone`, `social`, `username`, `password`) VALUES
-(6, 'john', 'student', '1234 happy way', 'john@student.com', '3833833833', '383838383', 'john', '123qwe'),
-(7, 'bill', 'instructor', '5849 sad street', 'bill@instructor.com', '9309389389', '728738278', 'bill', '123qwe'),
-(8, 'frank', 'student', 'this and that ', 'frank@adams.com', '3833839203', '834374837', 'frank', '123qwe'),
-(9, 'bob', 'admin', 'sdlkfjdkjf', 'sdkfjskdjf', 'skdfsdkf', 'sdfsdf', 'bob', '123qwe');
+
 
 -- --------------------------------------------------------
 
@@ -236,8 +227,6 @@ CREATE TABLE IF NOT EXISTS `questions` (
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`quiz_id`, `quest_num`, `quest_txt`, `ansA`, `ansB`, `ansC`, `ansD`, `ansE`, `correctAnswer`) VALUES
-(1, 1, 'what is...', 'my ', 'this', 'shoe', 'planet', 'none of the above', 'b');
 
 -- --------------------------------------------------------
 
@@ -252,16 +241,16 @@ CREATE TABLE IF NOT EXISTS `quizzes` (
   `title` varchar(20) NOT NULL,
   `points_poss` int(10) NOT NULL,
   `isOpen` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`,`course_id`),
-  KEY `course_id` (`course_id`)
+  PRIMARY KEY (`id`,`course_id`,`title`),
+  KEY `course_id` (`course_id`),
+  KEY `title` (`title`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `quizzes`
 --
 
-INSERT INTO `quizzes` (`id`, `course_id`, `title`, `points_poss`, `isOpen`) VALUES
-(1, 'com279', 'practice quiz', 25, 0);
+
 
 -- --------------------------------------------------------
 
@@ -326,9 +315,7 @@ CREATE TABLE IF NOT EXISTS `sections` (
 -- Dumping data for table `sections`
 --
 
-INSERT INTO `sections` (`id`, `course_id`, `sec`) VALUES
-(5, 'com279', '1morn'),
-(6, 'com279', '1night');
+
 
 -- --------------------------------------------------------
 
@@ -350,9 +337,7 @@ CREATE TABLE IF NOT EXISTS `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `student_id`, `sec_id`) VALUES
-('cis7586', 6, 6),
-('gm837', 8, 6);
+
 
 -- --------------------------------------------------------
 
@@ -374,8 +359,6 @@ CREATE TABLE IF NOT EXISTS `submissions` (
 -- Dumping data for table `submissions`
 --
 
-INSERT INTO `submissions` (`sec_id`, `ass_id`, `student_id`) VALUES
-(6, 1, 'cis7586');
 
 --
 -- Constraints for dumped tables
@@ -470,3 +453,128 @@ ALTER TABLE `submissions`
   ADD CONSTRAINT `submissions_ibfk_1` FOREIGN KEY (`sec_id`) REFERENCES `sections` (`id`),
   ADD CONSTRAINT `submissions_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
   ADD CONSTRAINT `submissions_ibfk_3` FOREIGN KEY (`ass_id`) REFERENCES `assignments` (`id`);
+
+
+
+--
+-- Database: `capstone`
+--
+
+--
+-- Dumping data for table `absences`
+--
+
+
+--
+-- Dumping data for table `people`
+--
+
+INSERT INTO `people` (`id`, `first_name`, `last_name`, `address`, `email`, `phone`, `social`, `username`, `password`) VALUES
+(6, 'john', 'student', '1234 happy way', 'john@student.com', '3833833833', '383838383', 'john', '123qwe'),
+(7, 'bill', 'instructor', '5849 sad street', 'bill@instructor.com', '9309389389', '728738278', 'bill', '123qwe'),
+(8, 'frank', 'student', 'this and that ', 'frank@adams.com', '3833839203', '834374837', 'frank', '123qwe'),
+(9, 'bob', 'admin', 'sdlkfjdkjf', 'sdkfjskdjf', 'skdfsdkf', 'sdfsdf', 'bob', '123qwe');
+
+
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`id`, `course_Desc`) VALUES
+('com267', 'mildly cool stuff'),
+('com279', 'awesome sweet course action here');
+
+
+--
+-- Dumping data for table `sections`
+--
+
+INSERT INTO `sections` (`id`, `course_id`, `sec`) VALUES
+(5, 'com279', '1morn'),
+(6, 'com279', '1night');
+
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`admin_id`) VALUES
+(9);
+
+
+--
+-- Dumping data for table `instructors`
+--
+
+INSERT INTO `instructors` (`instructor_id`, `sec_id`) VALUES
+(7, 6);
+
+
+
+--
+-- Dumping data for table `assignments`
+--
+
+INSERT INTO `assignments` (`id`, `sec_id`, `title`, `points_poss`) VALUES
+(1, 6, 'project 1', 25),
+(2, 6, 'final project', 50);
+
+--
+-- Dumping data for table `ass_grades`
+--
+
+
+--
+-- Dumping data for table `emails`
+--
+
+
+--
+-- Dumping data for table `quizzes`
+--
+
+INSERT INTO `quizzes` (`id`, `course_id`, `title`, `points_poss`, `isOpen`) VALUES
+(1, 'com279', 'practice quiz', 25, 0),
+(2, 'com279', 'number_2', 25, 0),
+(3, 'com267', '267_intro', 25, 0);
+
+
+--
+-- Dumping data for table `questions`
+--
+
+INSERT INTO `questions` (`quiz_id`, `quest_num`, `quest_txt`, `ansA`, `ansB`, `ansC`, `ansD`, `ansE`, `correctAnswer`) VALUES
+(1, 1, 'what is...', 'my', 'this', 'shoe', 'planet', 'none of the above', 'B'),
+(1, 2, 'two cows, mice and cheescaek?', 'flint', 'bottle', 'stuffed animal', 'three cows', 'none of the above', 'C'),
+(2, 1, 'what?', 'who', 'where', 'why', 'when', 'no', 'A'),
+(2, 2, 'three man rush', 'release', 'line', 'out', 'of', 'it', 'B'),
+(3, 1, 'twice and fourth, barely', 'sneaky', 'stealth', 'suppose', 'sally', 'smooth', 'A'),
+(3, 2, 'frustration offense', 'anger', 'management', 'driven', '20 minutes', 'mindset', 'D');
+
+
+--
+-- Dumping data for table `quiz_grades`
+--
+
+
+--
+-- Dumping data for table `quiz_quest_grades`
+--
+
+
+
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`id`, `student_id`, `sec_id`) VALUES
+('cis7586', 6, 6),
+('gm837', 8, 6);
+
+--
+-- Dumping data for table `submissions`
+--
+
+INSERT INTO `submissions` (`sec_id`, `ass_id`, `student_id`) VALUES
+(6, 1, 'cis7586');

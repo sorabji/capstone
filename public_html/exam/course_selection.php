@@ -11,6 +11,7 @@ else:
 ?>
 
 <form id='form' method='POST' action=''>
+   <p>Select the course</p>
   <div class='required'>
   <select id='course_id' name='course_id'>
 

@@ -6,6 +6,7 @@ $navver = $a->get_user_a_level();
 unset($a);
 
 ?>
+
 <html>
 
 <head>
@@ -13,18 +14,17 @@ unset($a);
    <link rel='stylesheet' type='text/css' href="<?php echo($root . 'form_testing.css');?>" />
    <link rel='stylesheet' type='text/css' href="<?php echo($root . 'static/droppy.css');?>" />
 
-
    <script type="text/javascript"
-   src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+     src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
    <script type="text/javascript"
-   src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+     src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
    <script type="text/javascript" src="<?php echo($root . 'js/jquery.droppy.js');?>"></script>
+
 <script type="text/javascript">
 $(function(){
     $('#nav').droppy({speed: 250});
 });
-</script>
-<script type="text/javascript">
+
 $(function(){
     $('#nav2').droppy({speed: 250});
 });
@@ -94,6 +94,14 @@ $(function(){
     </ul>
     <div class="clear"></div>
   </li>
+  <li><a href="#" >Quizzes</a>
+    <ul>
+      <li><a href="<?php echo($root . 'exam/manage_quizzes.php');?>">Manage Quizzes</a></li>
+      <li><a href="<?php echo($root . 'exam/course_selection.php');?>">Examine Questions</a></li>
+      <li><a href="<?php echo($root . 'exam/do_test.php');?>">Take a Quiz</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
 
 <?php elseif(2 == $navver): /* instructor's navbar */ ?>
 
@@ -134,7 +142,7 @@ $(function(){
    </div>
 
    <hr />
-   <!--<img class='fuck' alt='logo' src="<?php echo($root . 'static/logo.jpg');?>" >-->
+   <!--<img class='fuck' alt='logo' src="<?php echo($root . 'static/logo.jpg');?>" />-->
    </div> <!-- ends 'metanav' -->
    </div> <!-- ends 'head' -->
    <div class='page'>

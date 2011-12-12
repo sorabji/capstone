@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
 
   mysql_query($sql) or die(mysql_error());
   echo (mysql_affected_rows()) ? "Edited row.<br />" : "Nothing changed. <br />";
-  echo "<a href='list.php'>Back To Listing</a>";
+  echo "<a href='".$root."exam/questions_list.php?q_id=".$_POST['quiz_id']."'>Back To Listing</a>";
 } else {
   if (!isset($_GET['quest']) and isset($_GET['quiz']) ) {
     echo "<p class='error'>figure it out wanker</p>";

@@ -19,7 +19,7 @@ if(!$c_id):
 else:
   $sql = "select id, title from quizzes where course_id = '$c_id'";
 ?>
-
+<p>Select the Quiz</p>
 <form id='form' method='POST' action=''>
   <div class='required'>
   <select id='q_id' name='q_id'>
