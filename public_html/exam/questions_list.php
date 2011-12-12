@@ -14,6 +14,9 @@ $(function() {
     $(".q_heading").click(function(){
         $(this).next(".q_body").slideToggle(500);
     });
+    $("#collapse").click(function(){
+	$(".q_body").slideToggle(500);	
+    });
 });
 </script>
 <?php
@@ -28,6 +31,9 @@ if(isset($_GET['q_id'])){
 if($q_id){
   $resource = mysql_query("select * from questions where quiz_id=$q_id");
   $quest = new Question(true, $root);
+  $res = mysql_fetch_assoc(mysql_query("select title from quizzes where id=$q_id"));
+  echo "<p>Questions from \"".$res['title']."\"</p>";
+  echo "<a id='collapse' href='#'>toggle collapse</a>";
   $quest->list_display($resource);
 } else {
   echo "<p class='error'>You must select a quiz</p>";
