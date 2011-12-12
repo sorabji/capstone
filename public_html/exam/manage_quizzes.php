@@ -33,6 +33,7 @@ $a->do_eet();
 <table border=1 class='tablesorter' id='results'>
 <thead>
 <tr>
+    "Quiz",    "Question #",    "Question",    "A",    "B",    "C",    "D",    "E",    "Answer"
   <th>Indication</th>
   <th>Counsler</th>
   <th>Date</th>
