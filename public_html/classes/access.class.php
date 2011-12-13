@@ -72,6 +72,10 @@ class Access{
     return (isset($_SESSION['user'])) ? true : false;
   }
 
+  public function get_user_name(){
+    return $_SESSION['user'];
+  }
+
   public function logout(){
     /*
       log those bitchez out

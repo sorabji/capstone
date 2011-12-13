@@ -73,11 +73,11 @@ if(isset($_GET['q_id'])){
   $q_id = false;
 }
 
-// pass quiz id w/ get_var
+// passed quiz id w/ get_var
 if($q_id){
-  $quiz = new Quiz('cis7586', 1);
+  $quiz = new Quiz($a->get_user_name(), $q_id);
 } else {
-  $quiz = new Quiz('cis7586');
+  $quiz = new Quiz($a->get_user_name(),0);
 }
 //$quiz->open_quiz();
 if(!empty($_POST['submit'])){

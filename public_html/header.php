@@ -122,6 +122,17 @@ $(function(){
   </li>
 
 <?php elseif(1 == $navver): /* student's navbar */ ?>
+<?php
+  $sql = "select id, isOpen from quizzes where course_id = (select course_id from sections where id = (select sec_id from students where id='".$_SESSION['user']."'))";
+$res = mysql_query($sql);
+$open_quizzes = array();
+
+while($row = mysql_fetch_assoc($res)){
+  if(1 == $row['isOpen']){
+    array_push($open_quizzes,$row['id']);
+  }
+}
+?>
 
   <li><a href="#" class="selected">Site</a>
     <ul>
@@ -130,7 +141,36 @@ $(function(){
     </ul>
     <div class="clear"></div>
   </li>
-
+  <li><a href="#" class="selected">Grades</a>
+    <ul>
+      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
+      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
+  <li><a href="#" class="selected">Attendance</a>
+    <ul>
+      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
+      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
+  <li><a href="#" class="selected">Assignments</a>
+    <ul>
+      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
+      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
+  <?php if(count($open_quizzes)): ?>
+  <li><a href="#" class="selected">Quizzes</a>
+    <ul>
+      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
+      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
+  <?php endif; ?>
 <?php else: /* default navbar (not logged in) */ ?>
 
 <?php endif; ?>
