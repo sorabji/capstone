@@ -5,22 +5,44 @@
 		(
 			"Student Id",
 			"Section Id",
-			"Assignment Id",
+			"Assignment ID",
+			"Assignment",
+			"Points",
+			"Points Possible"
+		);
+		
+		private $list_headers_section = array
+		(
+			"Student Id",
+			"Section Id",
+			"Assignment ID",
+			"Assignment",
+			"Points",
+			"Points Possible"
+		);
+		private $list_headers_student = array
+		(
+			"Student Id",
+			"Assignment ID",
+			"Assignment",
+			"Points",
 			"Points Possible"
 		);
 		
 		private $list_table_cols = array
 		(
-			"student_id", "sec_id", "ass_id", "points_poss"
+			"student_id", "sec_id", "ass_id", "title", "points", "points_poss"
 		);
 		
 		private $new_labels = array
 		(
 			"Student ID",
 			"Section ID",
-			"Assignment ID",
-			"Points Possible",
-			//total points?
+			"Assignment Id",
+			"Assignment",
+			"Points",
+			"Points Possible"
+			
 		);
 		
 		private $new_post_vars = array
@@ -28,7 +50,9 @@
 			"stud_id",
 			"sect_id",
 			"ass_id",
-			"pts"
+			"title",
+			"points",
+			"points_poss"
 		);
 		
 		private $ID = "ass_id";
@@ -39,6 +63,112 @@
 		}
 		
 		public function list_display($resource) 
+		{
+			echo("<table border='1' >\n<tr>");
+			
+			foreach($this->list_headers as $head)
+			{
+				echo("<th>$head</th>\n");
+			}
+			
+			if($this->ed_flag)
+			{
+				echo("<th colspan='2'>Admin</th>\n");
+			}
+			
+			echo("</tr>");
+
+			while($row = mysql_fetch_array($resource))
+			{
+			  echo("<tr>\n");
+			  
+			  foreach($row as $key => $value)
+				{
+					$row[$key] = stripslashes($value);
+				}
+				foreach($this->list_table_cols as $val) 
+				{
+					echo("<td valign='top'>$row[$val]</td>");
+				}
+				if($this->ed_flag)
+				{
+					echo("<td valign='top'><a href=grade_edit_assignment.php?id={$row[$this->ID]}>Edit</a></td>\n");
+					echo("<td valign='top'><a href=grade_delete_assignment.php?id={$row[$this->ID]}>Delete</a></td>\n");
+				}
+
+			}
+			echo("</tr>\n</table>");
+		}
+		
+		public function secList($resource)
+		{
+			echo("<table border ='1'>\n<tr>");
+	
+			foreach($this->list_headers_section as $head)
+			{
+				echo("<th>$head</th>\n");
+			}
+			if($this->ed_flag)
+			{
+				echo("<th colspan='2'>Admin</th>\n");
+			}
+			echo("</tr>");
+			while($row = mysql_fetch_array($resource))
+			{
+				  echo("<tr>\n");
+				  
+					foreach($row as $key => $value)
+					{
+						$row[$key] = stripslashes($value);
+				}
+				foreach($this->list_table_cols as $val) 
+				{
+					echo("<td valign='top'>$row[$val]</td>");
+				}
+				if($this->ed_flag)
+				{
+					echo("<td valign='top'><a href=grade_edit_assignment.php?id={$row[$this->ID]}>Edit</a></td>\n");
+					echo("<td valign='top'><a href=grade_delete_assignment.php?id={$row[$this->ID]}>Delete</a></td>\n");
+				}
+			}		
+			echo("</tr>\n</table>");
+		}
+		
+		public function studentList($resource)
+		{
+			echo("<table border ='1'>\n<tr>");
+	
+			foreach($this->list_headers_student as $head)
+			{
+				echo("<th>$head</th>\n");
+			}
+			if($this->ed_flag)
+			{
+				echo("<th colspan='2'>Admin</th>\n");
+			}
+			echo("</tr>");
+			while($row = mysql_fetch_array($resource))
+			{
+				  echo("<tr>\n");
+				  
+					foreach($row as $key => $value)
+					{
+						$row[$key] = stripslashes($value);
+				}
+				foreach($this->list_table_cols as $val) 
+				{
+					echo("<td valign='top'>$row[$val]</td>");
+				}
+				if($this->ed_flag)
+				{
+					echo("<td valign='top'><a href=grade_edit_assignment.php?id={$row[$this->ID]}>Edit</a></td>\n");
+					echo("<td valign='top'><a href=grade_delete_assignment.php?id={$row[$this->ID]}>Delete</a></td>\n");
+				}
+			}		
+			echo("</tr>\n</table>");
+		}
+		
+		public function list_display_section($resource) 
 		{
 			echo("<table border='1' >\n<tr>");
 			

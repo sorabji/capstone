@@ -14,7 +14,7 @@ if(!mysql_select_db('capstone'))
 	exit ('<p>unable to locate database</p>');
 }
 
-if (isset($_POST['id'])) //assignment has been updated
+if(isset($_POST['id'])) //assignment has been updated
 {
 	$id = $_POST['id'];
 	$sid = $_POST['sid'];
@@ -72,7 +72,7 @@ else //user can update assignment
 	<b>Assignment ID: </b><input type='text' name='id' value='<?php echo $id ?>' readonly='true'/> Cannot edit Assignment ID<br/>
 	<b>Section ID: </b><input type='text' name='sid' value='<?php echo $sid?>' /><br/>
 	<b>Assignment Title: </b><input type='text' name='title' value='<?php echo $title ?>' /><br/>
-	<b>Points Possible: </b><input type='text' name='points' value='<?php echo $points ?>' /><br/>
+	<b>Points: </b><input type='text' name='points' value='<?php echo $points ?>' /><br/>
 	<input type='submit' value='Submit'/><input type='hidden' value='1' name='submitted'/>
 </form>
 

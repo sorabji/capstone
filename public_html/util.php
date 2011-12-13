@@ -5,11 +5,13 @@ session_start();
 //$root = '/~capstone/'; // coleman
 //$root = '/Capstone/';
 //$root = '/Capstone/public_html/';
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 $root = '../public_html/';
 =======
 $root = '/';
->>>>>>> 9055835ab632767612d9d5c7262f86332183e699
+>>>>>>> 9055835ab632767612d9d5c7262f86332183e699*/
+
+$root = '../';
 
 
 function connect(){

@@ -2,33 +2,43 @@
 
 <?php
 include_once('../header.php');
-include_once('../util.php');
 
-if(isset($_POST['people.id']))
+
+
+if(isset($_POST['submitted']))
 {
-	$first = $_POST['first_name'];
-	$last = $_POST['last_name'];
-	$id = $_POST['people.id'];
+	$link = connect();
 	
+
+	$id = $_POST['id'];
+	
+	$resource = mysql_query("select * from ass_grades inner join assignments on ass_grades.ass_id = assignments.id where ass_grades.student_id = $id  order by ass_grades.sec_id", $link);
+	
+	$list = new AssignmentGrade(true);
+	$list->studentList($resource);
 	
 }
 else
 {
-	echo('<p>Error.');
+	$link = connect();
+	echo('View grades by student');
+	$resource = mysql_query("SELECT first_name, last_name, people.id from people INNER JOIN students ON people.id = students.student_id", $link);
+	echo ('<form name="student_form" action="grade_list_assignment_by_student.php" method="_POST"><br/><p>View grades by student:');//dropbox of students
+
+	echo ('<select>');
+	while($row = mysql_fetch_array($resource))
+	{
+		echo("<option value = '" . $row['people.id'] ."'>" . $row['first_name'] ." " .$row['last_name'] ."</option>");
+	}
+	
+	echo('</select> <input type="submit" value="Go" />');
+	echo('</p><input type="hidden" value = "1" name="submitted/>"</form>');
+	
 }
 
 
 
 
-/*echo ('<p>List of assignment grades<br/>');
-
-$link = connect();
-$resource = mysql_query("select * from ass_grades", $link);
-echo('</p>');
-
-$grades = new AssignmentGrade(true);
-$grades->list_display($resource);
-*/
 ?>
 
 <?php	
