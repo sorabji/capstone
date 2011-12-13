@@ -8,6 +8,7 @@
   margin: 1px;
   color: #fff;
   padding: 7px 10px;
+  width: 70%;
   cursor: pointer;
   position: relative;
   background-color:#c30;
@@ -15,5 +16,5 @@
 .q_body {
   padding: 5px 10px;
   background-color:#fafafa;
-  width: 579px;
+  width: 70%;
 }
