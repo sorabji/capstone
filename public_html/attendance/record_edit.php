@@ -1,25 +1,91 @@
-<? 
-include('config.php'); 
-if (isset($_GET['id']) ) { 
-  $id = (int) $_GET['id']; 
-  if (isset($_POST['submitted'])) { 
-    foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-    $sql = "UPDATE `Array` SET  `name` =  '{$_POST['name']}' ,  `indication` =  '{$_POST['indication']}' ,  `counsler` =  '{$_POST['counsler']}' ,  `date` =  '{$_POST['date']}' ,  `diagnosticProcedure` =  '{$_POST['diagnosticProcedure']}' ,  `race` =  '{$_POST['race']}' ,  `site` =  '{$_POST['site']}'   WHERE `id` = '$id' "; 
-    mysql_query($sql) or die(mysql_error()); 
-    echo (mysql_affected_rows()) ? "Edited row.<br />" : "Nothing changed. <br />"; 
-    echo "<a href='list.php'>Back To Listing</a>"; 
-  } 
-  $row = mysql_fetch_array ( mysql_query("SELECT * FROM `Array` WHERE `id` = '$id' ")); 
-?>
+<script>
+function addDate(){
+date = new Date();
+var month = date.getMonth()+1;
+var day = date.getDate();
+var year = date.getFullYear();
 
-<form action='' method='POST'> 
-<p><b>Name:</b><br /><input type='text' name='name' value='<?= stripslashes($row['name']) ?>' /> 
-   <p><b>Indication:</b><br /><input type='text' name='indication' value='<?= stripslashes($row['indication']) ?>' /> 
-   <p><b>Counsler:</b><br /><input type='text' name='counsler' value='<?= stripslashes($row['counsler']) ?>' /> 
-   <p><b>Date:</b><br /><input type='text' name='date' value='<?= stripslashes($row['date']) ?>' /> 
-   <p><b>DiagnosticProcedure:</b><br /><input type='text' name='diagnosticProcedure' value='<?= stripslashes($row['diagnosticProcedure']) ?>' /> 
-   <p><b>Race:</b><br /><input type='text' name='race' value='<?= stripslashes($row['race']) ?>' /> 
-   <p><b>Site:</b><br /><input type='text' name='site' value='<?= stripslashes($row['site']) ?>' /> 
-<p><input type='submit' value='Edit Row' /><input type='hidden' value='1' name='submitted' /> 
-</form> 
-   <? } ?> 
+if (document.getElementById('date').value == ''){
+document.getElementById('date').value = year + '-' + month + '-' + day;
+}
+}
+</script>
+<body onload="addDate();">
+
+
+<?php
+
+include('../header.php');
+$res = $_SESSION['attendance_resource'];
+$res = mysql_query($res);
+
+function twice_pop($arraij){
+	$val_1 = array_pop($arraij);
+	$val_2 = array_pop($arraij);
+	if(!$val_1){
+		return array($val_1,$val_2);
+	} else {
+		return array($val_1,$val_2);
+	}
+}
+
+if (isset($_POST['submit_absences'])) {
+	echo "<h1 style='color:red'>submit_absences isset called</h1>";
+//dummy value
+//$_POST['submit_absences'] = "undefine";
+//			$selected_radio = $_POST['isAbsent'];
+//			if ($selected_radio=='0')
+//			$student_present = 'checked';
+//			else if ($selected_radio=='1')
+//				$student_absent = 'checked';
+/*	array_pop($_POST);
+	$date = array_pop($_POST);
+	while($hrm = twice_pop($_POST)){
+		var_dump($hrm);
+	}
+	
+	
+	while($isPresent = array_pop($_POST)){
+		$isExcused = array_pop($_POST);
+		echo($isPresent);
+		echo($isExcused);
+	}*/
+	
+	
+	/*  $insert_vars = array(
+		"fk_absent_section",
+		"fk_absent_student",
+		"the_date",
+		"isAbsent",
+		"isExcused");
+	
+	
+	$fk_absent_section = $_POST['fk_absent_section'];
+	$fk_absent_student = $_POST['fk_absent_student'];
+	$the_date = $_POST['the_date'];
+	$isAbsent = $_POST['isAbsent'];
+	$isExcused = $_POST['isExcused'];*/
+
+	$ins_qry = mysql_query("INSERT INTO absences ('fk_absent_section', 'fk_absent_student', 'the_date', 'isAbsent', 'isExcused')
+					VALUES (''$fk_absent_student', '$fk_absent_section', '$the_date', '$isAbsent', 'isExcused');", $link);	
+	$absences = new Absent(true);
+	$absences->update_qry($ins_qry);
+	$fin = $absences->update_qry($_POST);
+	if(!isset($isAbsent)){
+		echo("<p style=\"color:red\";>Please record data for all students.</p>\n");
+	}
+	else{
+		mysql_query($fin) or die(mysql_error()); 
+		//echo($fin);
+		if($fin){
+			echo "<p>Records Updated.</p><br />";
+			echo "<a href='record_list.php'>View Attendance Records</a>";
+		} else {
+			echo("nothing added");
+		}
+	}
+	var_dump($_POST);
+} else {
+	$absences = new Absent(true);
+	$absences->edit_list_display($res);
+}

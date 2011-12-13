@@ -4,10 +4,8 @@
     include_once('../header.php');
     include_once('../util.php');
 	$link = connect();
-    // Load the class
     //require('messages.php');
-    // Set the userid to 2 for testing purposes... you should have your own usersystem, so this should contain the userid
-    $userid=2;
+	$userid=8;
     // initiate a new pm class
     $pm = new Messages($userid);
     
@@ -19,7 +17,7 @@
             echo "Message successfully sent!";
         } else {
             // FAILURE.
-            echo "Error, couldn't send PM. Maybe wrong user.";
+            echo "Couldnt send the message, check the username and try again!";
         }
     }
     
@@ -29,11 +27,11 @@
         if($pm->deleted($_POST['did'])) {
             echo "Message successfully deleted!";
         } else {
-            echo "Error, couldn't delete PM!";
+            echo "Error, couldn't delete the message, please try again!";
         }
     }
     
-// In this switch we check what page has to be loaded, this way we just load the messages we want
+// FOR THE BUTTONS!!!
 if(isset($_GET['p'])) {
     switch($_GET['p']) {
         // get all new / unread messages
@@ -56,7 +54,7 @@ if(isset($_GET['p'])) {
 // Standard links
 ?>
 <a href='<?php echo $_SERVER['PHP_SELF']; ?>?p=new'>New Messages</a>
-<a href='<?php echo $_SERVER['PHP_SELF']; ?>?p=send'>Sent Messages</a>
+<a href='<?php echo $_SERVER['PHP_SELF']; ?>?p=sent'>Sent Messages</a>
 <a href='<?php echo $_SERVER['PHP_SELF']; ?>?p=read'>Read Messages</a>
 <a href='<?php echo $_SERVER['PHP_SELF']; ?>?p=deleted'>Deleted Messages</a>
 <br  /><br  />
@@ -90,8 +88,8 @@ if(!isset($_GET['p']) || $_GET['p'] == 'new') {
     ?>
 </table>
 <?php
-// check if the user wants send messages
-} elseif($_GET['p'] == 'send') {
+// check if the user wants sent messages
+} elseif($_GET['p'] == 'sent') {
 ?>
 
 <table border="0" cellspacing="1" cellpadding="1">
@@ -108,7 +106,7 @@ if(!isset($_GET['p']) || $_GET['p'] == 'new') {
             for($i=0;$i<count($pm->messages);$i++) {
                 ?>
                 <tr>
-                    <td><?php echo $pm->messages[$i]['recipent']; ?></td>
+                    <td><?php echo $pm->messages[$i]['recipient']; ?></td>
                     <td><a href='<?php echo $_SERVER['PHP_SELF']; ?>?p=view&mid=<?php echo $pm->messages[$i]['id']; ?>'><?php echo $pm->messages[$i]['subject'] ?></a></td>
                     <td>
                     <?php  
@@ -155,9 +153,11 @@ if(!isset($_GET['p']) || $_GET['p'] == 'new') {
             for($i=0;$i<count($pm->messages);$i++) {
                 ?>
                 <tr>
+					
                     <td><?php echo $pm->messages[$i]['sender']; ?></td>
                     <td><a href='<?php echo $_SERVER['PHP_SELF']; ?>?p=view&mid=<?php echo $pm->messages[$i]['id']; ?>'><?php echo $pm->messages[$i]['subject'] ?></a></td>
                     <td><?php echo $pm->messages[$i]['to_vdate']; ?></td>
+					<td><input type="checkbox" name="chkBox" /></td>
                 </tr>
                 <?php
             }
@@ -166,11 +166,12 @@ if(!isset($_GET['p']) || $_GET['p'] == 'new') {
             echo "<tr><td colspan='4'><strong>No read messages!</strong></td></tr>";
         }
     ?>
+	<input type="button" name="deleteButton" onclick="
     </table>
 
 <?php
 // check if the user wants the deleted messages
-} elseif($_GET['p'] == 'Deleted') {
+} elseif($_GET['p'] == 'deleted') {
 ?>
     <table border="0" cellspacing="1" cellpadding="1">
     <tr>
@@ -185,6 +186,7 @@ if(!isset($_GET['p']) || $_GET['p'] == 'new') {
             for($i=0;$i<count($pm->messages);$i++) {
                 ?>
                 <tr>
+					
                     <td><?php echo $pm->messages[$i]['sender']; ?></td>
                     <td><a href='<?php echo $_SERVER['PHP_SELF']; ?>?p=view&mid=<?php echo $pm->messages[$i]['id']; ?>'><?php echo $pm->messages[$i]['subject'] ?></a></td>
                     <td><?php echo $pm->messages[$i]['to_ddate']; ?></td>
@@ -199,11 +201,11 @@ if(!isset($_GET['p']) || $_GET['p'] == 'new') {
 </table>
 <?php
 } elseif($_GET['p'] == 'view' && isset($_GET['mid'])) {
-    // if the users id is the recipients id and the message has not been viewed
     if($userid == $pm->messages[0]['toid'] && !$pm->messages[0]['to_viewed']) {
         // set the flag to viewed
         $pm->viewed($pm->messages[0]['id']);
     }
+	
 ?>
 	<!-- HTML STUFFS -->
     <table border="0" cellspacing="1" cellpadding="1">
@@ -250,3 +252,4 @@ if(!isset($_GET['p']) || $_GET['p'] == 'new') {
 <?php
 	include_once('../footer.php');
 ?>
+

@@ -1,9 +1,10 @@
 <?php
 class Quiz extends Table{
   private $queries = array(
-    "isOpen" => "select isOpen from quizzes where `id` = %s;",
-    "do_open_quiz" => "update quizzes set `isOpen` = 1 where `id` = %s;",
-    "do_close_quiz" => "update quizzes set `isOpen` = 0 where `id` = %s",
+    "isOpen" => "select isOpen from quizzes where `id` = %d",
+    "do_open_quiz" => "update quizzes set `isOpen` = 1 where `id` = %d",
+    "do_close_quiz" => "update quizzes set `isOpen` = 0 where `id` = %d",
+    "get_quiz_title" => "select title from quizzes where `id`=%d;",
     "isVirgin" => "select * from quiz_quest_grades where `stud_id` = %s and `quiz` = %s"
   );
 
@@ -14,9 +15,10 @@ class Quiz extends Table{
     "D"=>"ansD",
     "E"=>"ansE");
 
-  public function __construct($stud_id, $quiz_id=0){
+  public function __construct($stud_id, $quiz_id){
     $this->stud_id = $this->prep_sql($stud_id);
-    $this->quiz_id = $this->prep_sql($quiz_id);
+    //$this->quiz_id = $this->prep_sql($quiz_id); // fucking beats me why this turns to 0
+    $this->quiz_id = $quiz_id;
   }
 
   protected function list_display($res){}
@@ -24,9 +26,16 @@ class Quiz extends Table{
   protected function edit_display($id){}
   protected function get_update_qry($vals){}
 
+  public function get_quiz_title(){
+    $res = mysql_query(sprintf($this->queries['get_quiz_title'],$this->quiz_id));
+    /* echo sprintf($this->queries['get_quiz_title'],$this->quiz_id); */
+    /* echo "<br />"; */
+    $row = mysql_fetch_assoc($res);
+    return $row['title'];
+  }
+
   public function open_quiz(){
     $res = mysql_query(sprintf($this->queries['do_open_quiz'],$this->quiz_id));
-    $row = mysql_fetch_array($res);
     if(mysql_affected_rows()){
       return true;
     } else {
@@ -36,13 +45,11 @@ class Quiz extends Table{
 
   public function close_quiz(){
     $res = mysql_query(sprintf($this->queries['do_close_quiz'],$this->quiz_id));
-    $row = mysql_fetch_array($res);
     if(mysql_affected_rows()){
       return true;
     } else {
       return false;
     }
-
   }
 
   public function check_open_quiz(){

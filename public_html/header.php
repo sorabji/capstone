@@ -6,6 +6,7 @@ $navver = $a->get_user_a_level();
 unset($a);
 
 ?>
+
 <html>
 
 <head>
@@ -13,18 +14,17 @@ unset($a);
    <link rel='stylesheet' type='text/css' href="<?php echo($root . 'form_testing.css');?>" />
    <link rel='stylesheet' type='text/css' href="<?php echo($root . 'static/droppy.css');?>" />
 
-
    <script type="text/javascript"
-   src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+     src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
    <script type="text/javascript"
-   src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+     src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
    <script type="text/javascript" src="<?php echo($root . 'js/jquery.droppy.js');?>"></script>
+
 <script type="text/javascript">
 $(function(){
     $('#nav').droppy({speed: 250});
 });
-</script>
-<script type="text/javascript">
+
 $(function(){
     $('#nav2').droppy({speed: 250});
 });
@@ -94,6 +94,14 @@ $(function(){
     </ul>
     <div class="clear"></div>
   </li>
+  <li><a href="#" >Quizzes</a>
+    <ul>
+      <li><a href="<?php echo($root . 'exam/manage_quizzes.php');?>">Manage Quizzes</a></li>
+      <li><a href="<?php echo($root . 'exam/course_selection.php');?>">Examine Questions</a></li>
+      <li><a href="<?php echo($root . 'exam/do_test.php');?>">Take a Quiz</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
 
 <?php elseif(2 == $navver): /* instructor's navbar */ ?>
 
@@ -114,6 +122,17 @@ $(function(){
   </li>
 
 <?php elseif(1 == $navver): /* student's navbar */ ?>
+<?php
+  $sql = "select id, isOpen from quizzes where course_id = (select course_id from sections where id = (select sec_id from students where id='".$_SESSION['user']."'))";
+$res = mysql_query($sql);
+$open_quizzes = array();
+
+while($row = mysql_fetch_assoc($res)){
+  if(1 == $row['isOpen']){
+    array_push($open_quizzes,$row['id']);
+  }
+}
+?>
 
   <li><a href="#" class="selected">Site</a>
     <ul>
@@ -122,7 +141,36 @@ $(function(){
     </ul>
     <div class="clear"></div>
   </li>
-
+  <li><a href="#" class="selected">Grades</a>
+    <ul>
+      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
+      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
+  <li><a href="#" class="selected">Attendance</a>
+    <ul>
+      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
+      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
+  <li><a href="#" class="selected">Assignments</a>
+    <ul>
+      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
+      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
+  <?php if(count($open_quizzes)): ?>
+  <li><a href="#" class="selected">Quizzes</a>
+    <ul>
+      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
+      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
+  <?php endif; ?>
 <?php else: /* default navbar (not logged in) */ ?>
 
 <?php endif; ?>
@@ -134,7 +182,7 @@ $(function(){
    </div>
 
    <hr />
-   <!--<img class='fuck' alt='logo' src="<?php echo($root . 'static/logo.jpg');?>" >-->
+   <!--<img class='fuck' alt='logo' src="<?php echo($root . 'static/logo.jpg');?>" />-->
    </div> <!-- ends 'metanav' -->
    </div> <!-- ends 'head' -->
    <div class='page'>
