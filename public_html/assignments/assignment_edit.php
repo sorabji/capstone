@@ -4,14 +4,10 @@ include_once('../header.php');
 $a = new Access(2,$root);
 $a->do_eet();
 
-$connect = @mysql_connect('localhost', 'marcus', 'blank');
+$link = connect();
 
 
 
-if (!$connect)
-{
-	exit ('<p> unable to connect to server.</p>');
-}
 
 if(!mysql_select_db('capstone'))
 {

@@ -26,25 +26,19 @@
   </li>
   <li><a href="#" >Grades</a>
     <ul>
-      <li><a href="<?php echo($root . 'grades/grade_list_assignment.php');?>">List Grades</a></li>
+      <li><a href="<?php echo($root . 'grades/grade_list.php');?>">List Grades</a></li>
     </ul>
     <div class="clear"></div>
   </li>
-  <li><a href="#" >Attendance</a>
+  <li><a href="#" class="selected">Attendance</a>
     <ul>
-      <li><a href="<?php echo($root . 'attendance/record_new.php');?>">New Record</a></li>
-      <li><a href="<?php echo($root . 'attendance/record_edit.php');?>">Edit Record</a></li>
-      <li><a href="<?php echo($root . 'attendance/record_delete.php');?>">Delete Record</a></li>
-      <li><a href="<?php echo($root . 'attendance/record_list.php');?>">View Records</a></li>
+      <li><a href="<?php echo($root . 'attendance/select_course.php');?>">Select Course</a></li>
     </ul>
     <div class="clear"></div>
   </li>
   <li><a href="#" >Assignments</a>
     <ul>
-      <li><a href="<?php echo($root . 'attendance/assignment_new.php');?>">New Assignment</a></li>
-      <li><a href="<?php echo($root . '#');?>">Edit Record</a></li>
-      <li><a href="<?php echo($root . '#');?>">Delete Record</a></li>
-      <li><a href="<?php echo($root . 'attendance/assignment_list.php');?>">View Assignments</a></li>
+      <li><a href="<?php echo($root . 'assignments/assignment_list.php');?>">List Assignments</a></li>
     </ul>
     <div class="clear"></div>
   </li>

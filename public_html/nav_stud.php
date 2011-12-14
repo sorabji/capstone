@@ -24,24 +24,9 @@ while($row = mysql_fetch_assoc($res)){
     </ul>
     <div class="clear"></div>
   </li>
-  <li><a href="#" class="selected">Grades</a>
-    <ul>
-      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
   <li><a href="#" class="selected">Attendance</a>
     <ul>
-      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <li><a href="#" class="selected">Assignments</a>
-    <ul>
-      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
+      <li><a href="<?php echo($root . 'attendance/select_course.php');?>">Select Course</a></li>
     </ul>
     <div class="clear"></div>
   </li>
