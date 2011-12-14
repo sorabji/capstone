@@ -18,7 +18,7 @@ $grades->list_display($resource);
 
 
 ?>
-
+<a href="grade_list.php">Back</a>
 <?php
 include_once('../footer.php');
 ?>
