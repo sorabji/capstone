@@ -1,7 +1,13 @@
 <?php
 
-include('../util.php'); 
 include_once('../header.php');
+
+$a = new Access(2,$root);
+$a->do_eet();
+?>
+
+<?php
+
 
 $assignment = new Assignment(true);
 

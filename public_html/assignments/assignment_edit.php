@@ -1,8 +1,12 @@
 <?php
 include('../util.php');
 include_once('../header.php');
+$a = new Access(2,$root);
+$a->do_eet();
 
 $connect = @mysql_connect('localhost', 'marcus', 'blank');
+
+
 
 if (!$connect)
 {

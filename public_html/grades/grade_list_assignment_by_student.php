@@ -4,7 +4,6 @@
 include_once('../header.php');
 
 
-
 if(isset($_POST['id']))
 {
 
@@ -14,7 +13,9 @@ if(isset($_POST['id']))
 	
 	$id = $_POST['id'];
 	
-	$resource = mysql_query("select * from ass_grades inner join assignments on ass_grades.ass_id = assignments.id where ass_grades.student_id = $id  order by ass_grades.sec_id", $link);
+	$resource = mysql_query("select * from ass_grades inner join assignments on ass_grades.ass_id = assignments.id where ass_grades.student_id = '$id' order by ass_grades.sec_id", $link);
+	
+	//$resource = mysql_query("select * from ass_grades inner join assignments on ass_grades.ass_id = assignments.id inner join students on ass_grades.student_id = students.id where ass_grades.student_id = '$id'", $link);
 	
 	$list = new AssignmentGrade(true);
 	$list->studentList($resource);
