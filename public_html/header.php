@@ -40,140 +40,18 @@ $(function(){
 
    <div class='left_menu'>
    <ul id="nav">
-<?php if(3 == $navver): /* admin's navbar */ ?>
-
-  <li><a href="#" class="selected">Site</a>
-    <ul>
-      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <li><a href="#" class="selected">People</a>
-    <ul>
-      <li><a href="<?php echo($root . 'people/people_new.php');?>">New Person</a></li>
-      <li><a href="<?php echo($root . 'people/people_edit.php');?>">Edit Person</a></li>
-      <li><a href="<?php echo($root . 'people/people_delete.php');?>">Delete Person</a></li>
-      <li><a href="<?php echo($root . 'people/people_list.php');?>">View Persons</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <li><a href="#" >Courses</a>
-    <ul>
-      <li><a href="<?php echo($root . 'courses/course_new.php');?>">New Course</a></li>
-      <li><a href="<?php echo($root . '#');?>">Edit Course</a></li>
-      <li><a href="<?php echo($root . '#');?>">Delete Course</a></li>
-      <li><a href="<?php echo($root . '#');?>">View Courses</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <li><a href="#" >Grades</a>
-    <ul>
-      <li><a href="<?php echo($root . '#');?>">New Record</a></li>
-      <li><a href="<?php echo($root . '#');?>">Edit Record</a></li>
-      <li><a href="<?php echo($root . '#');?>">Delete Record</a></li>
-      <li><a href="<?php echo($root . '#');?>">View Grades</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <li><a href="#" >Attendance</a>
-    <ul>
-      <li><a href="<?php echo($root . 'attendance/record_new.php');?>">New Record</a></li>
-      <li><a href="<?php echo($root . 'attendance/record_edit.php');?>">Edit Record</a></li>
-      <li><a href="<?php echo($root . 'attendance/record_delete.php');?>">Delete Record</a></li>
-      <li><a href="<?php echo($root . 'attendance/record_list.php');?>">View Records</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <li><a href="#" >Assignments</a>
-    <ul>
-      <li><a href="<?php echo($root . 'attendance/assignment_new.php');?>">New Assignment</a></li>
-      <li><a href="<?php echo($root . '#');?>">Edit Record</a></li>
-      <li><a href="<?php echo($root . '#');?>">Delete Record</a></li>
-      <li><a href="<?php echo($root . 'attendance/assignment_list.php');?>">View Assignments</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <li><a href="#" >Quizzes</a>
-    <ul>
-      <li><a href="<?php echo($root . 'exam/manage_quizzes.php');?>">Manage Quizzes</a></li>
-      <li><a href="<?php echo($root . 'exam/course_selection.php');?>">Examine Questions</a></li>
-      <li><a href="<?php echo($root . 'exam/do_test.php');?>">Take a Quiz</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-
-<?php elseif(2 == $navver): /* instructor's navbar */ ?>
-
-  <li><a href="#" class="selected">Site</a>
-    <ul>
-      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <li><a href="#" class="selected">Exams</a>
-    <ul>
-      <li><a href="<?php echo($root . 'exam/manage_quizzes.php');?>">Manage</a></li>
-      <li><a href="<?php echo($root . 'exam/questions_list.php');?>">View</a></li>
-      <li><a href="<?php echo($root . 'exam/questions_search.php');?>">Search</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-
-<?php elseif(1 == $navver): /* student's navbar */ ?>
 <?php
-  $sql = "select id, isOpen from quizzes where course_id = (select course_id from sections where id = (select sec_id from students where id='".$_SESSION['user']."'))";
-$res = mysql_query($sql);
-$open_quizzes = array();
-
-while($row = mysql_fetch_assoc($res)){
-  if(1 == $row['isOpen']){
-    array_push($open_quizzes,$row['id']);
+  if(3 == $navver){
+    include('nav_admin.php'); /* admin's navbar */
+  } elseif(2 == $navver){
+    include('nav_instructor.php'); /* instructor's navbar */
+  } elseif(1 == $navver){
+    include('nav_stud.php'); /* student's navbar */
+  } else {
+    /* default navbar (not logged in) */
+    /* blank is just fine i think */
   }
-}
 ?>
-
-  <li><a href="#" class="selected">Site</a>
-    <ul>
-      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <li><a href="#" class="selected">Grades</a>
-    <ul>
-      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <li><a href="#" class="selected">Attendance</a>
-    <ul>
-      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <li><a href="#" class="selected">Assignments</a>
-    <ul>
-      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <?php if(count($open_quizzes)): ?>
-  <li><a href="#" class="selected">Quizzes</a>
-    <ul>
-      <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
-      <li><a href="<?php echo($root . 'logout.php');?>">Logout</a></li>
-    </ul>
-    <div class="clear"></div>
-  </li>
-  <?php endif; ?>
-<?php else: /* default navbar (not logged in) */ ?>
-
-<?php endif; ?>
 </ul>
 <div class="clear"></div>   
 </div> <!-- ends 'left_menu' -->
