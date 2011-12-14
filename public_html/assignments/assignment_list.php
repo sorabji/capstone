@@ -14,7 +14,7 @@ $assignments->list_display($resource);
 
 ?>
 
-<br/> <a href = "<?php echo ($root . 'assignments/assignment_new.php');?>">Add New Assignment</a>
+<br/> <a href = "<?php echo ('assignment_new.php');?>">Add New Assignment</a>
 
 <?php
 include_once('../footer.php');

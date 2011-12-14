@@ -28,10 +28,23 @@
 			"Points",
 			"Points Possible"
 		);
+		private $list_headers_quiz = array
+		(
+			"Student ID",
+			"Section ID",
+			"Quiz ID",
+			"Quiz Title",
+			"Points",
+			"Points Possible"
+		);
 		
 		private $list_table_cols = array
 		(
 			"student_id", "sec_id", "ass_id", "title", "points", "points_poss"
+		);
+		private $list_table_cols_quiz = array
+		(
+			"student_id", "sec_id", "quiz_id", "title", "points_received", "points_poss"
 		);
 		
 		private $new_labels = array
@@ -56,6 +69,7 @@
 		);
 		
 		private $ID = "ass_id";
+		private $quiz_id = "quiz_id";
 		
 		public function __construct($ed_flag)
 		{
@@ -165,6 +179,44 @@
 					echo("<td valign='top'><a href=grade_delete_assignment.php?id={$row[$this->ID]}>Delete</a></td>\n");
 				}
 			}		
+			echo("</tr>\n</table>");
+		}
+		
+		public function quizList($resource) 
+		{
+			echo("<table border='1' >\n<tr>");
+			
+			foreach($this->list_headers_quiz as $head)
+			{
+				echo("<th>$head</th>\n");
+			}
+			
+			if($this->ed_flag)
+			{
+				echo("<th colspan='2'>Admin</th>\n");
+			}
+			
+			echo("</tr>");
+
+			while($row = mysql_fetch_array($resource))
+			{
+			  echo("<tr>\n");
+			  
+			  foreach($row as $key => $value)
+				{
+					$row[$key] = stripslashes($value);
+				}
+				foreach($this->list_table_cols_quiz as $val) 
+				{
+					echo("<td valign='top'>$row[$val]</td>");
+				}
+				if($this->ed_flag)
+				{
+					echo("<td valign='top'><a href=grade_edit_quiz.php?id={$row[$this->quiz_id]}>Edit</a></td>\n");
+					echo("<td valign='top'><a href=grade_delete_quiz.php?id={$row[$this->quiz_id]}>Delete</a></td>\n");
+				}
+
+			}
 			echo("</tr>\n</table>");
 		}
 		

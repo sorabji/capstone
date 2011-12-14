@@ -3,7 +3,17 @@
 <?php
 include_once('../header.php');
 
-$link = connect();
+if(isset($_POST['id'])
+{
+	$link = connect();
+	$id = $_POST['id'];
+	
+}
+else
+{
+	
+}
+
 
 
 ?>
