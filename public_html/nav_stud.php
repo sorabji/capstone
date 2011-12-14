@@ -11,6 +11,12 @@ while($row = mysql_fetch_assoc($res)){
     array_push($open_quizzes,$vals);
 }
 ?>
+<script type='text/javascript'>
+  $(function (){
+      $('#quiz_awesome').css('background','#c30');
+    });
+</script>
+
   <li><a href="#" class="selected">Site</a>
     <ul>
       <li><a href="<?php echo($root . 'index.php');?>">Home</a></li>
@@ -40,7 +46,7 @@ while($row = mysql_fetch_assoc($res)){
     <div class="clear"></div>
   </li>
   <?php if(count($open_quizzes)): ?>
-  <li><a href="#" class="selected">OPEN QUIZZES!</a>
+  <li><a href="#" class="selected" id='quiz_awesome' >OPEN QUIZZES!</a>
     <ul>
 <?php
 foreach($open_quizzes as $key=>$value){

@@ -60,7 +60,7 @@ $(function(){
    </div>
 
    <hr />
-   <!--<img class='fuck' alt='logo' src="<?php echo($root . 'static/logo.jpg');?>" />-->
+   <img class='fuck' alt='logo' src="<?php echo($root . 'static/logo.jpg');?>" />
    </div> <!-- ends 'metanav' -->
    </div> <!-- ends 'head' -->
    <div class='page'>
