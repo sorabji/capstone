@@ -5,12 +5,19 @@ session_start();
 //$root = '/~capstone/'; // coleman
 //$root = '/Capstone/';
 //$root = '/Capstone/public_html/';
+/*<<<<<<< HEAD
+$root = '../public_html/';
+=======
 $root = '/';
+>>>>>>> 9055835ab632767612d9d5c7262f86332183e699*/
+
+$root = '../';
 
 
 function connect(){
   // connect to db
-  $link = mysql_connect('localhost', 't3st3r', '123qwe');
+  //$link = mysql_connect('localhost', 't3st3r', '123qwe');
+  $link = mysql_connect('localhost', 'marcus', 'blank');
   if (!$link) {
     die('Not connected : ' . mysql_error());
   } else {

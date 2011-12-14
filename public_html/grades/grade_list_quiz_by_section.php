@@ -3,10 +3,12 @@
 <?php
 include_once('../header.php');
 
-?>
 
-asdf
-<?php
+	$link = connect();
 
+	
+?> 
+
+<?php	
 include_once('../footer.php');
 ?>

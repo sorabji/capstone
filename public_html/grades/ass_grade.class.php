@@ -1,37 +1,37 @@
 <?php
-	class Assignment extends Table
+	class AssignmentGrade extends Table
 	{
-		
-		private $list_headers = array
+		private $list_header = array
 		(
-			"ID",
-			"Section",
-			"Assignment",
-			"Points"
+			"Student Id",
+			"Section Id",
+			"Assignment Id",
+			"Points Possible"
 		);
 		
 		private $list_table_cols = array
 		(
-			"id", "sec_id", "title", "points_poss"
+			"student_id", "sec_id", "ass_id", "point_poss"
 		);
 		
-		private $new_labels = array 
+		private $new_labels = array
 		(
+			"Student ID",
 			"Section ID",
-			"Assignment Title",
-			"Points Possible"
-			
+			"Assignment ID",
+			"Points Possible",
+			//total points?
 		);
 		
 		private $new_post_vars = array
 		(
+			"stud_id",
+			"sect_id",
 			"ass_id",
-			"section_id",
-			"ass_title",
 			"pts"
 		);
 		
-		private $ID = "id"; // what's the id field of this table?
+		private $ID = "id";
 		
 		public function __construct($ed_flag)
 		{
@@ -85,7 +85,6 @@
 			echo "<h4>notes</h4>\n";
 			echo "<p class='last'>This stuff needs to be filled in...so do it.</p>\n</div>\n";
 			
-			//Dropbox for sections?
 			foreach($this->new_labels as $key => $val)
 			{
 				  echo "<div class='required'>\n";
@@ -99,9 +98,8 @@
 			echo "<div><input type='submit' id='submit' name='submit' class='inputSubmit' value='Add assignment' />\n";
 			echo "</div>\n</div>\n</fieldset>\n</form>";
 			//echo($ret);
-			
-			
 		}
+		
 		public function edit_display($id) 
 		{
 			
@@ -131,4 +129,6 @@
 			return $fin;
 		}
 	}
+	
+	
 ?>
