@@ -1,23 +1,14 @@
 <?php
 session_start();
 
-//$root = '/coleman/capstone/'; // devvz
+$root = '/coleman/capstone/'; // devvz
 //$root = '/~capstone/'; // coleman
 //$root = '/Capstone/';
-//$root = '/Capstone/public_html/';
-/*<<<<<<< HEAD
-$root = '../public_html/';
-=======
-$root = '/';
->>>>>>> 9055835ab632767612d9d5c7262f86332183e699*/
-
-$root = '../';
 
 
 function connect(){
   // connect to db
-  //$link = mysql_connect('localhost', 't3st3r', '123qwe');
-  $link = mysql_connect('localhost', 'marcus', 'blank');
+  $link = mysql_connect('localhost', 't3st3r', '123qwe');
   if (!$link) {
     die('Not connected : ' . mysql_error());
   } else {
@@ -43,7 +34,6 @@ spl_autoload_extensions('.class.php');
 
 // Use default autoload implementation
 spl_autoload_register();
-
 /**
  * Better GI than print_r or var_dump -- but, unlike var_dump, you can only dump one variable. 
  * Added htmlentities on the var content before echo, so you see what is really there, and not the mark-up.
@@ -119,4 +109,3 @@ function do_dump(&$var, $var_name = NULL, $indent = NULL, $reference = NULL)
     echo "</div>";
 }
 ?>
-
