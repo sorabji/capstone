@@ -21,7 +21,6 @@ $res = mysql_query($res);
 
 
 if (isset($_POST['submit_course_date_view'])) {
-	echo "<h1 style='color:red'>submit_course_date_view isset called</h1>";
 		//declaring variables to use when 'submit_course_view' is pressed
 
 		$the_dates = $_POST['the_dates'];
@@ -68,18 +67,18 @@ if (isset($_POST['submit_course_date_view'])) {
 		}
 	}*/
 } else {
-	$absences = new Absent(true);
-	$absences->edit_list_display($res);
-}
 
-	var_dump($_POST);
-	echo '<h3>Select a course and section.</h3>';
-	echo '<Form Name ="form_select_date" Method ="post" ACTION = "view_by_course.php">';
+	echo '<center><div><h3>View Attendance by Date</h3>';
+	echo '<br /><Form Name ="form_select_date" Method ="post" ACTION = "view_by_course.php">';
 	//Drop-Down form, Group By DATE
 	$qry = mysql_query("SELECT the_date FROM absences GROUP BY the_date");
 	echo '<select name="the_dates[]"><option value="">Date</option>';
 	while($dat = mysql_fetch_assoc($qry))
 	echo '<option value="' . $dat['the_date'] . '">' . $dat['the_date'] . '</option>';
-	echo'</select><br />';
-	
-	echo '<input type = "Submit" name = "submit_course_date_view" value = "View Attendance for This Class"></form>';
+	echo'</select><br /><br />';
+	echo '<input type = "Submit" name = "submit_course_date_view" value = "View Attendance for This Class"></form><br /><br />';
+	$absences = new Absent(true);
+	$absences->edit_list_display($res);
+	var_dump($_POST);
+	echo '</div></center>';
+	}

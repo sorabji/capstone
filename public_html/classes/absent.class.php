@@ -90,7 +90,6 @@
 
 	//List Display CREATE by COURSE - adds "Present" and "Excused" radio buttons
 	public function new_list_display($resource){
-		echo "<h1 style='color:red'>new_list_display called</h1>";		
 		//$selected_radio = $_POST['isAbsent'];
 		//print $selected_radio;
 		$student_present = 'unchecked';
@@ -123,7 +122,7 @@
 				</td>\n"); //Adds "isExcused" radio buttons
 			}
 		}
-		echo "</tr>\n</table><div>\n";
+		echo "</tr>\n</table><div><br /><br />\n";
 		echo "Date: <input type='text' id='date' name='date'>";
 		echo "<input type='submit' id='submit' name='submit_absences' value='Submit Absences' />\n";
 		echo "</div>\n</div>\n</form>";	
@@ -137,7 +136,6 @@
 	  
 	//List Display VIEW/EDIT by COURSE - adds "edit" and "delete" buttons
 	public function edit_list_display($e_resource){
-		echo "<h1 style='color:red'>edit_list_display called</h1>";
 		echo("<table border='1' >\n<tr>");
 		foreach($this->edit_by_course_headers as $head){
 			echo("<th>$head</th>\n");
