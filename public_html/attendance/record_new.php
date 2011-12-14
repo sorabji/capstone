@@ -30,7 +30,6 @@ function twice_pop($arraij){
 }
 
 if (isset($_POST['submit_absences'])) {
-	echo "<h1 style='color:red'>submit_absences isset called</h1>";
 //dummy value
 //$_POST['submit_absences'] = "undefine";
 //			$selected_radio = $_POST['isAbsent'];
@@ -87,6 +86,9 @@ if (isset($_POST['submit_absences'])) {
 	var_dump($_POST);
 } else {
 	$absences = new Absent(true);
+	echo '<center><div>';
+	echo'<h3>Please enter all Fields to Record Attendance for today.</h3><br />';
 	$absences->new_list_display($res);
+	echo '</center></div>';
 }
 ?>
