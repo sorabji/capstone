@@ -3,7 +3,7 @@
 
 include_once('../header.php');
 $a = new Access(2,$root);
-//$a->do_eet();
+$a->do_eet();
 
 ?>
 <link rel='stylesheet' type='text/css' href="<?php echo($root . 'static/quiz_styles.css');?>" />
@@ -31,8 +31,8 @@ if(isset($_GET['q_id'])){
 if($q_id){
   $resource = mysql_query("select * from questions where quiz_id=$q_id");
   $quest = new Question(true, $root);
-  $res = mysql_fetch_assoc(mysql_query("select title from quizzes where id=$q_id"));
-  echo "<p>Questions from \"".$res['title']."\"</p>";
+  $res = mysql_fetch_assoc(mysql_query("select title, course_id from quizzes where id=$q_id"));
+  echo "<p>Questions from \"".$res['course_id']." :: ".$res['title']."\"</p>";
   echo "<a id='collapse' href='#'>toggle collapse</a>";
   $quest->list_display($resource);
 } else {
