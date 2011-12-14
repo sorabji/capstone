@@ -13,4 +13,10 @@
       <li><a href="<?php echo($root . 'exam/questions_search.php');?>">Search</a></li>
     </ul>
     <div class="clear"></div>
+  <li><a href="#" >Messages</a>
+    <ul>
+      <li><a href="<?php echo($root . 'email/emails.php');?>">View Messages</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>  
   </li>

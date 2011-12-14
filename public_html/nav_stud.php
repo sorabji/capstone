@@ -45,6 +45,12 @@ while($row = mysql_fetch_assoc($res)){
     </ul>
     <div class="clear"></div>
   </li>
+  <li><a href="#" >Messages</a>
+    <ul>
+      <li><a href="<?php echo($root . 'email/emails.php');?>">View Messages</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
   <?php if(count($open_quizzes)): ?>
   <li><a href="#" class="selected" id='quiz_awesome' >OPEN QUIZZES!</a>
     <ul>

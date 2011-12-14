@@ -26,10 +26,7 @@
   </li>
   <li><a href="#" >Grades</a>
     <ul>
-      <li><a href="<?php echo($root . '#');?>">New Record</a></li>
-      <li><a href="<?php echo($root . '#');?>">Edit Record</a></li>
-      <li><a href="<?php echo($root . '#');?>">Delete Record</a></li>
-      <li><a href="<?php echo($root . '#');?>">View Grades</a></li>
+      <li><a href="<?php echo($root . 'grades/grade_list_assignment.php');?>">List Grades</a></li>
     </ul>
     <div class="clear"></div>
   </li>
@@ -51,11 +48,16 @@
     </ul>
     <div class="clear"></div>
   </li>
+  <li><a href="#" >Messages</a>
+    <ul>
+      <li><a href="<?php echo($root . 'email/emails.php');?>">View Messages</a></li>
+    </ul>
+    <div class="clear"></div>
+  </li>
   <li><a href="#" >Quizzes</a>
     <ul>
       <li><a href="<?php echo($root . 'exam/manage_quizzes.php');?>">Manage Quizzes</a></li>
       <li><a href="<?php echo($root . 'exam/course_selection.php');?>">Examine Questions</a></li>
-      <li><a href="<?php echo($root . 'exam/do_test.php');?>">Take a Quiz</a></li>
     </ul>
     <div class="clear"></div>
   </li>

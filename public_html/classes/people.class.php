@@ -119,8 +119,33 @@ class People extends Table{
     echo($ret);
   }
 
-  public function edit_display($id){
-    return 0;
+  public function edit_display($row){
+    echo "<form id='form' name='form' action='' method='POST'>\n";
+    echo "<p>All fields are required</p>\n";
+    echo "<fieldset><legend>Edit {$row['username']}</legend>\n";
+    echo "<div class='notes'>\n";
+    echo "<h4>check it</h4>\n";
+    echo "<p class='last'>such excitement</p>\n</div>\n";
+	
+    foreach($this->new_labels as $key => $val){
+      if ( !(strcmp($this->new_post_vars[$key], 'password_2') == 0) ){
+	echo "<div class='required'>\n";
+	echo "<label for='{$this->new_post_vars[$key]}'>";
+	echo $this->new_labels[$key];
+	echo "</label>\n";
+	echo "<input class='inputText' type='text' ";
+	echo "name='{$this->new_post_vars[$key]}' id='{$this->new_post_vars[$key]}' ";
+	echo "value='".$row[$this->new_post_vars[$key]]."' /></div>\n";
+      }
+    }
+
+    echo "<input type='hidden' value='".$row['id']."' />";
+
+    echo "<div class='clear'></div>";
+    echo "<div class='submit'>\n";
+    echo "<div><input type='submit' id='submit' name='submit' class='inputSubmit' value='Save Changes' />\n";
+    echo "</div>\n</div>\n</fieldset>\n</form>";
+
   }
 
   public function get_update_qry($vals){
@@ -145,6 +170,31 @@ class People extends Table{
     $fin = $base . $res;
     return $fin;
   }
+
+    public function get_update_qry_real($vals){
+
+    // don't forget to hash the damn passwords
+    $pass = sha1($vals['password']);
+
+    foreach($_POST AS $key => $value) { $_POST[$key] = $this->prep_sql($value); }
+
+    $base = "UPDATE people set first_name='%s', last_name='%s', address='%s', email='%s', phone='%s', social='%s', ";
+    $base .= "username='%s', password='%s' where id='%d'";
+    $hrm = sprintf($base, // can't just unpack?...hrm
+	   $vals[$this->new_post_vars[0]],
+    	   $vals[$this->new_post_vars[1]],
+    	   $vals[$this->new_post_vars[2]],
+    	   $vals[$this->new_post_vars[3]],
+    	   $vals[$this->new_post_vars[4]],
+    	   $vals[$this->new_post_vars[5]],
+	   $vals[$this->new_post_vars[6]],
+    	   $vals[$this->new_post_vars[7]],
+    	   $pass,
+	   $vals['id']);
+    return $hrm;
+  }
+
+  
 
 }
 ?>
