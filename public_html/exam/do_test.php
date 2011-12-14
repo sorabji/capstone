@@ -77,12 +77,23 @@ if(isset($_GET['q_id'])){
 if($q_id){
   $quiz = new Quiz($a->get_user_name(), $q_id);
 } else {
+  echo "I RAN BITCHEZ";
   $quiz = new Quiz($a->get_user_name(),0);
 }
 //$quiz->open_quiz();
 if(!empty($_POST['submit'])){
   // insert answers in quiz_quest_grades
-  $quiz->insert_answers($_POST);
+  $res = $quiz->insert_answers($_POST);
+  if(0 == strcmp($res['status'], 'good')){
+    echo "<p>you got {$res['num_correct']} ";
+    echo (1 == $res['num_correct']) ? "question" : "questions";
+    echo " correct</p>";
+  } else {
+    echo "<p>major problem somewhere along the line...find an admin</p>";
+    echo "<p>incidentally, you got {$res['num_correct']} ";
+    echo (1 == $res['num_correct']) ? "question" : "questions";
+    echo " correct</p>";
+  }
 } else {
   $quiz->start_quiz();
 }

@@ -114,7 +114,7 @@ class Quiz extends Table{
       }
       
       echo "<div class='submit'>\n";
-      echo "<p id='num_complete'>fuck</p>\n";
+      echo "<p id='num_complete'></p>\n";
       echo "<input type='button' id='clear' name='clear' class='inputSubmit' value='clear all' />\n";
       echo "<input type='submit' id='submit' name='submit' class='inputSubmit' value='submit' />\n";
       echo "</div> <!-- ends 'submit' -->\n</form>\n";
@@ -132,15 +132,71 @@ class Quiz extends Table{
 	$ans[$key] = $this->prep_sql($value);
 	$res = sprintf($base, $i, $ans[$key]);
 	$hrm = mysql_query($res);
-	echo(mysql_affected_rows());
-	echo(mysql_error());
 	/* echo("<br />"); */
 	/* echo($res); */
 	/* echo("<br />"); */
 	$i = $i + 1;
       }
     }
+    $num_correct = $this->calc_correct();
+    $fin_success = $this->insert_final_grade($num_correct);
+    if($fin_success){
+      return array(
+	'status'=>'good',
+	'num_correct'=>$num_correct);
+    } else {
+      return array(
+	'status'=>'bad',
+	'num_correct'=>$num_correct);
+    }
+  }
 
+  public function insert_final_grade($cor){
+    $crazy = "select id from sections where course_id = (select course_id from quizzes where id = ";
+    $crazy .= $this->quiz_id." ) and id = (select sec_id from students where id=";
+    $crazy .= $this->stud_id.")";
+
+    $b = mysql_query($crazy);
+    $row = mysql_fetch_assoc($b);
+    
+    $insert = "insert into quiz_grades ( student_id, sec_id, quiz_id, points_received ) values ";
+    $insert .= "( ".$this->stud_id;
+    $insert .= ", ".$row['id'];
+    $insert .= ", ".$this->quiz_id;
+    $insert .= ", ".$cor." )";
+
+    $res = mysql_query($insert);
+    if(mysql_affected_rows()){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function calc_correct(){
+    $sub = "select question_number, submit_answer from quiz_quest_grades where quiz=";
+    $sub .= $this->quiz_id." and stud_id=".$this->stud_id." order by question_number";
+
+    $correct = "select quest_num, correctAnswer from questions where ";
+    $correct .= "quiz_id = ".$this->quiz_id." order by quest_num;";
+    
+    $sub = mysql_query($sub);
+    $correct = mysql_query($correct);
+
+    $num_correct = 0;
+
+    if($sub and $correct){
+      while($studs = mysql_fetch_assoc($sub)){
+	$keys = mysql_fetch_assoc($correct);
+	$stud_ans = strtoupper($studs['submit_answer']);
+	$cor_ans = strtoupper($keys['correctAnswer']);
+
+	if(0 == strcmp($stud_ans, $cor_ans)){
+	  $num_correct++;
+	}
+      }
+    }
+    return $num_correct;
   }
 
 }

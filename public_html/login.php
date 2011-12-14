@@ -9,11 +9,11 @@ if(isset($_POST['submit'])):
   if($b){
     $a->to_index();
   } else {
-    echo "damn";
+    echo "<p class='error'>Bad username/pass</p>";
   }
 //echo "user: " .$_POST['user']. " pass: " .$_POST['pass'];
 //echo $root;
-else:
+endif;
 
 ?>
 
@@ -62,6 +62,6 @@ function validate_form (){
 
 
 <?php
-endif;
+
 include_once('footer.php');
 ?>
